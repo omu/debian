@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+user=${USER:-anonymous}
+[[ -z $SSH_USER ]] || user=$SSH_USER
+
+read -r ip _ <<<"$SSH_CLIENT"
+
+old=$(tmux show -gv display-time)
+tmux set -g display-time 4000
+
+for client in $(tmux lsc -F '#{client_tty}' 2>/dev/null); do
+	tmux display -c "$client" "⟵    $user@$ip"
+done
+
+tmux set -g display-time "$old"

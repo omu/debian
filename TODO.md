@@ -1,0 +1,1 @@
+- [ ] src/machines: Rakefile'da provider task adında olmalı

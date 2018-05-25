@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Install and setup PostgreSQL
+
+set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get -y install --no-install-recommends \
+	postgresql \
+	postgresql-contrib \
+	#
+
+cat >/etc/postgresql-common/psqlrc <<-'EOF'
+	\set QUIET 1
+	\set ON_ERROR_ROLLBACK interactive
+	\set VERBOSITY verbose
+	\x auto
+	\set PROMPT1 '%[%033[38;5;27m%]%`hostname -s`%[%033[38;5;102m%]/%/ %[%033[31;5;27m%]%[%033[0m%]%# '
+	\set PROMPT2 ''
+	\set HISTFILE ~/.psql_history- :DBNAME
+	\set HISTCONTROL ignoredups
+	\pset null [null]
+	\pset pager always
+	\timing
+	\unset QUIET
+EOF
+
+apt-get -y install --no-install-recommends \
+	autopostgresqlbackup
+	#
+
+service=postgresql
+
+# Extra check for configuration changes
+systemctl restart "$service"
+systemctl is-active "$service"
+
+systemctl stop "$service" && systemctl disable "$service"

@@ -1,0 +1,172 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+declare -A color=(
+	[blue]="\\e[38;5;75m"
+	[brown]="\\e[38;5;131m"
+	[cyan]="\\e[38;5;87m"
+	[green]="\\e[38;5;79m"
+	[grey]="\\e[38;5;243m"
+	[magenta]="\\e[38;5;213m"
+	[orange]="\\e[38;5;214m"
+	[red]="\\e[38;5;198m"
+	[violet]="\\e[38;5;141m"
+	[white]="\\e[38;5;255m"
+	[yellow]="\\e[38;5;226m"
+	[bold]="\\e[1m"
+	[dim]="\\e[2m"
+	[reverse]="\\e[7m"
+	[reset]="\\e[0m"
+	[default]="\\e[39m"
+)
+
+version() {
+	[[ -n ${site[version]-} ]] || return 1
+	echo -en "${color[dim]}${color[default]}${site[version]}${color[reset]}"
+}
+
+text() {
+	echo -en "${color[dim]}$*${color[reset]}"
+}
+
+value() {
+	echo -en "${color[bold]}$*${color[reset]}"
+}
+
+field() {
+	echo -en "${color[cyan]}$*${color[reset]}"
+}
+
+cpu() {
+	echo "$(value "$(nproc --all)") $(text "cores")"
+}
+
+ram() {
+	local free
+	local used
+	local total
+
+	free=$(awk '/MemFree/ { print $2 }' /proc/meminfo)
+	total=$(awk '/MemTotal/ { print $2 }' /proc/meminfo)
+	used=$((total - free))
+
+	free=$((free / 1024))
+	used=$((used / 1024))
+	total=$((total / 1024))
+
+	echo -e "$(text "using") $(value "$used") $(text "MB of") $(value "$total") $(text "MB")"
+}
+
+disk() {
+	local used
+	local total
+
+	total=$(df --output=size / | tail -n 1)
+	used=$(df --output=used / | tail -n 1)
+
+	total=$((total / (1024*1024)))
+	used=$((used / (1024*1024)))
+
+	echo -e "$(text "using") $(value "$used") $(text "GB of") $(value "$total") $(text "GB")"
+}
+
+address() {
+	value "$(ip a | awk '/glo/ { print $2 }' | head -1 | cut -f1 -d/)"
+}
+
+uptime() {
+	local time
+
+	time=$(/usr/bin/cut -d. -f1 /proc/uptime)
+
+	local minutes=$((time / 60 % 60))
+	local hours=$((time / 3600 % 24))
+	local days=$((time / 86400))
+
+	echo -e "$(value "$days") $(text "days") $(value "$hours") $(text "hours") $(value "$minutes") $(text "minutes")"
+}
+
+load() {
+	local five
+
+	read -r one five fifteen _ </proc/loadavg
+
+	echo -e "$(value "$one") $(text "in 1 minutes") $(value "$five") $(text "in 5 minutes") $(value "$fifteen") $(text "in 15 minutes")"
+}
+
+lastlogin() {
+	value "$(last -R "$USER" | awk '/still logged in/ { print $3, $4, $5, $6; exit }')"
+}
+
+
+system() {
+	value "$(uname -srmo)"
+}
+
+processes() {
+	value "$(ps ax | wc -l | tr -d ' ')"
+}
+
+declare -Ag site
+
+vendor() {
+	[[ -n ${site[vendor]-} ]] || return 1
+
+	local default=${color[${site[color]}]}
+
+	split() {
+		local char
+
+		echo "$1" | grep -o . | while read -r char; do
+			echo "${color[bold]}${default}${char}${color[reset]}"
+		done
+	}
+
+	join() {
+		local d="${color[dim]} · ${color[reset]}"
+
+		echo -n "$1"
+		shift
+		printf "%s" "${@/#/$d}"
+	}
+
+	# shellcheck disable=SC2046
+	echo -en "$(join $(split "${site[vendor]}"))"
+}
+
+medley() {
+	[[ -n ${site[medley]-} ]] || return 1
+	echo -en "${color[bold]}${color[default]}${site[medley]}${color[reset]}"
+}
+
+banner() {
+	command -v she &>/dev/null || return 0
+
+	# shellcheck disable=SC1090
+	source <(she)
+	etc site
+
+	[[ ${site[*]:+${site[*]}} ]] || return 0
+
+	echo -e "$(vendor)       $(medley)        $(version)"
+	echo -e
+}
+
+diagnostic() {
+	echo -e "$(field "CPU")             $(cpu)"
+	echo -e "$(field "RAM")             $(ram)"
+	echo -e "$(field "Disk")            $(disk)"
+	echo -e "$(field "Address")         $(address)"
+	echo -e "$(field "Uptime")          $(uptime)"
+	echo -e "$(field "Last login")      $(lastlogin)"
+	echo -e "$(field "Load")            $(load)"
+	echo -e
+}
+
+main() {
+	banner
+	diagnostic
+}
+
+main

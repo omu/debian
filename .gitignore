@@ -1,0 +1,9 @@
+/_/
+.vagrant*/
+packer_cache/
+out/
+output-*/
+*.box
+*.log
+.envrc
+.env

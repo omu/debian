@@ -1,0 +1,53 @@
+# Minimal Prompt
+
+prompt_minimal_collapsed_dir() {
+	echo "${PWD/#$HOME/\~}"
+}
+prompt_minimal_collapsed_basename() {
+	local collapsed=${PWD/#$HOME/}
+	echo "${collapsed##*/}"
+}
+prompt_minimal_collapsed_dirname() {
+	if [[ $PWD != "$HOME" ]]; then
+		local collapsed=${PWD/#$HOME/}
+		echo "${collapsed%/*}/"
+	fi
+}
+
+prompt_minimal_hostname() {
+	if [[ -n $SSH_CLIENT ]]; then
+		echo "%{$fg[cyan]%}%m%{$reset_color%}:"
+	fi
+}
+
+prompt_minimal_accept_line() {
+	if [[ -z $BUFFER ]]; then
+		return_code=$return_code_disabled
+	else
+		return_code=$return_code_enabled
+	fi
+	zle accept-line
+}
+
+prompt_minimal_setup() {
+	return_code_enabled="%(?:%{$fg_bold[yellow]%}>:%{$fg_bold[red]%}>)"
+	return_code_disabled="$fg_bold[yellow]>"
+	return_code=$return_code_enabled
+
+	PROMPT='$(
+		prompt_minimal_hostname
+	)%{$fg_bold[grey]%}$(
+		prompt_minimal_collapsed_dirname
+	)%{$reset_color%}%{$fg_bold[cyan]%}$(
+		prompt_minimal_collapsed_basename
+	)%{$reset_color%} ${return_code}%{$reset_color%} '
+
+	RPROMPT=
+	PS2=
+	SPROMPT="$fg[red]%R →$reset_color $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
+
+	zle -N prompt_minimal_accept_line
+	bindkey '^m' prompt_minimal_accept_line
+}
+
+prompt_minimal_setup "$@"

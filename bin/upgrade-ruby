@@ -1,0 +1,210 @@
+#!/usr/bin/env bash
+
+set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
+
+export DEBIAN_FRONTEND=noninteractive
+
+readonly PROGNAME=${0##*/}
+readonly TMPDIR=${TMPDIR:-/tmp}
+readonly PREFIX=${PREFIX:-/opt/ruby}
+
+declare -ag cleanup_files=()
+declare -ag cleanup_packages=()
+
+cry() {
+	echo -e >&2 "\\e[1;38;5;226m$*\\e[0m"
+}
+
+die() {
+	echo -e >&2 "\\e[1;38;5;198m$*\\e[0m"
+	exit 1
+}
+
+initialize() {
+	[[ $EUID -eq 0 ]] || die "root privileges required"
+
+	command -v ruby &>/dev/null || die "ruby must be installed"
+
+	local mktemp
+	for mktemp in /bin/mktemp /usr/bin/mktemp; do
+		if [[ -x $mktemp ]]; then
+			break
+		fi
+		unset mktemp
+	done
+	# As a security measure refuse to proceed if mktemp is not available.
+	[[ -n $mktemp ]] || die "$mktemp is not available"
+
+	tmpdir=$("$mktemp" -d -t "$PROGNAME".XXXXXXXX) || die "$mktemp returned error"
+	cleanup_files+=("$tmpdir")
+
+	pushd "$tmpdir" &>/dev/null
+}
+
+shutdown() {
+	local err=${1:-0}
+
+	popd &>/dev/null
+
+	rm -rf -- "${cleanup_files[@]}"
+
+	if [[ ${#cleanup_packages[@]} -ne 0 ]]; then
+		cry "-----> Removing extra installed packages to build Ruby"
+		apt-get -y purge --auto-remove "${cleanup_packages[@]}"
+	fi
+
+	return "$err"
+}
+
+upgrade_ruby_build() {
+	cry "-----> Upgrading ruby-build"
+
+	git clone -q https://github.com/rbenv/ruby-build.git
+	./ruby-build/install.sh
+	rm -rf ruby-build
+}
+
+latest_version() {
+	ruby <<-'EOF'
+		puts %x[ruby-build --definitions]
+		  .chomp
+		  .split
+		  .reject { |line| line =~ /[^\d.]/ }
+		  .map { |line| Gem::Version.new(line) }.sort.last.to_s
+	EOF
+}
+
+ruby_upgradeable() {
+	local latest=$1
+
+	ruby <<-EOF
+		exit Gem::Version.new(RUBY_VERSION) < Gem::Version.new('$latest')
+	EOF
+}
+
+install_dependencies() {
+	apt-get -y update
+
+	local -a required=(
+		autoconf
+		bison
+		build-essential
+		libffi-dev
+		libgdbm-dev
+		libncurses-dev
+		libreadline-dev
+		libssl-dev
+		libyaml-dev
+		zlib1g-dev
+	)
+
+	local package
+	for package in "${required[@]}"; do
+		# shellcheck disable=SC2016
+		if [ -z "$(dpkg-query -W -f='${Installed-Size}' "$package" 2>/dev/null ||:)" ]; then
+			cleanup_packages+=("$package")
+		fi
+	done
+
+	apt-get -y install --no-install-recommends "${cleanup_packages[@]}"
+}
+
+build_ruby() {
+	local version=$1
+	local prefix=$2
+
+	cry "-----> Installing missing Ruby build dependencies"
+	install_dependencies
+	rm -rf -- "$prefix"
+
+	cry "-----> Building Ruby $version"
+	ruby-build --verbose "$version" "$prefix"
+}
+
+declare -ag slave_arguments
+
+set_slave_arguments() {
+	local prefix=$1
+
+	slave_arguments=()
+
+	local target
+	for target in gem rake ri erb irb rdoc; do
+		local name link path
+
+		name=$target
+		link=/usr/local/bin/$name
+		path=$prefix/bin/$name
+		if [[ -e $path ]]; then
+			slave_arguments+=("--slave" "$link" "$name" "$path")
+		fi
+
+		name=$target.1.gz
+		link=/usr/local/share/man/man1/$name
+		path=$prefix/share/man/man1/$name
+		if [[ -e $path ]]; then
+			slave_argument+=("--slave" "$link" "$name" "$path")
+		fi
+	done
+}
+
+update_alternatives() {
+	local prefix=$1
+
+	cry "-----> Updating Ruby alternatives"
+
+	update-alternatives --quiet --remove-all ruby || true
+
+	set_slave_arguments "/usr"
+	update-alternatives --quiet --install \
+		/usr/local/bin/ruby ruby /usr/bin/ruby 1 "${slave_arguments[@]}"
+
+	gzip -9 "$prefix"/share/man/man1/*.1 &>/dev/null || true
+
+	set_slave_arguments "$prefix"
+	update-alternatives --quiet --install \
+		/usr/local/bin/ruby ruby "$prefix"/bin/ruby 100 "${slave_arguments[@]}"
+}
+
+setup_gemrc() {
+	local prefix=$1
+
+	cry "-----> Setting up gemrc"
+
+	mkdir -p "$prefix"/etc
+	cat >"$prefix"/etc/gemrc <<-EOF
+		gem: --no-document --bindir /usr/local/bin
+	EOF
+}
+
+ruby_version() {
+	ruby -e 'puts RUBY_VERSION'
+}
+
+upgrade() {
+	local prefix=${1:-$PREFIX}
+	local latest
+
+	upgrade_ruby_build
+
+	if latest=$(latest_version) && ! ruby_upgradeable "$latest"; then
+		if [[ -z ${RUBY_CONFIGURE_OPTS:-} ]]; then
+			cry "No need to upgrade Ruby. Current: $(ruby_version) / Latest: $latest"
+			return 0
+		else
+			cry "RUBY_CONFIGURE_OPTS detected; forcing to upgrade Ruby."
+		fi
+	fi
+
+	build_ruby "$latest" "$prefix"
+	update_alternatives "$prefix"
+	setup_gemrc "$prefix"
+}
+
+main() {
+	trap 'shutdown $?' EXIT HUP INT QUIT TERM
+	initialize
+	upgrade "$@"
+}
+
+main "$@"
