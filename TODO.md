@@ -1,1 +1,3 @@
 - [ ] src/machines: Rakefile'da provider task adında olmalı
+- [ ] lib/scripts: Daha fazla test
+- [ ] src/machines: Entegrasyon testleri (vagrant)
