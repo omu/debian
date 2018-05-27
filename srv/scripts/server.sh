@@ -37,7 +37,7 @@ enter github.com/omu/debian/lib/scripts
 	leave
 
 	enter ./operator
-		try dist
+		try bin
 		try zsh
 		try vim
 		try mc
