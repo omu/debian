@@ -135,8 +135,9 @@
       "name": "lxc",
       "container_name": "{{ user `hostname` }}",
 
-      "template_name": "ubuntu",
+      "template_name": "download",
       "template_parameters": [
+        "--dist", "ubuntu",
         "--release", "{{ user `codename` }}",
         "--arch", "{{ user `arch` }}"
       ],
