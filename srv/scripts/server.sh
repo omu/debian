@@ -15,6 +15,7 @@ enter github.com/omu/debian/lib/scripts
 	enter ./base
 		try common
 		try operator
+		! is lxc || try locale
 		try font
 		try keyboard
 		try timezone
