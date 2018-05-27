@@ -16,11 +16,8 @@ apt-get -y install --no-install-recommends \
 	moreutils \
 	ncdu \
 	net-tools \
-	pass \
 	psmisc \
-	rake \
 	recode \
-	ruby \
 	socat \
 	syslinux \
 	telnet \
