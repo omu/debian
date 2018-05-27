@@ -10,6 +10,11 @@ operator=${operator:-op}
 
 if current=$(id -rnu 1000 2>/dev/null); then
 	if [[ ! $current = "$operator" ]]; then
+		if [[ -n $(ps -u "$current" -o pid=) ]]; then
+			killall -u "$current"
+			sleep 1
+		fi
+
 		usermod -l "$operator" -d /home/"$operator" -m "$current" -c 'Operator'
 		groupmod -n "$operator" "$current"
 
