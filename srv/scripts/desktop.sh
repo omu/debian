@@ -5,6 +5,7 @@
 # shellcheck disable=SC1090
 source <(curl -fsSL https://she.alaturka.io/source) -boot
 
+export locale=tr_TR.UTF-8
 export base_use_experimental=true
 export golang_use_experimental=true
 export tmux_login_shell=true
@@ -16,6 +17,7 @@ enter github.com/omu/debian/lib/scripts
 		try common
 		try operator
 		try staff
+		try locale
 		try font
 		try keyboard
 		try timezone
