@@ -29,10 +29,11 @@ enter github.com/omu/debian/lib/scripts
 	leave
 
 	enter ./virtual
-		! is vagrantable || try vagrant
 		! is virtualbox  || try virtualbox
 		! is qemu        || try qemu
 		! is vmware      || try vmware
+		! is lxc         || try lxc
+		! is vagrantable || try vagrant
 	leave
 
 	enter ./operator
