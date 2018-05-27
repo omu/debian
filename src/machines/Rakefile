@@ -244,8 +244,10 @@ class Packer
 
   def build
     cmd  = cmdline('build', *BUILD_FLAGS)
-    cmd += " | tee '#{box.boxname}.log'"
-    sh cmd, verbose: verbose?
+    cmd += " | tee -a '#{box.boxname}.log'"
+    sh cmd, verbose: verbose? do |ok, _|
+      warn "#{cmd} failed; proceeding anyway" unless ok
+    end
   end
 
   def validate
