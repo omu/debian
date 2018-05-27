@@ -8,6 +8,7 @@ source <(curl -fsSL https://she.alaturka.io/source) -boot
 export tmux_login_shell=true
 export ruby_install_latest=true
 export ruby_use_jemalloc=true
+export clean_aggresive=true
 
 enter github.com/omu/debian/lib/scripts
 	paths ../../bin
@@ -28,14 +29,6 @@ enter github.com/omu/debian/lib/scripts
 		try ruby
 	leave
 
-	enter ./virtual
-		! is virtualbox  || try virtualbox
-		! is qemu        || try qemu
-		! is vmware      || try vmware
-		! is lxc         || try lxc
-		! is vagrantable || try vagrant
-	leave
-
 	enter ./operator
 		try bin
 		try zsh
@@ -44,11 +37,20 @@ enter github.com/omu/debian/lib/scripts
 		try tmux
 	leave
 
-	try server/common
-	try base/clean
-	try server/clean
+	enter ./server
+		try common
+	leave
 
-	! is vm || try virtual/minimize
+	enter ./virtual
+		! is virtualbox  || try virtualbox
+		! is qemu        || try qemu
+		! is vmware      || try vmware
+		! is lxc         || try lxc
+		! is vagrantable || try vagrant
+
+		try clean
+		! is vm || try minimize
+	leave
 leave
 
 etc site vendor=omu medley=minimal description=Minimal color=white version="$(date +'%Y.%m.%d.%H.%M')"

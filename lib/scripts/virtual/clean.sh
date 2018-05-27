@@ -6,6 +6,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
+clean_aggresive=${clean_aggresive:-}
 operator=${operator:-$(id -rnu 1000 2>/dev/null)}
 
 # Remove caches
@@ -74,3 +75,10 @@ apt-get -y purge popularity-contest
 apt-get -y autoremove --purge || echo >&2 "apt-get autoremove exit code $? is suppressed"
 apt-get -y autoclean || echo >&2 "apt-get autoclean exit code $? is suppressed"
 apt-get -y clean || echo >&2 "apt-get clean exit code $? is suppressed"
+
+if [[ -n $clean_aggresive ]]; then
+	# Remove documentation
+	rm -rf /usr/share/man/*
+	rm -rf /usr/share/info/*
+	rm -rf /usr/share/doc/*
+fi
