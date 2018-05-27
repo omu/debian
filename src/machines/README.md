@@ -276,7 +276,9 @@ rake -T
 ```
 
 Üretilmesi istenen sağlayıcı türü için gerekli hazırlıklar yapıldıktan sonra bu
-dizine girerek aşağıdaki formda rake komutlarını çalıştır:
+dizine girerek aşağıdaki formda rake komutlarını çalıştırılır.  **LXC
+sağlayıcısının yer aldığı tüm inşa görevlerinde komutun başına "sudo"
+eklenmelidir.**
 
 ```sh
 rake build:dağıtım:sürüm:tür only=sağlayıcı
