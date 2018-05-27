@@ -6,7 +6,8 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-base_kernel_logs=${base_kernel_logs:-'3 4 1 4'}
+tweak_disable_motd=${tweak_disable_motd:-}
+tweak_kernel_logs=${tweak_kernel_logs:-'3 4 1 4'}
 
 fix() {
 	[[ ! -f "$1" ]] || sed -i '/BEGIN FIX/,/END FIX/d' "$1"
@@ -17,14 +18,26 @@ fix() {
 #   - to prevent DNS resolution (speed up logins)
 #   - to keep long SSH connections running, especially for assets precompilation
 #   - to accept pass_* environment variables
-fix /etc/ssh/sshd_config <<-EOF
-	UseDNS no
-	AllowAgentForwarding yes
-	ClientAliveInterval 60
-	ClientAliveCountMax 60
-	AcceptEnv LANG LC_* pass_*
-EOF
+#   - to disable last login messages (optionally)
+{
+	cat <<-EOF
+		UseDNS no
+		AllowAgentForwarding yes
+		ClientAliveInterval 60
+		ClientAliveCountMax 60
+		AcceptEnv LANG LC_* pass_*
+	EOF
+	[[ -z $tweak_disable_motd ]] || echo PrintLastLog no
+} | fix /etc/ssh/sshd_config
 systemctl restart ssh
+
+if [[ -n $tweak_disable_motd ]]; then
+	for f in /etc/pam.d/login /etc/pam.d/sshd; do
+		[[ -f $f ]] || continue
+		sed -e '/session.*motd/ s/^#*/#/' -i "$f"
+	done
+	rm -f /etc/motd
+fi
 
 # Remove 5s grub timeout to speed up booting
 cat >/etc/default/grub <<-EOF
@@ -40,7 +53,7 @@ EOF
 ! command -v update-grub 2>/dev/null || update-grub
 
 # Setup kernel log levels
-[[ -z $base_kernel_logs ]] || sysctl -w kernel.printk="$base_kernel_logs" ||
+[[ -z $tweak_kernel_logs ]] || sysctl -w kernel.printk="$tweak_kernel_logs" ||
 echo >&2 "sysctl exit code $? is suppressed"
 
 # Add a 2 sec delay to the interface up, to make the dhclient happy
