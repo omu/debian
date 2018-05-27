@@ -6,7 +6,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-tweak_disable_motd=${tweak_disable_motd:-}
+tweak_keep_motd=${tweak_keep_motd:-}
 tweak_kernel_logs=${tweak_kernel_logs:-'3 4 1 4'}
 
 fix() {
@@ -27,11 +27,11 @@ fix() {
 		ClientAliveCountMax 60
 		AcceptEnv LANG LC_* pass_*
 	EOF
-	[[ -z $tweak_disable_motd ]] || echo PrintLastLog no
+	[[ -n $tweak_keep_motd ]] || echo PrintLastLog no
 } | fix /etc/ssh/sshd_config
 systemctl restart ssh
 
-if [[ -n $tweak_disable_motd ]]; then
+if [[ -z $tweak_keep_motd ]]; then
 	for f in /etc/pam.d/login /etc/pam.d/sshd; do
 		[[ -f $f ]] || continue
 		sed -e '/session.*motd/ s/^#*/#/' -i "$f"
