@@ -31,6 +31,16 @@ images:
   # Ubuntu
   # ----------------------------------------------------------------------------
   - distribution: ubuntu
+    suite: legacy
+    codename: xenial
+    arch: amd64
+    iso_checksum: b8b172cbdf04f5ff8adc8c2c1b4007ccf66f00fc6a324a6da6eba67de71746f6
+    iso_checksum_type: sha256
+    iso_checksum_url: http://old-releases.ubuntu.com/releases/xenial/SHA256SUMS
+    iso_url: http://old-releases.ubuntu.com/releases/xenial/ubuntu-16.04-server-amd64.iso
+    except:
+      - desktop
+  - distribution: ubuntu
     suite: stable
     codename: bionic
     arch: amd64
@@ -49,6 +59,16 @@ images:
     iso_checksum_url: http://releases.ubuntu.com/18.04/SHA256SUMS
     iso_url: http://releases.ubuntu.com/18.04/ubuntu-18.04-desktop-amd64.iso
     only:
+      - desktop
+  - distribution: ubuntu
+    suite: unstable
+    codename: cosmic
+    arch: amd64
+    iso_checksum: 923a63a00a32cd524a0acdf71ad41f3f0a5311e70b36e40b68ad1cd464cbffe5
+    iso_checksum_type: sha256
+    iso_checksum_url: http://cdimage.ubuntu.com/ubuntu-server/daily/current/SHA256SUMS
+    iso_url: http://cdimage.ubuntu.com/ubuntu-server/daily/current/cosmic-server-amd64.iso
+    except:
       - desktop
 medleys:
   - medley: server
