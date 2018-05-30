@@ -6,7 +6,7 @@
       "vm_name": "{{ user `hostname` }}",
 
       "format": "ova",
-      "guest_os_type": "Ubuntu_64",
+      "guest_os_type": "Debian_64",
       "guest_additions_mode": "attach",
       "disk_size": 40960,
       "hard_drive_interface": "sata",
@@ -22,19 +22,15 @@
       "headless": "{{ user `headless` }}",
       "boot_wait": "5s",
       "boot_command": [
-        "<esc><esc><enter><wait>",
-        "/install/vmlinuz ",
-        "auto-install/enable=true ",
+        "<esc><wait>",
         "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `codename` }}.cfg ",
-        "hostname={{ .Name }} ",
         "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "hostname={{ .Name }} ",
         "passwd/user-fullname=Op ",
         "passwd/username=op ",
         "passwd/user-password=op ",
         "passwd/user-password-again=op ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "<enter>"
       ],
       "vboxmanage": [
         ["modifyvm", "{{ .Name }}", "--memory", "1024"],
@@ -68,19 +64,14 @@
       "headless": "{{ user `headless` }}",
       "boot_wait": "5s",
       "boot_command": [
-        "<esc><esc><enter><wait>",
-        "/install/vmlinuz ",
-        "auto-install/enable=true ",
+        "<esc><wait>",
         "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `codename` }}.cfg ",
-        "hostname={{ .Name }} ",
-        "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "netcfg/get_hostname={{ .Name }} <wait>",
         "passwd/user-fullname=Op ",
         "passwd/username=op ",
         "passwd/user-password=op ",
         "passwd/user-password-again=op ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "<enter>"
       ],
       "qemuargs": [
         ["-m", "1024M"],
@@ -108,19 +99,14 @@
       "headless": "{{ user `headless` }}",
       "boot_wait": "5s",
       "boot_command": [
-        "<esc><esc><enter><wait>",
-        "/install/vmlinuz ",
-        "auto-install/enable=true ",
+        "<esc><wait>",
         "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `codename` }}.cfg ",
-        "hostname={{ .Name }} ",
-        "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "netcfg/get_hostname={{ .Name }} <wait>",
         "passwd/user-fullname=Op ",
         "passwd/username=op ",
         "passwd/user-password=op ",
         "passwd/user-password-again=op ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "<enter>"
       ],
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
@@ -135,14 +121,13 @@
       "name": "lxc",
       "container_name": "{{ user `hostname` }}",
 
-      "template_name": "download",
+      "template_name": "debian",
       "template_parameters": [
-        "--dist", "ubuntu",
         "--release", "{{ user `codename` }}",
         "--arch", "{{ user `arch` }}"
       ],
       "attach_options": ["--clear-env"],
-      "config_file": "/usr/share/lxc/config/ubuntu.common.conf"
+      "config_file": "/usr/share/lxc/config/debian.common.conf"
     },
 
     {
@@ -194,20 +179,20 @@
       "type": "vagrant",
 
       "output": "{{ user `boxname` }}-{{ .BuildName }}.box",
-      "vagrantfile_template": "{{ template_dir }}/template.rb"
+      "vagrantfile_template": "{{ template_dir }}/vagrantfile.rb"
     }
   ],
 
   "variables": {
-    "boxname": "ubuntu-stable-minimal",
+    "boxname": "debian-stable-minimal",
     "hostname": "minimal",
-    "distribution": "ubuntu",
+    "distribution": "debian",
     "suite": "stable",
-    "codename": "bionic",
+    "codename": "stretch",
     "arch": "amd64",
     "medley": "minimal",
     "medley_url": "https://scripts.omu.sh",
-    "medley_path": "../../../srv/scripts",
+    "medley_path": "../../srv/scripts",
     "headless": "true",
 
     "iso_checksum": "",

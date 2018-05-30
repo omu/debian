@@ -262,60 +262,61 @@ sudo cp -a Workstation-12.0.0 Workstation-14.0.0
 İnşa
 ----
 
-İnşa işlemi bir [Rakefile](Rakefile) ile yürütülüyor.  Packer kurulumuna ilave
-olarak kurulum ortamında Ruby ve Rake'in de hazır olmasını sağla.
+İnşa işlemi bir [Makefile](Makefile) ile yürütülüyor.  Packer kurulumuna ilave
+olarak kurulum ortamında Make'in de hazır olmasını sağla.
 
 ```sh
-sudo apt-get install ruby rake
+sudo apt-get install make
 ```
 
-Desteklenen Rake görevleri hakkında yardım almak için (bu dizindeyken)
+[Modern Make](https://github.com/tj/mmake) kullanılması halinde desteklenen Make
+görevleri hakkında yardım almak için (bu dizindeyken)
 
 ```sh
-rake -T
+mmake help
 ```
 
 Üretilmesi istenen sağlayıcı türü için gerekli hazırlıklar yapıldıktan sonra bu
-dizine girerek aşağıdaki formda rake komutlarını çalıştırılır.  **LXC
+dizine girerek aşağıdaki formda make komutlarını çalıştırılır.  **LXC
 sağlayıcısının yer aldığı tüm inşa görevlerinde komutun başına "sudo"
 eklenmelidir.**
 
 ```sh
-rake build:dağıtım:sürüm:tür only=sağlayıcı
+make dağıtım-sürüm-tür only=sağlayıcı
 ```
 
 Örneğin `debian-stable-server-virtualbox.box` makinesini inşa etmek için:
 
 ```sh
-rake build:debian:stable:server only=virtualbox
+make debian-stable-server only=virtualbox
 ```
 
-Rake komutları hiyerarşik formda düzenlenmiştir.  Buna göre:
+Make komutları hiyerarşik formda düzenlenmiştir.  Buna göre:
 
 - Olası tüm makineleri üretmek için
 
   ```sh
-  rake build
+  make all
   ```
 
 - Olası tüm Debian tüm makineleri üretmek için
 
   ```sh
-  rake build:debian
+  make debian
   ```
 
 - Debian stable sürümünü baz alan tüm makineler için
 
 
   ```sh
-  rake build:debian:stable
+  make debian-stable
   ```
 
 - Debian stable sürümünü baz alan server makinelerin tüm sağlayıcıları için
 
 
   ```sh
-  rake build:debian:stable:server
+  make debian-stable-server
   ```
 
 Özelleştirme
@@ -323,12 +324,11 @@ Rake komutları hiyerarşik formda düzenlenmiştir.  Buna göre:
 
 ### Şablonlar
 
-Makine üretimi Debian ve Ubuntu için `debian` ve `ubuntu` dağıtım dizinlerindeki
-şablonlarla yapılıyor.  Dağıtım dizinlerindeki dosyaların işlevleri:
+Dosyaların işlevleri:
 
-- `template.json`: Packer şablonu
+- `«distribution».json`: Packer şablonu
 
-- `template.rb`: Vagrant şablonu
+- `vagrantfile.rb`: Vagrant şablonu
 
 - `«codename».cfg`: [preseed](https://wiki.debian.org/DebianInstaller/Preseed)
   dosyaları; ör. stretch sürümü için `stretch.cfg`
