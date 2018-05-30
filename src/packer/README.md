@@ -30,7 +30,8 @@ alan sunucu makinesi oluyor.  İsimdeki her alan ve desteklenen seçenekler:
 
 - **tür**
 
-  Makina türü: *server*.  Bir tür potpuri olmasından dolayı buna "medley" de deniliyor.
+  Makina türü: *server*.  Bir tür potpuri olmasından dolayı buna "medley" de
+  deniliyor.
 
 - **sağlayıcı**
 
@@ -277,12 +278,12 @@ mmake help
 ```
 
 Üretilmesi istenen sağlayıcı türü için gerekli hazırlıklar yapıldıktan sonra bu
-dizine girerek aşağıdaki formda make komutlarını çalıştırılır.  **LXC
+dizine girerek aşağıdaki formda make komutları çalıştırılır.  **LXC
 sağlayıcısının yer aldığı tüm inşa görevlerinde komutun başına "sudo"
 eklenmelidir.**
 
 ```sh
-make dağıtım-sürüm-tür only=sağlayıcı
+make dağıtım-sürüm-tür [only=sağlayıcı]
 ```
 
 Örneğin `debian-stable-server-virtualbox.box` makinesini inşa etmek için:
