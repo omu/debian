@@ -62,11 +62,24 @@ clean:
 JESSIE_ISO_URL           := http://cdimage.debian.org/mirror/cdimage/archive/8.10.0/amd64/iso-cd/debian-8.10.0-amd64-netinst.iso
 JESSIE_ISO_CHECKSUM_URL  := http://cdimage.debian.org/mirror/cdimage/archive/8.10.0/amd64/iso-cd/SHA256SUMS
 
-STRETCH_ISO_URL          := http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.4.0-amd64-netinst.iso
-STRETCH_ISO_CHECKSUM_URL := http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS
+STRETCH_9_3_ISO_URL          := https://cdimage.debian.org/cdimage/archive/9.3.0/amd64/iso-cd/debian-9.3.0-amd64-netinst.iso
+STRETCH_9_3_ISO_CHECKSUM_URL := https://cdimage.debian.org/cdimage/archive/9.3.0/amd64/iso-cd/SHA256SUMS
+
+STRETCH_9_4_ISO_URL          := http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.4.0-amd64-netinst.iso
+STRETCH_9_4_ISO_CHECKSUM_URL := http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS
+
+#- Using 9.3 to satisfy Huawei
+
+STRETCH_ISO_URL              := STRETCH_9_3_ISO_URL
+STRETCH_ISO_CHECKSUM_URL     := STRETCH_9_3_ISO_CHECKSUM_URL
+
+prep: $(PACKER_CACHE_DIR)
+$(PACKER_CACHE_DIR):
+	$(Q) mkdir -p $@
+.PHONY: prep
 
 # Build debian-legacy-server
-debian-legacy-server:
+debian-legacy-server: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -83,7 +96,7 @@ debian-legacy-server:
 .PHONY: debian-legacy-server
 
 # Build debian-stable-server
-debian-stable-server:
+debian-stable-server: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -100,7 +113,7 @@ debian-stable-server:
 .PHONY: debian-stable-server
 
 # Build debian-unstable-server
-debian-unstable-server:
+debian-unstable-server: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -115,7 +128,7 @@ debian-unstable-server:
 .PHONY: debian-unstable-minimal
 
 # Build debian-legacy-minimal
-debian-legacy-minimal:
+debian-legacy-minimal: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -132,7 +145,7 @@ debian-legacy-minimal:
 .PHONY: debian-legacy-minimal
 
 # Build debian-stable-minimal
-debian-stable-minimal:
+debian-stable-minimal: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -149,7 +162,7 @@ debian-stable-minimal:
 .PHONY: debian-stable-minimal
 
 # Build debian-unstable-minimal
-debian-unstable-minimal:
+debian-unstable-minimal: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -190,7 +203,7 @@ BIONIC_ISO_URL           := http://releases.ubuntu.com/18.04/ubuntu-18.04-deskto
 BIONIC_ISO_CHECKSUM_URL  := http://releases.ubuntu.com/18.04/SHA256SUMS
 
 # Build ubuntu-legacy-server
-ubuntu-legacy-server:
+ubuntu-legacy-server: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -207,7 +220,7 @@ ubuntu-legacy-server:
 .PHONY: ubuntu-legacy-server
 
 # Build ubuntu-stable-server
-ubuntu-stable-server:
+ubuntu-stable-server: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -224,7 +237,7 @@ ubuntu-stable-server:
 .PHONY: ubuntu-stable-server
 
 # Build ubuntu-unstable-server
-ubuntu-unstable-server:
+ubuntu-unstable-server: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -239,7 +252,7 @@ ubuntu-unstable-server:
 .PHONY: ubuntu-unstable-server
 
 # Build ubuntu-legacy-minimal
-ubuntu-legacy-minimal:
+ubuntu-legacy-minimal: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -256,7 +269,7 @@ ubuntu-legacy-minimal:
 .PHONY: ubuntu-legacy-minimal
 
 # Build ubuntu-stable-minimal
-ubuntu-stable-minimal:
+ubuntu-stable-minimal: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
@@ -273,7 +286,7 @@ ubuntu-stable-minimal:
 .PHONY: ubuntu-stable-minimal
 
 # Build ubuntu-unstable-minimal
-ubuntu-unstable-minimal:
+ubuntu-unstable-minimal: prep
 	$(HH) $@
 	$(Q) packer build $(FLAGS) \
 		\
