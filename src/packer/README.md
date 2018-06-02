@@ -365,6 +365,13 @@ Make komutları hiyerarşik formda düzenlenmiştir.  Buna göre:
   make debian-stable-server
   ```
 
+- İnşanın GUI olmadan (headless) yapılabilmesi için yukarıdaki tüm komutlara
+  `PRODUCTION=true` eklenmeli
+
+  ```sh
+  make PRODUCTION=true all
+  ```
+
 Özelleştirme
 ------------
 
