@@ -100,7 +100,7 @@ apt-get install qemu qemu-kvm
 Baz paketleri kur
 
 ```sh
-apt-get install lxc debootstrap
+apt-get install lxc lxc-templates debootstrap
 ```
 
 Port yönlendirme için gerekli paketi kur
@@ -182,14 +182,35 @@ olmasına dikkat edin.  Başarılı bir kurulum sonrasında:
   systemctl status vmware
   ```
 
+- VMware ağı (vmnet8 ve vmnet1 arayüzleri) çalışıyor olmalı
+
+  Örneğin NetworkManager kullanılan bir masaüstü ortamda aşağıdaki komut vmnet1
+  ve vmnet8 arayüzlerini "connected" olarak göstermeli
+
+  ```sh
+  nmcli dev status
+  ```
+
+  Arayüzleri etkinleştirmek için
+
+  ```sh
+  nmcli dev connect vmnet1
+  nmcli dev connect vmnet8
+  ```
+
+  Arayüzler etkin değilse Packer VMware headless olsa bile VNC bağlantı hatası
+  alınır.
+
 #### Kurulum
 
 Baz kurulum yap
 
-- [VMPlayer kur](https://www.vmware.com/tr/products/workstation-player/workstation-player-evaluation.html)
+- VMware Free sayfasında "Product Download" sekmesinden
+  [VMPlayer](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0)
+  kur
 
-
-- [VMware-VIX kur](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/12_0|PLAYER-1200|drivers_tools)
+- VMware Free sayfasında "Drivers & Tools" sekmesinden
+  [VMware-VIX](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0|PLAYER-1412|drivers_tools)kur
 
 Çekirdek modüllerini derle
 
@@ -199,10 +220,10 @@ Baz kurulum yap
   git clone https://github.com/mkubecek/vmware-host-modules/
   ```
 
-- Uygun dala geç (ör. 14.0.0 için)
+- Uygun dala geç (ör. 14.1.2 için)
 
   ```sh
-  git checkout player-14.0.0
+  git checkout player-14.1.2
   ```
 
 - Derle
@@ -230,7 +251,7 @@ Baz kurulum yap
   sudo systemctl restart vmware
   ```
 
-VMWare araçlarını kur
+VMware araçlarını kur
 
 - VMware Workstation Player arayüzünde "Player Preferences → Download All
   Components Now" ile araçları kur
@@ -246,6 +267,11 @@ VMWare araçlarını kur
 
 #### Sorunlar
 
+Pek çok sorun kullanılan VMware sürümüyle uyumlu bir VIX kurulumu yapılmamış
+olmasından kaynaklanır.  Aşağıda verilen çözümler zorlama çözümlerdir.  Bu
+çözümleri uygulamadan önce VMware VIX kurulumunun doğru şekilde yapıldığına emin
+olun.
+
 Sorun: Packer VMware 14.x sürümlerinde aşağıdaki hatayı veriyor
 
         VMware error: Unable to connect to host.
@@ -258,6 +284,25 @@ cd /usr/lib/vmware-vix
 sudo mv vixwrapper-config.txt vixwrapper-config.txt.orig
 sudo cp /usr/lib/vmware/vixwrapper-product-config.txt vixwrapper-config.txt
 sudo cp -a Workstation-12.0.0 Workstation-14.0.0
+```
+
+Sorun: Aşağıdaki hata alınıyor
+
+```
+vmware: Could not find netmap conf file: /etc/vmware/netmap.conf
+```
+
+Geçici çözüm:
+
+```sh
+cat >/etc/wmare/netmap.conf <<-EOF
+network0.name = "Bridged"
+network0.device = "vmnet0"
+network1.name = "HostOnly"
+network1.device = "vmnet1"
+network8.name = "NAT"
+network8.device = "vmnet8"
+EOF
 ```
 
 İnşa
