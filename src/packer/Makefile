@@ -59,19 +59,13 @@ clean:
 # Debian
 # ------------------------------------------------------------------------------
 
-JESSIE_ISO_URL           := http://cdimage.debian.org/mirror/cdimage/archive/8.10.0/amd64/iso-cd/debian-8.10.0-amd64-netinst.iso
-JESSIE_ISO_CHECKSUM_URL  := http://cdimage.debian.org/mirror/cdimage/archive/8.10.0/amd64/iso-cd/SHA256SUMS
+JESSIE_ISO_URL            ?= http://cdimage.debian.org/mirror/cdimage/archive/8.10.0/amd64/iso-cd/debian-8.10.0-amd64-netinst.iso
+JESSIE_ISO_CHECKSUM_URL   ?= http://cdimage.debian.org/mirror/cdimage/archive/8.10.0/amd64/iso-cd/SHA256SUMS
+JESSIE_ISO_CHECKSUM_TYPE  ?= sha256
 
-STRETCH_9_3_ISO_URL          := https://cdimage.debian.org/cdimage/archive/9.3.0/amd64/iso-cd/debian-9.3.0-amd64-netinst.iso
-STRETCH_9_3_ISO_CHECKSUM_URL := https://cdimage.debian.org/cdimage/archive/9.3.0/amd64/iso-cd/SHA256SUMS
-
-STRETCH_9_4_ISO_URL          := http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.4.0-amd64-netinst.iso
-STRETCH_9_4_ISO_CHECKSUM_URL := http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS
-
-#- Using 9.3 to satisfy Huawei
-
-STRETCH_ISO_URL              := $(STRETCH_9_3_ISO_URL)
-STRETCH_ISO_CHECKSUM_URL     := $(STRETCH_9_3_ISO_CHECKSUM_URL)
+STRETCH_ISO_URL           ?= https://cdimage.debian.org/cdimage/archive/9.3.0/amd64/iso-cd/debian-9.3.0-amd64-netinst.iso
+STRETCH_ISO_CHECKSUM_URL  ?= https://cdimage.debian.org/cdimage/archive/9.3.0/amd64/iso-cd/SHA256SUMS
+STRETCH_ISO_CHECKSUM_TYPE ?= sha256
 
 prep: $(PACKER_CACHE_DIR)
 $(PACKER_CACHE_DIR):
@@ -91,6 +85,7 @@ debian-legacy-server: prep
 		-var "boxname=$@" \
 		-var "iso_url=$(JESSIE_ISO_URL)" \
 		-var "iso_checksum_url=$(JESSIE_ISO_CHECKSUM_URL)" \
+		-var "iso_checksum_type=$(JESSIE_ISO_CHECKSUM_TYPE)" \
 		\
 		debian.json | tee $(@).log
 .PHONY: debian-legacy-server
@@ -108,6 +103,7 @@ debian-stable-server: prep
 		-var "boxname=$@" \
 		-var "iso_url=$(STRETCH_ISO_URL)" \
 		-var "iso_checksum_url=$(STRETCH_ISO_CHECKSUM_URL)" \
+		-var "iso_checksum_type=$(STRETCH_ISO_CHECKSUM_TYPE)" \
 		\
 		debian.json | tee $(@).log
 .PHONY: debian-stable-server
@@ -140,6 +136,7 @@ debian-legacy-minimal: prep
 		-var "boxname=$@" \
 		-var "iso_url=$(JESSIE_ISO_URL)" \
 		-var "iso_checksum_url=$(JESSIE_ISO_CHECKSUM_URL)" \
+		-var "iso_checksum_type=$(JESSIE_ISO_CHECKSUM_TYPE)" \
 		\
 		debian.json | tee $(@).log
 .PHONY: debian-legacy-minimal
@@ -157,6 +154,7 @@ debian-stable-minimal: prep
 		-var "boxname=$@" \
 		-var "iso_url=$(STRETCH_ISO_URL)" \
 		-var "iso_checksum_url=$(STRETCH_ISO_CHECKSUM_URL)" \
+		-var "iso_checksum_type=$(STRETCH_ISO_CHECKSUM_TYPE)" \
 		\
 		debian.json | tee $(@).log
 .PHONY: debian-stable-minimal
@@ -196,11 +194,13 @@ debian:          debian-stable debian-unstable debian-legacy
 # Ubuntu
 # ------------------------------------------------------------------------------
 
-XENIAL_ISO_URL           := http://old-releases.ubuntu.com/releases/xenial/ubuntu-16.04-server-amd64.iso
-XENIAL_ISO_CHECKSUM_URL  := http://old-releases.ubuntu.com/releases/xenial/SHA256SUMS
+XENIAL_ISO_URL           ?= http://old-releases.ubuntu.com/releases/xenial/ubuntu-16.04-server-amd64.iso
+XENIAL_ISO_CHECKSUM_URL  ?= http://old-releases.ubuntu.com/releases/xenial/SHA256SUMS
+XENIAL_ISO_CHECKSUM_TYPE ?= sha256
 
-BIONIC_ISO_URL           := http://releases.ubuntu.com/18.04/ubuntu-18.04-desktop-amd64.iso
-BIONIC_ISO_CHECKSUM_URL  := http://releases.ubuntu.com/18.04/SHA256SUMS
+BIONIC_ISO_URL           ?= http://releases.ubuntu.com/18.04/ubuntu-18.04-desktop-amd64.iso
+BIONIC_ISO_CHECKSUM_URL  ?= http://releases.ubuntu.com/18.04/SHA256SUMS
+BIONIC_ISO_CHECKSUM_TYPE ?= sha256
 
 # Build ubuntu-legacy-server
 ubuntu-legacy-server: prep
@@ -215,6 +215,7 @@ ubuntu-legacy-server: prep
 		-var "boxname=$@" \
 		-var "iso_url=$(XENIAL_ISO_URL)" \
 		-var "iso_checksum_url=$(XENIAL_ISO_CHECKSUM_URL)" \
+		-var "iso_checksum_type=$(XENIAL_ISO_CHECKSUM_TYPE)" \
 		\
 		ubuntu.json | tee $(@).log
 .PHONY: ubuntu-legacy-server
@@ -232,6 +233,7 @@ ubuntu-stable-server: prep
 		-var "boxname=$@" \
 		-var "iso_url=$(BIONIC_ISO_URL)" \
 		-var "iso_checksum_url=$(BIONIC_ISO_CHECKSUM_URL)" \
+		-var "iso_checksum_type=$(BIONIC_ISO_CHECKSUM_TYPE)" \
 		\
 		ubuntu.json | tee $(@).log
 .PHONY: ubuntu-stable-server
@@ -264,6 +266,7 @@ ubuntu-legacy-minimal: prep
 		-var "boxname=$@" \
 		-var "iso_url=$(XENIAL_ISO_URL)" \
 		-var "iso_checksum_url=$(XENIAL_ISO_CHECKSUM_URL)" \
+		-var "iso_checksum_type=$(XENIAL_ISO_CHECKSUM_TYPE)" \
 		\
 		ubuntu.json
 .PHONY: ubuntu-legacy-minimal
@@ -281,6 +284,7 @@ ubuntu-stable-minimal: prep
 		-var "boxname=$@" \
 		-var "iso_url=$(BIONIC_ISO_URL)" \
 		-var "iso_checksum_url=$(BIONIC_ISO_CHECKSUM_URL)" \
+		-var "iso_checksum_type=$(BIONIC_ISO_CHECKSUM_TYPE)" \
 		\
 		ubuntu.json | tee $(@).log
 .PHONY: ubuntu-stable-minimal
