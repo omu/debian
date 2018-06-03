@@ -1,7 +1,7 @@
 Makineler
 =========
 
-![Makine](machine.png)
+![Makine](packer.png)
 
 Packer ile *dağıtım-sürüm-tür-sağlayıcı.box* formunda Vagrant makineleri
 üretiliyor.  Örneğin *debian-stable-server-virtualbox.box* makinesi Virtualbox
