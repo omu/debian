@@ -1,2 +1,3 @@
 - [ ] lib/scripts: Daha fazla test
 - [ ] src/machines: Entegrasyon testleri (vagrant)
+- [ ] çıktı dizininin ayarlanabilmesini sağla
