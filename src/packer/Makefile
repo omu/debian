@@ -70,8 +70,8 @@ STRETCH_9_4_ISO_CHECKSUM_URL := http://cdimage.debian.org/debian-cd/current/amd6
 
 #- Using 9.3 to satisfy Huawei
 
-STRETCH_ISO_URL              := STRETCH_9_3_ISO_URL
-STRETCH_ISO_CHECKSUM_URL     := STRETCH_9_3_ISO_CHECKSUM_URL
+STRETCH_ISO_URL              := $(STRETCH_9_3_ISO_URL)
+STRETCH_ISO_CHECKSUM_URL     := $(STRETCH_9_3_ISO_CHECKSUM_URL)
 
 prep: $(PACKER_CACHE_DIR)
 $(PACKER_CACHE_DIR):
