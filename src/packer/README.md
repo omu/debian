@@ -99,9 +99,17 @@ apt-get install qemu qemu-kvm
 
 Baz paketleri kur
 
-```sh
-apt-get install lxc lxc-templates debootstrap
-```
+- Debian
+
+  ```sh
+  apt-get install lxc debootstrap
+  ```
+
+- Ubuntu
+
+  ```sh
+  apt-get install lxc lxc-templates debootstrap
+  ```
 
 Port yönlendirme için gerekli paketi kur
 
@@ -159,6 +167,23 @@ vagrant lxc sudoers
 
 ### VMware
 
+VMware imajları "VMware Player™" ve "VMware VIX™" ikilisiyle üretiliyor.
+"VMware Player" VMware'in ticari olmayan kullanımlar için sunduğu hipervizörü
+barındırıyor.  VMware VIX ise VMware konaklarını yöneten bir API ve bu API'ye
+dayalı olarak VMware konaklarını komut satırı üzerinden yönetmeye yarayan vmrun
+gibi araçları barındıran bir yazılım paketi.  Packer'la birlikte ele alınacak
+olursa bu üç yazılım (Packer, Player ve VIX) her yeni sürümde sıklıkla sorun
+yaşatabiliyor.  Örneğin VMware Player 14.1.2 ve VMware VIX 1.17.0 sürümlerinde
+GUI olmayan bir ortamda (headless) kurulum yapılamıyor.  Bu depoda an itibarıyla
+sorun yaşanmadığı gözlenen sürümler:
+
+- [VMware Player
+  14.0.0-6661328](https://download3.vmware.com/software/player/file/VMware-Player-14.0.0-6661328.x86_64.bundle)
+
+- [VMware VIX
+  1.17.0-6661328](https://download3.vmware.com/software/player/file/VMware-VIX-1.17.0-6661328.x86_64.bundle)
+
+
 VMware kurulumu veya yükseltilmesi, ücretsiz VMware Workstation Player olarak
 aşağıda özetlenmiştir.  Bu işlemler süresince yerelin `en_US-UTF8` veya `C`
 olmasına dikkat edin.  Başarılı bir kurulum sonrasında:
@@ -168,6 +193,22 @@ olmasına dikkat edin.  Başarılı bir kurulum sonrasında:
   ```sh
   which vmplayer
   which vmrun
+  ```
+
+- Sürümler uyumlu olmalı
+
+  ```sh
+  vmware-installer -l
+  ```
+
+  komutunun çıktısı aşağıdaki gibi olmalı
+
+
+  ```
+  Product Name         Product Version
+  ==================== ====================
+  vmware-player        14.0.0.6661328
+  vmware-vix           1.17.0.6661328
   ```
 
 - Çekirdek modülleri kurulu olmalı
@@ -205,12 +246,14 @@ olmasına dikkat edin.  Başarılı bir kurulum sonrasında:
 
 Baz kurulum yap
 
-- VMware Free sayfasında "Product Download" sekmesinden
-  [VMPlayer](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0)
-  kur
+- [VMware Free sayfasından](https://my.vmware.com/web/vmware/free) yukarıda
+  belirtilen sürümleri indir
 
-- VMware Free sayfasında "Drivers & Tools" sekmesinden
-  [VMware-VIX](https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/14_0|PLAYER-1412|drivers_tools)kur
+  ```sh
+  wget https://download3.vmware.com/software/player/file/VMware-Player-14.0.0-6661328.x86_64.bundle
+  wget https://download3.vmware.com/software/player/file/VMware-VIX-1.17.0-6661328.x86_64.bundle
+
+  ```
 
 Çekirdek modüllerini derle
 
@@ -220,10 +263,10 @@ Baz kurulum yap
   git clone https://github.com/mkubecek/vmware-host-modules/
   ```
 
-- Uygun dala geç (ör. 14.1.2 için)
+- Uygun dala geç
 
   ```sh
-  git checkout player-14.1.2
+  git checkout player-14.0.0
   ```
 
 - Derle
@@ -254,56 +297,33 @@ Baz kurulum yap
 VMware araçlarını kur
 
 - VMware Workstation Player arayüzünde "Player Preferences → Download All
-  Components Now" ile araçları kur
+Components Now" ile araçları kur (VMware Player'ın kendisini **güncelleme**)
 
 #### Yükseltme
+
+Yukarıda özetlenen uyumsuzluklardan dolayı VMware Player ve VMware VIX
+güncellemeleri kontrollü yapılmalıdır.  Özellikle headless kurulumunda sorun
+yaşanmadığına emin olun.
 
 - VMware Workstation Player arayüzünde "Help → Software Updates" ile yükseltme
   yap
 
-- Yükseltme sonrası çekirdek modülleri tekrar derle.  Örneğin 14.0.0'dan 14.1.1
+- Yükseltme sonrası çekirdek modülleri tekrar derle.  Örneğin 14.0.0'dan 14.1.2
   sürümüne yükseltme gerçekleşmişse çekirdek modüllerinin derlenmesi adımlarını
-  14.1.1 dalı için uygula
+  14.1.2 dalı için uygula.  Bu işlem sadece VMware yükseltmesinde değil çekirdek
+  yükseltmelerinde de yapılmalıdır.
 
-#### Sorunlar
+- Yükseltilen VMware Player ile uyumlu VMware VIX güncellemesini yap
 
-Pek çok sorun kullanılan VMware sürümüyle uyumlu bir VIX kurulumu yapılmamış
-olmasından kaynaklanır.  Aşağıda verilen çözümler zorlama çözümlerdir.  Bu
-çözümleri uygulamadan önce VMware VIX kurulumunun doğru şekilde yapıldığına emin
-olun.
+### Sorunlar
 
-Sorun: Packer VMware 14.x sürümlerinde aşağıdaki hatayı veriyor
+Yaşanacak sorunlar büyük ölçüde yukarıda özetlenen VMware Player ve VMware VIX
+uyumsuzluklarından kaynaklanır.  Bunların dışında:
 
-        VMware error: Unable to connect to host.
-        Error: The specified version was not found
-
-Geçici çözüm:
-
-```sh
-cd /usr/lib/vmware-vix
-sudo mv vixwrapper-config.txt vixwrapper-config.txt.orig
-sudo cp /usr/lib/vmware/vixwrapper-product-config.txt vixwrapper-config.txt
-sudo cp -a Workstation-12.0.0 Workstation-14.0.0
-```
-
-Sorun: Aşağıdaki hata alınıyor
-
-```
-vmware: Could not find netmap conf file: /etc/vmware/netmap.conf
-```
-
-Geçici çözüm:
-
-```sh
-cat >/etc/wmare/netmap.conf <<-EOF
-network0.name = "Bridged"
-network0.device = "vmnet0"
-network1.name = "HostOnly"
-network1.device = "vmnet1"
-network8.name = "NAT"
-network8.device = "vmnet8"
-EOF
-```
+- *vmware-iso* sağlayıcısında *guest_os_type* değeri önemli.  Bu alana yazılan
+  değer hatalıysa önyüklemelerde sorun yaşanır.  Bu değerin ne olduğuna emin
+  değilseniz 64 bit Linux imajları için *other4xlinux-64* jenerik değerini
+  kullanabilirsiniz.
 
 İnşa
 ----
