@@ -247,11 +247,13 @@ olmasına dikkat edin.  Başarılı bir kurulum sonrasında:
 Baz kurulum yap
 
 - [VMware Free sayfasından](https://my.vmware.com/web/vmware/free) yukarıda
-  belirtilen sürümleri indir
+  belirtilen sürümleri indir ve kur
 
   ```sh
   wget https://download3.vmware.com/software/player/file/VMware-Player-14.0.0-6661328.x86_64.bundle
+  sudo sh VMware-Player-14.0.0-6661328.x86_64.bundle
   wget https://download3.vmware.com/software/player/file/VMware-VIX-1.17.0-6661328.x86_64.bundle
+  sudo sh VMware-VIX-1.17.0-6661328.x86_64.bundle
 
   ```
 
