@@ -21,11 +21,6 @@ declare -A color=(
 	[default]="\\e[39m"
 )
 
-version() {
-	[[ -n ${site[version]-} ]] || return 1
-	echo -en "${color[dim]}${color[default]}${site[version]}${color[reset]}"
-}
-
 text() {
 	echo -en "${color[dim]}$*${color[reset]}"
 }
@@ -140,6 +135,16 @@ medley() {
 	echo -en "${color[bold]}${color[default]}${site[medley]}${color[reset]}"
 }
 
+version() {
+	[[ -n ${site[version]-} ]] || return 1
+	echo -en "${color[bold]}${color[default]}${site[version]}${color[reset]}"
+}
+
+build() {
+	[[ -n ${site[build]-} ]] || return 1
+	echo -en "${color[dim]}${color[default]}${site[build]}${color[reset]}"
+}
+
 banner() {
 	command -v she &>/dev/null || return 0
 
@@ -149,7 +154,7 @@ banner() {
 
 	[[ ${site[*]:+${site[*]}} ]] || return 0
 
-	echo -e "$(vendor)       $(medley)        $(version)"
+	echo -e "$(vendor)       $(medley)        $(version)        $(build)"
 	echo -e
 }
 

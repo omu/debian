@@ -66,6 +66,6 @@ enter github.com/omu/debian/lib/scripts
 		try clean
 		! is vm || try minimize
 	leave
-leave
 
-etc site vendor=omu medley=desktop description=Masaüstü color=cyan version="$(date +'%Y.%m.%d.%H.%M')"
+	etc site vendor=omu medley=desktop description=Masaüstü color=cyan version="$(<../../VERSION)" build="$(date +'%Y.%m.%d.%H.%M')"
+leave
