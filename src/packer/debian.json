@@ -84,7 +84,7 @@
       "name": "vmware",
       "vm_name": "{{ user `hostname` }}",
 
-      "guest_os_type": "debian8-64",
+      "guest_os_type": "debian9-64",
       "tools_upload_flavor": "linux",
       "disk_size": 40960,
       "iso_checksum": "{{ user `iso_checksum` }}",
@@ -109,8 +109,6 @@
         "<enter>"
       ],
       "vmx_data": {
-        "cpuid.coresPerSocket": "1",
-        "ethernet0.pciSlotNumber": "32",
         "memsize": "1024",
         "numvcpus": "1"
       }
