@@ -225,18 +225,9 @@ olmasına dikkat edin.  Başarılı bir kurulum sonrasında:
 
 - VMware ağı (vmnet8 ve vmnet1 arayüzleri) çalışıyor olmalı
 
-  Örneğin NetworkManager kullanılan bir masaüstü ortamda aşağıdaki komut vmnet1
-  ve vmnet8 arayüzlerini "connected" olarak göstermeli
-
   ```sh
-  nmcli dev status
-  ```
-
-  Arayüzleri etkinleştirmek için
-
-  ```sh
-  nmcli dev connect vmnet1
-  nmcli dev connect vmnet8
+  ip address show vmnet1
+  ip address show vmnet8
   ```
 
   Arayüzler etkin değilse Packer VMware headless olsa bile VNC bağlantı hatası
