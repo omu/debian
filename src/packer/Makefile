@@ -25,6 +25,10 @@ FLAGS            += -var headless=false
 FLAGS            += -on-error=ask
 endif
 
+ifdef JENKINS_URL
+FLAGS            += -var headless=true
+endif
+
 SHELL            := bash
 
 I                := @printf "\x1b[32;01m%-16s\x1b[0m "
