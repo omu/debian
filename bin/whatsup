@@ -90,11 +90,6 @@ load() {
 	echo -e "$(value "$one") $(text "in 1 minutes") $(value "$five") $(text "in 5 minutes") $(value "$fifteen") $(text "in 15 minutes")"
 }
 
-lastlogin() {
-	value "$(last -R "$USER" | awk '/still logged in/ { print $3, $4, $5, $6; exit }')"
-}
-
-
 system() {
 	value "$(uname -srmo)"
 }
@@ -164,7 +159,6 @@ diagnostic() {
 	echo -e "$(field "Disk")            $(disk)"
 	echo -e "$(field "Address")         $(address)"
 	echo -e "$(field "Uptime")          $(uptime)"
-	echo -e "$(field "Last login")      $(lastlogin)"
 	echo -e "$(field "Load")            $(load)"
 	echo -e
 }
