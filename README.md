@@ -33,3 +33,5 @@ Geleneksel UNIX kök dizini ağacından esinlenen bir düzenleme kullanılıyor.
 
   İnşa edildiğinde diğer dizinlerde çıktı üretecek dosyalar; ör. resim
   kaynakları, şablonlar, derlenmeye konu programlama dilleriyle yazılmış kodlar.
+
+  Rezerve edilen bu dizin şimdilik kullanılmıyor.
