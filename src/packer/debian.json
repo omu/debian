@@ -144,6 +144,7 @@
       "except": ["lxc"],
 
       "execute_command": "echo op | {{ .Vars }} sudo -E -S bash {{ .Path }}",
+      "environment_vars": ["LC_ALL=C", "BUILD={{ user `build` }}"],
 
       "script": "{{ user `medley_path` }}/{{ user `medley` }}.sh"
     },
@@ -166,7 +167,7 @@
       "only": ["lxc"],
 
       "execute_command": "{{ .Vars }} bash {{ .Path }}",
-      "environment_vars": ["LC_ALL=C"],
+      "environment_vars": ["LC_ALL=C", "BUILD={{ user `build` }}"],
 
       "script": "{{ user `medley_path` }}/{{ user `medley` }}.sh"
     }
@@ -176,7 +177,7 @@
     {
       "type": "vagrant",
 
-      "output": "{{ user `boxname` }}-{{ .BuildName }}.box",
+      "output": "{{ user `boxname` }}_{{ user `build` }}_{{ .BuildName }}.box",
       "vagrantfile_template": "{{ template_dir }}/vagrantfile.rb"
     }
   ],
@@ -191,6 +192,7 @@
     "medley": "minimal",
     "medley_url": "https://scripts.omu.sh",
     "medley_path": "../../srv/scripts",
+    "build": "{{ isotime \"060102150405\" }}",
     "headless": "true",
 
     "iso_checksum": "",
