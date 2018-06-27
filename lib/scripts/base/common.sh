@@ -16,6 +16,7 @@ apt-get -y install --no-install-recommends \
 	daemontools \
 	dirmngr \
 	git \
+	gnupg \
 	jq \
 	less \
 	libpam-systemd \
