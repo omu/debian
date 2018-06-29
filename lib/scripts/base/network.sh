@@ -4,28 +4,10 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
-# shellcheck disable=SC1091
-distribution=$(unset ID && . /etc/os-release 2>/dev/null && echo "$ID")
-codename=$(lsb_release -sc)
-
 # Prefer networkd over legacy ifupdown
 
-if [[ $distribution = debian ]]; then
-	case $codename in
-	jessie|stretch|sid)
-		prefer_networkd=true
-		;;
-	esac
-elif [[ $distribution = ubuntu ]]; then
-	# Nowadays Ubuntu uses netplan
-	case $codename in
-	xenial)
-		prefer_networkd=true
-		;;
-	esac
-fi
-
-if [[ -n ${prefer_networkd:-} ]]; then
+case "$(lsb_release -sc)" in
+xenial|jessie|stretch|sid)
 	systemctl enable systemd-networkd.service
 	systemctl enable systemd-resolved.service
 
@@ -42,5 +24,11 @@ if [[ -n ${prefer_networkd:-} ]]; then
 	chmod a+r /etc/systemd/network/99-dhcp.network
 
 	rm -f /etc/network/interfaces
+
+	systemctl start systemd-networkd.service
+	systemctl start systemd-resolved.service
+
+	systemctl stop networking.service
 	systemctl disable networking.service
-fi
+	;;
+esac
