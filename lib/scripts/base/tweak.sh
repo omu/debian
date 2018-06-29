@@ -56,9 +56,6 @@ EOF
 [[ -z $tweak_kernel_logs ]] || sysctl -w kernel.printk="$tweak_kernel_logs" ||
 echo >&2 "sysctl exit code $? is suppressed"
 
-# Add a 2 sec delay to the interface up, to make the dhclient happy
-echo "pre-up sleep 2" >>/etc/network/interfaces
-
 # No speaker
 [[ -d /etc/modprobe.d ]] && echo "blacklist pcspkr" >/etc/modprobe.d/nobeep.conf
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Common installation for server environment
+# Common setup for server environment
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
