@@ -25,10 +25,12 @@ xenial|jessie|stretch|sid)
 
 	rm -f /etc/network/interfaces
 
-	systemctl start systemd-networkd.service
-	systemctl start systemd-resolved.service
+	if [[ -n ${network_activate_new:-} ]]; then
+		systemctl stop networking.service
+		systemctl start systemd-networkd.service
+		systemctl start systemd-resolved.service
+	fi
 
-	systemctl stop networking.service
 	systemctl disable networking.service
 	;;
 esac
