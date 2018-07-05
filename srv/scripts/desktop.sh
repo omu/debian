@@ -67,5 +67,5 @@ enter github.com/omu/debian/lib/scripts
 		! is vm || try minimize
 	leave
 
-	etc site vendor=omu medley=desktop description=Masaüstü color=cyan version="$(git fetch -q -t --unshallow && git describe)" build="${BUILD:-"$(date +'%Y.%m.%d.%H.%M')"}"
+	etc site vendor=omu medley=desktop description=Masaüstü color=cyan version="$(git fetch -q -t --unshallow && git describe)" build="${BUILD:-"$(date +'%y%m%d%H%M%S')"}"
 leave
