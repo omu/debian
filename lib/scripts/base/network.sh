@@ -6,6 +6,10 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 # Prefer networkd over legacy ifupdown
 
+# XXX: Overly simplistic script to migrate network configuration.
+#      Note that the migrated configuration has some bold assumptions,
+#      i.e. interface names matches "e*", and using DHCP.
+
 case "$(lsb_release -sc)" in
 xenial|jessie|stretch|sid)
 	systemctl enable systemd-networkd.service
@@ -29,8 +33,10 @@ xenial|jessie|stretch|sid)
 		systemctl stop networking.service
 		systemctl start systemd-networkd.service
 		systemctl start systemd-resolved.service
-	fi
 
-	systemctl disable networking.service
+		systemctl --no-reload disable networking.service
+	else
+		systemctl disable networking.service
+	fi
 	;;
 esac
