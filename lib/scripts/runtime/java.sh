@@ -7,6 +7,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y install --no-install-recommends \
-	openjdk-8-jre-headless \ # for legacy applications
+	# install an old version for legacy applications
+	openjdk-8-jre-headless \
 	default-jre-headless \
 	#
