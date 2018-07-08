@@ -3,6 +3,8 @@
 # shellcheck disable=SC1090
 source <(env she src)
 
+[[ ${EUID:-} -eq 0 ]] || die "Root privileges required"
+
 main() {
 	local -a scripts=()
 	local -a variables=()
