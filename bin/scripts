@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC1090
+source <(env she src)
+
+main() {
+	local -a scripts=()
+	local -a variables=()
+
+	while [[ $# -gt 0 ]]; do
+		if [[ "$1" =~ [a-zA-Z_][a-zA-Z0-9_]*= ]]; then
+			variables+=("$1")
+		else
+			scripts+=("$1")
+		fi
+		shift
+	done
+
+	[[ ${#scripts[@]} -gt 0 ]] || die "No script given"
+
+	enter github.com/omu/debian/lib/scripts
+		paths ../../bin
+
+		local name
+		for name in "${scripts[@]}"; do
+			case $name in
+			*/*) try "${variables[@]}" "$name"   ;;
+			*)   try "${variables[@]}" "_/$name" ;;
+			esac
+		done
+	leave
+}
+
+main "$@"
