@@ -81,4 +81,7 @@ if [[ -n $clean_aggresive ]]; then
 	rm -rf /usr/share/man/*
 	rm -rf /usr/share/info/*
 	rm -rf /usr/share/doc/*
+
+	# Keep man directory tree to avoid bugs
+	mkdir -p /usr/share/man/man[1-9]
 fi
