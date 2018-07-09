@@ -23,6 +23,7 @@ apt-get -y install --no-install-recommends \
 	lsb-release \
 	nfs-common \
 	rsync \
+	ruby \
 	software-properties-common \
 	ssh \
 	sudo \
