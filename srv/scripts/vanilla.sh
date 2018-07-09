@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-# Provision a minimal environment
+# Provision a vanilla environment
 
 # shellcheck disable=SC1090
 source <(curl -fsSL https://she.alaturka.io/source) -boot
 
 export tmux_login_shell=true
-export ruby_install_latest=true
-export ruby_use_jemalloc=true
 export clean_aggresive=true
 
 enter github.com/omu/debian/lib/scripts
@@ -21,13 +19,7 @@ enter github.com/omu/debian/lib/scripts
 		try font
 		try keyboard
 		try timezone
-		try standard
 		try tweak
-	leave
-
-	enter ./runtime
-		try common
-		try ruby
 	leave
 
 	enter ./operator
@@ -36,10 +28,6 @@ enter github.com/omu/debian/lib/scripts
 		try vim
 		try mc
 		try tmux
-	leave
-
-	enter ./server
-		try common
 	leave
 
 	enter ./virtual
@@ -53,5 +41,5 @@ enter github.com/omu/debian/lib/scripts
 		! is vm || try minimize
 	leave
 
-	etc site vendor=omu medley=minimal description=Minimal color=white version="$(git fetch -q -t --unshallow && git describe)" build="${BUILD:-"$(date +'%y%m%d%H%M%S')"}"
+	etc site vendor=omu medley=vanilla description=Vanilya color=white version="$(git fetch -q -t --unshallow && git describe)" build="${BUILD:-"$(date +'%y%m%d%H%M%S')"}"
 leave
