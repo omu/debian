@@ -59,5 +59,20 @@ echo >&2 "sysctl exit code $? is suppressed"
 # No speaker
 [[ -d /etc/modprobe.d ]] && echo "blacklist pcspkr" >/etc/modprobe.d/nobeep.conf
 
+# No documents while installing Ruby gems
+if command -v ruby &>/dev/null; then
+	fix /etc/gemrc <<-EOF
+		gem: --no-document
+	EOF
+fi
+
 # Disable downloading translations
-echo 'Acquire::Languages "none";' >/etc/apt/apt.conf.d/99translations
+cat >/etc/apt/apt.conf.d/99notranslations <<-EOF
+	Acquire::Languages "none";'
+EOF
+
+# Do not install recommended or suggested packages by default
+cat >/etc/apt/apt.conf.d/01norecommends <<-EOF
+	APT::Install-Recommends "false";
+	APT::Install-Suggests "false";
+EOF
