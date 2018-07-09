@@ -68,7 +68,7 @@ fi
 
 # Disable downloading translations
 cat >/etc/apt/apt.conf.d/99notranslations <<-EOF
-	Acquire::Languages "none";'
+	Acquire::Languages "none";
 EOF
 
 # Do not install recommended or suggested packages by default
