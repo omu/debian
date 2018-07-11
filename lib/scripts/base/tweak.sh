@@ -14,11 +14,11 @@ fix() {
 	{ echo "# BEGIN FIX"; cat; echo "# END FIX"; } >>"$1"
 }
 
-# Tweak sshd:
-#   - to prevent DNS resolution (speed up logins)
-#   - to keep long SSH connections running, especially for assets precompilation
-#   - to accept pass_* environment variables
-#   - to disable last login messages (optionally)
+# Tweak sshd
+#   - Prevent DNS resolution (speed up logins)
+#   - Keep long SSH connections running, especially for assets precompilation
+#   - Accept pass_* environment variables
+#   - Disable last login messages (optionally)
 {
 	cat <<-EOF
 		UseDNS no
@@ -31,6 +31,12 @@ fix() {
 } | fix /etc/ssh/sshd_config
 systemctl restart ssh
 
+# Tweak sudo
+#   - Keep SSH_* environment variables
+echo 'Defaults env_keep += "SSH_*"' >/etc/sudoers.d/ssh
+chmod 0440 /etc/sudoers.d/ssh
+
+# Tweak motd
 if [[ -z $tweak_keep_motd ]]; then
 	for f in /etc/pam.d/login /etc/pam.d/sshd; do
 		[[ -f $f ]] || continue

@@ -14,12 +14,6 @@ prompt_minimal_collapsed_dirname() {
 	fi
 }
 
-prompt_minimal_hostname() {
-	if [[ -n $SSH_CLIENT ]]; then
-		echo "%{$fg[cyan]%}%m%{$reset_color%}:"
-	fi
-}
-
 prompt_minimal_accept_line() {
 	if [[ -z $BUFFER ]]; then
 		return_code=$return_code_disabled
@@ -29,9 +23,29 @@ prompt_minimal_accept_line() {
 	zle accept-line
 }
 
+if [[ ${EUID:-} -eq 0 ]]; then
+	prompt_minimal_character() {
+		echo '#'
+	}
+
+	prompt_minimal_hostname() {
+		[[ -n $SSH_CLIENT ]] || return 0
+		echo "%{$fg_bold[red]%}%m%{$reset_color%}:"
+	}
+else
+	prompt_minimal_character() {
+		echo '>'
+	}
+
+	prompt_minimal_hostname() {
+		[[ -n $SSH_CLIENT ]] || return 0
+		echo "%{$fg[cyan]%}%m%{$reset_color%}:"
+	}
+fi
+
 prompt_minimal_setup() {
-	return_code_enabled="%(?:%{$fg_bold[yellow]%}>:%{$fg_bold[red]%}>)"
-	return_code_disabled="$fg_bold[yellow]>"
+	return_code_enabled="%(?:%{$fg_bold[yellow]%}$(prompt_minimal_character):%{$fg_bold[red]%}$(prompt_minimal_character))"
+	return_code_disabled="$fg_bold[yellow]$(prompt_minimal_character)"
 	return_code=$return_code_enabled
 
 	PROMPT='$(
