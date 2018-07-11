@@ -16,7 +16,6 @@ apt-get -y install --no-install-recommends \
 	moreutils \
 	ncdu \
 	net-tools \
-	psmisc \
 	recode \
 	socat \
 	syslinux \

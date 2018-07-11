@@ -22,6 +22,7 @@ apt-get -y install --no-install-recommends \
 	libpam-systemd \
 	lsb-release \
 	nfs-common \
+	psmisc \
 	rsync \
 	ruby \
 	software-properties-common \
