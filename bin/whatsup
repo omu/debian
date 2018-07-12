@@ -121,7 +121,7 @@ vendor() {
 		printf "%s" "${@/#/$d}"
 	}
 
-	# shellcheck disable=SC2046
+	# shellcheck disable=2046
 	echo -en "$(join $(split "${site[vendor]}"))"
 }
 
@@ -143,7 +143,7 @@ build() {
 banner() {
 	command -v she &>/dev/null || return 0
 
-	# shellcheck disable=SC1090
+	# shellcheck disable=1090
 	source <(she)
 	etc site
 

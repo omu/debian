@@ -2,7 +2,7 @@
 
 # Custom provision
 
-# shellcheck disable=SC1090
+# shellcheck disable=1090
 source <(curl -fsSL https://she.alaturka.io/source) -boot
 
 enter github.com/omu/debian/lib/scripts

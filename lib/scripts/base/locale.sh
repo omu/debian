@@ -13,7 +13,7 @@ if ! echo ':en_US.UTF-8:tr_TR.UTF-8:' | grep -Eq ":$locale:"; then
 	exit 1
 fi
 
-# shellcheck disable=SC1091
+# shellcheck disable=1091
 distribution=$(unset ID && . /etc/os-release 2>/dev/null && echo "$ID")
 
 apt-get -y --no-install-recommends install locales

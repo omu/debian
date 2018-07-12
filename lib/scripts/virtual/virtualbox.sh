@@ -15,7 +15,7 @@ required=(
 
 missing=()
 for package in "${required[@]}"; do
-	# shellcheck disable=SC2016
+	# shellcheck disable=2016
 	if [[ -z "$(dpkg-query -W -f='${Installed-Size}' "$package" 2>/dev/null ||:)" ]]; then
 		missing+=("$package")
 	fi

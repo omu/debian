@@ -37,7 +37,7 @@ if [[ -z ${vmware_hgfs_options:-} ]]; then
 		)
 	fi
 else
-	# shellcheck disable=SC2206
+	# shellcheck disable=2206
 	options=($vmware_hgfs_options)
 fi
 

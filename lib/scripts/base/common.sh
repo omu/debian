@@ -44,7 +44,7 @@ else
 		#
 fi
 
-# shellcheck disable=SC1091
+# shellcheck disable=1091
 distribution=$(unset ID && . /etc/os-release 2>/dev/null && echo "$ID")
 codename=$(lsb_release -sc)
 

@@ -14,7 +14,7 @@ skip() {
 # shellcheck disable=2119
 [[ -z "$(dpkg-query -W -f='${Installed-Size}' network-manager 2>/dev/null ||:)" ]] || skip
 
-# shellcheck disable=SC1091
+# shellcheck disable=1091
 distribution=$(unset ID && . /etc/os-release 2>/dev/null && echo "$ID")
 
 if [[ $distribution = debian ]]; then

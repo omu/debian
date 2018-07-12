@@ -2,7 +2,7 @@
 
 # Provision a server environment
 
-# shellcheck disable=SC1090
+# shellcheck disable=1090
 source <(curl -fsSL https://she.alaturka.io/source) -boot
 
 export tmux_login_shell=true
