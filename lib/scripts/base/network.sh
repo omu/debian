@@ -56,7 +56,7 @@ elif [[ $distribution = ubuntu ]]; then
 
 	# Ensure we have a DHCP configured interface regardless of the interface name
 	cat >/etc/netplan/99-dhcp.yaml <<-EOF
-		Network:
+		network:
 		  version: 2
 		  renderer: networkd
 		  ethernets:
