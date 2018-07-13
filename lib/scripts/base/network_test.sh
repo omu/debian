@@ -2,15 +2,19 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
-# shellcheck disable=2120
-skip() {
-	[[ $# -ne 0 ]] || echo >&2 "$@"
-	exit 0
+cry() {
+	echo >&2 "$@"
 }
 
 die() {
-	echo >&2 "$@"
+	cry "$@"
 	exit 1
+}
+
+# shellcheck disable=2120
+skip() {
+	[[ $# -ne 0 ]] || cry "$@"
+	exit 0
 }
 
 # shellcheck disable=2119
@@ -72,7 +76,9 @@ while :; do
 	fi || failed=true
 
 	[[ -n $failed ]] || break
-	((--try >  0)) || die "Network setup test failed"
+	((--try >  0)) || die "Network setup test failed after all attempts"
+
+	cry "Network setup test failed at this attempt; retrying"
 
 	sleep 1
 done
