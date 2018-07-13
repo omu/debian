@@ -15,6 +15,7 @@ apt-get -y install --no-install-recommends \
 	curl \
 	daemontools \
 	dirmngr \
+	ethtool \
 	git \
 	gnupg \
 	jq \
