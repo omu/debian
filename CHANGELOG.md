@@ -6,6 +6,12 @@
 
 ### DÜZELTMELER
 
+## 0.2.1 (Temmuz 14, 2018)
+
+### DÜZELTMELER
+
+- Komut istemi temasında komut tamamlama hatasını düzelt
+
 ## 0.2.0 (Temmuz 13, 2018)
 
 ### ÖZELLİKLER
