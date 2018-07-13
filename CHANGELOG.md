@@ -2,9 +2,25 @@
 
 ### ÖZELLİKLER
 
-### GELİŞTİRMELER
+### İYİLEŞTİRMELER
 
 ### DÜZELTMELER
+
+## 0.2.0 (Temmuz 13, 2018)
+
+### ÖZELLİKLER
+
+- Yeni paket: ethtool
+
+### DÜZELTMELER
+
+- Ağ testinde yarış durumunu önle
+
+## 0.1.1 (Temmuz 12, 2018)
+
+### DÜZELTMELER
+
+- Ağ ayarlarına Ubuntu netplan desteği ekle
 
 ## 0.1.0 (Temmuz 11, 2018)
 
@@ -18,6 +34,7 @@
 - Minimal Zsh, Tmux ve Vim teması
 - Girişte minimal karşılama ekranı
 - Kurulu servisler öntanımlı olarak etkisiz (disabled)
+- Sunucu ağ yapılandırması öntanımlı olarak DHCP
 - Öntanımlı ağ yönetimi networkd veya netplan (Ubuntu)
 - Sanal makinelerde ilgili misafir araçları hazır
 - Ruby yorumlayıcı minimal olarak kurulu
