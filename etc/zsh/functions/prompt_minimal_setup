@@ -3,15 +3,23 @@
 prompt_minimal_collapsed_dir() {
 	echo "${PWD/#$HOME/\~}"
 }
+
 prompt_minimal_collapsed_basename() {
 	local collapsed=${PWD/#$HOME/}
-	echo "%{$fg_bold[cyan]%}${collapsed##*/}%{$reset_color%}"
+
+	collapsed=${collapsed##*/}
+
+	echo "%{$fg_bold[cyan]%}${collapsed}%{$reset_color%} "
 }
+
 prompt_minimal_collapsed_dirname() {
-	if [[ $PWD != "$HOME" ]]; then
-		local collapsed=${PWD/#$HOME/}
-		echo "%{$fg_bold[grey]%}${collapsed%/*}/%{$reset_color%}"
-	fi
+	[[ $PWD != "$HOME" ]] || return 0
+
+	local collapsed=${PWD/#$HOME/}
+
+	collapsed=${collapsed%/*}
+
+	echo "%{$fg_bold[grey]%}${collapsed}/%{$reset_color%}"
 }
 
 if [[ ${EUID:-} -eq 0 ]]; then
@@ -21,7 +29,7 @@ if [[ ${EUID:-} -eq 0 ]]; then
 
 	prompt_minimal_hostname() {
 		[[ -n $SSH_CLIENT ]] || return 0
-		echo "%{$fg_bold[red]%}%m%{$reset_color%}"
+		echo "%{$fg_bold[red]%}%m%{$reset_color%}:"
 	}
 else
 	prompt_minimal_character() {
@@ -30,7 +38,7 @@ else
 
 	prompt_minimal_hostname() {
 		[[ -n $SSH_CLIENT ]] || return 0
-		echo "%{$fg[cyan]%}%m%{$reset_color%}"
+		echo "%{$fg[cyan]%}%m%{$reset_color%}:"
 	}
 fi
 
@@ -62,11 +70,11 @@ precmd() {
 prompt_minimal_setup() {
 	PROMPT='$(
 		prompt_minimal_hostname
-	):$(
+	)$(
 		prompt_minimal_collapsed_dirname
 	)$(
 		prompt_minimal_collapsed_basename
-	) $(
+	)$(
 		prompt_minimal_colored_character
 	) '
 }
