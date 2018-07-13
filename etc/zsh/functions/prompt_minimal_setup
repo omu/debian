@@ -5,22 +5,13 @@ prompt_minimal_collapsed_dir() {
 }
 prompt_minimal_collapsed_basename() {
 	local collapsed=${PWD/#$HOME/}
-	echo "${collapsed##*/}"
+	echo "%{$fg_bold[cyan]%}${collapsed##*/}%{$reset_color%}"
 }
 prompt_minimal_collapsed_dirname() {
 	if [[ $PWD != "$HOME" ]]; then
 		local collapsed=${PWD/#$HOME/}
-		echo "${collapsed%/*}/"
+		echo "%{$fg_bold[grey]%}${collapsed%/*}/%{$reset_color%}"
 	fi
-}
-
-prompt_minimal_accept_line() {
-	if [[ -z $BUFFER ]]; then
-		return_code=$return_code_disabled
-	else
-		return_code=$return_code_enabled
-	fi
-	zle accept-line
 }
 
 if [[ ${EUID:-} -eq 0 ]]; then
@@ -30,7 +21,7 @@ if [[ ${EUID:-} -eq 0 ]]; then
 
 	prompt_minimal_hostname() {
 		[[ -n $SSH_CLIENT ]] || return 0
-		echo "%{$fg_bold[red]%}%m%{$reset_color%}:"
+		echo "%{$fg_bold[red]%}%m%{$reset_color%}"
 	}
 else
 	prompt_minimal_character() {
@@ -39,29 +30,45 @@ else
 
 	prompt_minimal_hostname() {
 		[[ -n $SSH_CLIENT ]] || return 0
-		echo "%{$fg[cyan]%}%m%{$reset_color%}:"
+		echo "%{$fg[cyan]%}%m%{$reset_color%}"
 	}
 fi
 
-prompt_minimal_setup() {
-	return_code_enabled="%(?:%{$fg_bold[yellow]%}$(prompt_minimal_character):%{$fg_bold[red]%}$(prompt_minimal_character))"
-	return_code_disabled="$fg_bold[yellow]$(prompt_minimal_character)"
-	return_code=$return_code_enabled
+prompt_minimal_colored_character() {
+	local color
 
+	if [[ $prompt_minimal_exit_status = success ]] || [[ -z $prompt_minimal_exit_status ]]; then
+		color=yellow
+	else
+		color=red
+	fi
+
+	echo "%{$fg_bold[$color]%}$(prompt_minimal_character)%{$reset_color%}"
+}
+
+preexec() {
+	prompt_minimal_preexec_called=true
+}
+
+precmd() {
+	if [[ $? -ne 0 ]] && [[ $prompt_minimal_preexec_called = true ]]; then
+		prompt_minimal_exit_status=failure
+		unset prompt_minimal_preexec_called
+	else
+		prompt_minimal_exit_status=success
+	fi
+}
+
+prompt_minimal_setup() {
 	PROMPT='$(
 		prompt_minimal_hostname
-	)%{$fg_bold[grey]%}$(
+	):$(
 		prompt_minimal_collapsed_dirname
-	)%{$reset_color%}%{$fg_bold[cyan]%}$(
+	)$(
 		prompt_minimal_collapsed_basename
-	)%{$reset_color%} ${return_code}%{$reset_color%} '
-
-	RPROMPT=
-	PS2=
-	SPROMPT="$fg[red]%R →$reset_color $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
-
-	zle -N prompt_minimal_accept_line
-	bindkey '^m' prompt_minimal_accept_line
+	) $(
+		prompt_minimal_colored_character
+	) '
 }
 
 prompt_minimal_setup "$@"
