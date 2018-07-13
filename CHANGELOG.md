@@ -1,10 +1,8 @@
-## Sonraki sürüm (yayınlanmamış)
-
-### ÖZELLİKLER
-
-### İYİLEŞTİRMELER
+## 0.2.2 (Temmuz 14, 2018)
 
 ### DÜZELTMELER
+
+- SSH bağlantısının olmadığı durumda komut istemini düzelt
 
 ## 0.2.1 (Temmuz 14, 2018)
 
