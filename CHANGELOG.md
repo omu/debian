@@ -1,3 +1,9 @@
+## 0.2.3 (Yayınlanmadı)
+
+### İYİLEŞTİRMELER
+
+- "important" ve "standard" öncelikli paketleri daima kur
+
 ## 0.2.2 (Temmuz 14, 2018)
 
 ### DÜZELTMELER
