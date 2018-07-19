@@ -8,9 +8,20 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y update
 
+# Install all important and standard packages
+# - avoid gnupg-agent pulling pinentry-gtk2 on jessie
+# - avoid reportbug-gtk having bogus standard priority
+apt-get -y install --no-install-recommends dctrl-tools
+grep-aptavail --no-field-names --show-field Package \
+	      --field Priority --regex 'important\|standard' \
+	      --and --not \
+	      --field Package --regex 'reportbug-gtk' |
+	xargs apt-get -y install --no-install-recommends pinentry-curse
+apt-get purge -y dctrl-tools
+
+# Install "should have been standard" packages
 apt-get -y install --no-install-recommends \
 	apt-transport-https \
-	bzip2 \
 	ca-certificates \
 	curl \
 	daemontools \
@@ -19,8 +30,6 @@ apt-get -y install --no-install-recommends \
 	git \
 	gnupg \
 	jq \
-	less \
-	libpam-systemd \
 	lsb-release \
 	nfs-common \
 	psmisc \
