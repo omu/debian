@@ -16,7 +16,7 @@ grep-aptavail --no-field-names --show-field Package \
 	      --field Priority --regex 'important\|standard' \
 	      --and --not \
 	      --field Package --regex 'reportbug-gtk' |
-	xargs apt-get -y install --no-install-recommends pinentry-curse
+	xargs apt-get -y install --no-install-recommends pinentry-curses
 apt-get purge -y dctrl-tools
 
 # Install "should have been standard" packages
