@@ -6,7 +6,7 @@
 source <(curl -fsSL https://she.alaturka.io/source) -boot
 
 export tmux_login_shell=true
-export clean_aggresive=true
+export prune_aggresive=true
 
 enter github.com/omu/debian/lib/scripts
 	paths ../../bin
@@ -38,6 +38,7 @@ enter github.com/omu/debian/lib/scripts
 		! is vagrantable || try vagrant
 
 		try clean
+		! is vm || try prune
 		! is vm || try minimize
 	leave
 

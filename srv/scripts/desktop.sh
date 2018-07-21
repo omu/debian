@@ -64,6 +64,7 @@ enter github.com/omu/debian/lib/scripts
 		! is vagrantable || try vagrant
 
 		try clean
+		! is vm || try prune
 		! is vm || try minimize
 	leave
 
