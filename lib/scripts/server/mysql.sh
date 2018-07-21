@@ -8,27 +8,31 @@ export DEBIAN_FRONTEND=noninteractive
 
 operator=${operator:-$(id -rnu 1000 2>/dev/null)}
 
-mysql_use_mariadb=${mysql_use_mariadb:-}
 mysql_root_password=${mysql_root_password:-$operator}
 mysql_setup_unsafe=${mysql_setup_unsafe:-}
 
-if [[ -z $mysql_use_mariadb ]]; then
-	apt-get -y install --no-install-recommends \
-		mysql-server \
-		mysql-client \
-		libmysqlclient-dev \
-		#
-else
-	apt-get -y install --no-install-recommends \
-		mariadb-server \
-		libmariadbd-dev \
-		#
+codename=$(lsb_release -sc)
 
-	if [[ $(lsb_release -sc) == jessie ]]; then
-		apt-get -y install --no-install-recommends libmariadb-client-lgpl-dev-compat
-	else
-		apt-get -y install --no-install-recommends libmariadbclient-dev-compat
-	fi
+case $codename in
+jessie|stretch)
+	apt-get -y install --install-recommends -t "$codename-backports" \
+		default-mysql-server \
+		default-mysql-client \
+		default-libmysqlclient-dev \
+		#
+	;;
+*)
+	apt-get -y install --install-recommends \
+		default-mysql-server \
+		default-mysql-client \
+		default-libmysqlclient-dev \
+		#
+	;;
+esac
+
+default_mysql=mariadb
+if [[ -n "$(dpkg-query -W -f='${Installed-Size}' 'mysql-server-*' 2>/dev/null || true)" ]]; then
+	default_mysql=mysql
 fi
 
 apt-get -y install --no-install-recommends \
@@ -53,10 +57,8 @@ cat >/etc/mysql/conf.d/local.cnf <<-EOF
 	skip-name-resolve
 EOF
 
-service=mysql; [[ -z $mysql_use_mariadb ]] || service=mariadb
-
 # Extra check for configuration changes
-systemctl restart "$service"
-systemctl is-active "$service"
+systemctl restart "$default_mysql"
+systemctl is-active "$default_mysql"
 
-systemctl stop "$service" && systemctl disable "$service"
+systemctl stop "$default_mysql" && systemctl disable "$default_mysql"

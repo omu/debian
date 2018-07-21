@@ -2,15 +2,18 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
-service=mysql; [[ -z ${mysql_use_mariadb:-} ]] || service=mariadb
+default_mysql=mariadb
+if [[ -n "$(dpkg-query -W -f='${Installed-Size}' 'mysql-server-*' 2>/dev/null || true)" ]]; then
+	default_mysql=mysql
+fi
 
-systemctl is-enabled "$service" && false
+systemctl is-enabled "$default_mysql" && false
 
-systemctl enable "$service" && systemctl start "$service"
+systemctl enable "$default_mysql" && systemctl start "$default_mysql"
 
 goss -g - validate --format documentation <<-EOF
 	service:
-	  $service:
+	  $default_mysql:
 	    enabled: true
 	    running: true
 EOF
@@ -38,11 +41,11 @@ goss -g - validate --format documentation <<-EOF
 	    installed: true
 EOF
 
-systemctl stop "$service" &&  systemctl disable "$service"
+systemctl stop "$default_mysql" &&  systemctl disable "$default_mysql"
 
 goss -g - validate --format documentation <<-EOF
 	service:
-	  $service:
+	  $default_mysql:
 	    enabled: false
 	    running: false
 	port:
