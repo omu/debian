@@ -11,22 +11,22 @@ operator=${operator:-$(id -rnu 1000 2>/dev/null)}
 mysql_root_password=${mysql_root_password:-$operator}
 mysql_setup_unsafe=${mysql_setup_unsafe:-}
 
+packages=(
+	default-mysql-server
+	default-mysql-client
+	default-libmysqlclient-dev
+)
+
 codename=$(lsb_release -sc)
 
 case $codename in
 jessie|stretch)
 	apt-get -y install --install-recommends -t "$codename-backports" \
-		default-mysql-server \
-		default-mysql-client \
-		default-libmysqlclient-dev \
-		#
+		"${packages[@]}"
 	;;
 *)
 	apt-get -y install --install-recommends \
-		default-mysql-server \
-		default-mysql-client \
-		default-libmysqlclient-dev \
-		#
+		"${packages[@]}"
 	;;
 esac
 
