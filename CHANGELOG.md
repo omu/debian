@@ -1,7 +1,8 @@
-## 0.2.3 (Yayınlanmadı)
+## 0.3.0 (Yayınlanmadı)
 
 ### İYİLEŞTİRMELER
 
+- Mysql (MariaDB) kurulumunu iyileştir
 - "important" ve "standard" öncelikli paketleri daima kur
 
 ## 0.2.2 (Temmuz 14, 2018)
