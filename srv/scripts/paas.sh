@@ -32,7 +32,6 @@ enter github.com/omu/debian/lib/scripts
 
 	enter ./server
 		try common
-		try avahi; systemctl enable avahi-daemon
 		try dokku
 		try firewall
 	leave

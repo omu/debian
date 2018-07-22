@@ -2,8 +2,10 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
+dokku_domain=${dokku_domain:-paas}
+
 dokku version
-dokku domains:report | grep -Eq "vhosts:\s+$(hostname)[.]local"
+dokku domains:report | grep -Eq "vhosts:\s+${dokku_domain}"
 dokku plugin:list | grep -Eq '^\s+(postgres|redis|letsencrypt)\b'
 
 goss -g - validate --format documentation <<-EOF

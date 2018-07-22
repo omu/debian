@@ -6,7 +6,6 @@
 
   + Dokku tabanlı
   + Postgres, Redis ve LetsEncrypt eklentileri kurulu
-  + Avahi üzerinden konak adı alıyor
   + Güvensiz Vagrant anahtarını tanıyor
 
 ### İYİLEŞTİRMELER

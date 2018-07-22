@@ -6,12 +6,12 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
+dokku_domain=${dokku_domain:-paas}
+
 latest=$(
 	curl -fsSL https://api.github.com/repos/dokku/dokku/releases/latest |
 	jq -r .tag_name
 )
-
-host=$(hostname).local
 
 keyfile=/tmp/vagrant.pub
 
@@ -22,7 +22,7 @@ curl -fsSL https://raw.githubusercontent.com/dokku/dokku/v0.12.10/bootstrap.sh |
 	DOKKU_TAG="$latest" \
 	DOKKU_WEB_CONFIG=false \
 	DOKKU_VHOST_ENABLE=false \
-	DOKKU_HOSTNAME="$host" \
+	DOKKU_HOSTNAME="$dokku_domain" \
 	DOKKU_KEY_FILE="$keyfile" \
 	\
 	bash -s
@@ -30,7 +30,7 @@ curl -fsSL https://raw.githubusercontent.com/dokku/dokku/v0.12.10/bootstrap.sh |
 rm -f "$keyfile"
 
 # Workaround against the installer bug
-dokku domains:set-global "$host"
+dokku domains:set-global "$dokku_domain"
 
 dokku plugin:install https://github.com/dokku/dokku-postgres.git
 dokku plugin:install https://github.com/dokku/dokku-redis.git
