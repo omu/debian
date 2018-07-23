@@ -29,9 +29,6 @@ curl -fsSL https://raw.githubusercontent.com/dokku/dokku/"$latest"/bootstrap.sh 
 
 rm -f "$keyfile"
 
-# Workaround against the installer bug
-dokku domains:set-global "$dokku_domain"
-
 dokku plugin:install https://github.com/dokku/dokku-postgres.git
 dokku plugin:install https://github.com/dokku/dokku-redis.git
 dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
