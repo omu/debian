@@ -21,7 +21,7 @@ curl -fsSL https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagra
 curl -fsSL https://raw.githubusercontent.com/dokku/dokku/"$latest"/bootstrap.sh |
 	DOKKU_TAG="$latest" \
 	DOKKU_WEB_CONFIG=false \
-	DOKKU_VHOST_ENABLE=false \
+	DOKKU_VHOST_ENABLE=true \
 	DOKKU_HOSTNAME="$dokku_domain" \
 	DOKKU_KEY_FILE="$keyfile" \
 	\
