@@ -6,7 +6,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-dokku_domain=${dokku_domain:-paas}
+dokku_domain=${dokku_domain:-localtest.me}
 
 latest=$(
 	curl -fsSL https://api.github.com/repos/dokku/dokku/releases/latest |
