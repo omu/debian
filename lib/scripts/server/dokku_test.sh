@@ -2,7 +2,7 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
-dokku_domain=${dokku_domain:-paas}
+dokku_domain=${dokku_domain:-localtest.me}
 
 dokku version
 dokku domains:report | grep -Eq "vhosts:\s+${dokku_domain}"
