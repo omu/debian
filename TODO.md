@@ -1,3 +1,4 @@
 - [ ] lib/scripts: Daha fazla test
 - [ ] src/machines: Entegrasyon testleri (vagrant)
 - [ ] bin/whatsup: Last login ekle
+- [ ] lib/scripts: Ruby güncellemelerinde eski sürümden kalan gem'ler için uyarı (ör. bundler)
