@@ -18,7 +18,7 @@ keyfile=/tmp/vagrant.pub
 # Use Vagrant insecure key
 curl -fsSL https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub >"$keyfile"
 
-curl -fsSL https://raw.githubusercontent.com/dokku/dokku/v0.12.10/bootstrap.sh |
+curl -fsSL https://raw.githubusercontent.com/dokku/dokku/"$latest"/bootstrap.sh |
 	DOKKU_TAG="$latest" \
 	DOKKU_WEB_CONFIG=false \
 	DOKKU_VHOST_ENABLE=false \
