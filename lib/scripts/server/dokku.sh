@@ -30,7 +30,9 @@ curl -fsSL https://raw.githubusercontent.com/dokku/dokku/"$latest"/bootstrap.sh 
 rm -f "$keyfile"
 
 dokku plugin:install https://github.com/dokku/dokku-postgres.git
-dokku plugin:install https://github.com/dokku/dokku-redis.git
 dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
+dokku plugin:install https://github.com/dokku/dokku-http-auth.git
+dokku plugin:install https://github.com/dokku/dokku-redirect.git
+dokku plugin:install https://github.com/dokku/dokku-maintenance.git
 
 apt-get install -y herokuish parallel dokku-update
