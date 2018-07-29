@@ -5,8 +5,7 @@
 - Yeni potpuri: paas
 
   + Dokku tabanlı
-  + Postgres, Redis ve LetsEncrypt eklentileri kurulu
-  + Güvensiz Vagrant anahtarını tanıyor
+  + Kurulu eklentiler: postgres, letsnncrypt, http-auth, redirect, maintenance
 
 ### İYİLEŞTİRMELER
 
