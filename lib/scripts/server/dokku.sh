@@ -13,8 +13,9 @@ latest=$(
 
 curl -fsSL https://raw.githubusercontent.com/dokku/dokku/"$latest"/bootstrap.sh |
 	DOKKU_TAG="$latest" \
-	DOKKU_WEB_CONFIG=false \
 	DOKKU_VHOST_ENABLE=true \
+	DOKKU_SKIP_KEY_FILE=true \
+	DOKKU_WEB_CONFIG=false \
 	\
 	bash -s
 
