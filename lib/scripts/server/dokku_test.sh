@@ -3,7 +3,6 @@
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 dokku version
-dokku plugin:list | grep -Eq '^\s+(postgres|letsencrypt|http-auth|redirect|maintenance)\b'
 
 goss -g - validate --format documentation <<-EOF
 	service:
