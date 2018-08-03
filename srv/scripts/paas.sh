@@ -9,6 +9,8 @@ export tmux_login_shell=true
 export prune_aggresive=true
 export dokku_plugins='postgres redis memcached letsencrypt http-auth redirect maintenance'
 
+export DOKKU_TRACE=true
+
 enter github.com/omu/debian/lib/scripts
 	paths ../../bin
 
@@ -21,14 +23,6 @@ enter github.com/omu/debian/lib/scripts
 		try keyboard
 		try timezone
 		try tweak
-	leave
-
-	enter ./virtual
-		! is virtualbox  || try virtualbox
-		! is qemu        || try qemu
-		! is vmware      || try vmware
-		! is lxc         || try lxc
-		! is vagrantable || try vagrant
 	leave
 
 	enter ./operator
@@ -46,6 +40,12 @@ enter github.com/omu/debian/lib/scripts
 	leave
 
 	enter ./virtual
+		! is virtualbox  || try virtualbox
+		! is qemu        || try qemu
+		! is vmware      || try vmware
+		! is lxc         || try lxc
+		! is vagrantable || try vagrant
+
 		try clean
 		! is vm || try prune
 		! is vm || try minimize
