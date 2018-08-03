@@ -23,6 +23,14 @@ enter github.com/omu/debian/lib/scripts
 		try tweak
 	leave
 
+	enter ./virtual
+		! is virtualbox  || try virtualbox
+		! is qemu        || try qemu
+		! is vmware      || try vmware
+		! is lxc         || try lxc
+		! is vagrantable || try vagrant
+	leave
+
 	enter ./operator
 		try bin
 		try zsh
@@ -38,12 +46,6 @@ enter github.com/omu/debian/lib/scripts
 	leave
 
 	enter ./virtual
-		! is virtualbox  || try virtualbox
-		! is qemu        || try qemu
-		! is vmware      || try vmware
-		! is lxc         || try lxc
-		! is vagrantable || try vagrant
-
 		try clean
 		! is vm || try prune
 		! is vm || try minimize
