@@ -5,7 +5,7 @@
 - Yeni potpuri: paas
 
   + Dokku tabanlı
-  + Kurulu eklentiler: postgres, letsnncrypt, http-auth, redirect, maintenance
+  + Kurulu eklentiler: postgres, redis, memcached, letsencrypt, http-auth, redirect, maintenance
 
 ### İYİLEŞTİRMELER
 
