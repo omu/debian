@@ -7,6 +7,7 @@ source <(curl -fsSL https://she.alaturka.io/source) -boot
 
 export tmux_login_shell=true
 export prune_aggresive=true
+export dokku_plugins='postgres redis memcached letsencrypt http-auth redirect maintenance'
 
 enter github.com/omu/debian/lib/scripts
 	paths ../../bin
