@@ -44,7 +44,7 @@ curl -fsSL https://raw.githubusercontent.com/dokku/dokku/"$latest"/bootstrap.sh 
 apt-get install -y herokuish parallel dokku-update
 
 for plugin in ${dokku_plugins:-}; do
-	url=${plugins[plugin]:-}
+	url=${plugins[$plugin]:-}
 	[[ -n $url ]] || continue
 	dokku plugin:install "$url" "$plugin"
 done
