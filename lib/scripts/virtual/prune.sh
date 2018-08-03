@@ -24,6 +24,7 @@ find /etc/apt -type f -name '*.list.save' -exec rm -f {} +
 # Clean HOME directories
 for home in "$(eval echo ~"$operator")" /root; do
 	pushd "$home"
+
 	rm -rf .gnupg
 	rm -rf .ssh/known_hosts
 	rm -rf .npm
@@ -34,6 +35,10 @@ for home in "$(eval echo ~"$operator")" /root; do
 	rm -rf .rnd
 	rm -rf .bash_history .bash_logout
 	rm -rf .zsh_history .zcompdump .zlogout
+
+	# Remove all files not owned by the operator
+	find . \! -user "$operator" -exec rm -rf {} \;
+
 	popd
 done
 
