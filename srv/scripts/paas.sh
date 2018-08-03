@@ -9,8 +9,6 @@ export tmux_login_shell=true
 export prune_aggresive=true
 export dokku_plugins='postgres redis memcached letsencrypt http-auth redirect maintenance'
 
-export DOKKU_TRACE=true
-
 enter github.com/omu/debian/lib/scripts
 	paths ../../bin
 
