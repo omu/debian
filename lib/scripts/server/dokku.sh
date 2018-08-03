@@ -8,7 +8,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 dokku_plugins=${dokku_plugins:-'letsencrypt http-auth redirect maintenance'}
 
-plugins=(
+declare -A plugins=(
 	[copy-files-to-image]='https://github.com/dokku/dokku-copy-files-to-image.git'
 	[couchdb]='https://github.com/dokku/dokku-couchdb.git'
 	[elasticsearch]='https://github.com/dokku/dokku-elasticsearch.git'
