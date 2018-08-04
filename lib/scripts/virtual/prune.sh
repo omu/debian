@@ -37,7 +37,7 @@ for home in "$(eval echo ~"$operator")" /root; do
 	rm -rf .zsh_history .zcompdump .zlogout
 
 	# Remove all files not owned by the operator
-	find . \! -user "$operator" -exec rm -rf {} \;
+	find . -not -user "$operator" -exec rm -rf {} +
 
 	popd
 done
