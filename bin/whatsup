@@ -21,12 +21,32 @@ declare -A color=(
 	[default]="\\e[39m"
 )
 
+join_by() {
+	local sep=$1
+	shift
+
+	echo -n "$1"
+	shift
+	printf "%s" "${@/#/$sep}"
+}
+
 text() {
 	echo -en "${color[dim]}$*${color[reset]}"
 }
 
 value() {
 	echo -en "${color[bold]}$*${color[reset]}"
+}
+
+values() {
+	local -a values=()
+
+	local value
+	for value; do
+		values+=("${color[bold]}$value${color[reset]}")
+	done
+
+	join_by '  ' "${values[@]}"
 }
 
 field() {
@@ -67,7 +87,15 @@ disk() {
 }
 
 address() {
-	value "$(ip a | awk '/glo/ { print $2 }' | head -1 | cut -f1 -d/)"
+	# shellcheck disable=2046
+	values $(
+		LC_ALL=C find /sys/class/net -type l -not -lname '*virtual*' -printf '%f\n' |
+		while read -r iface; do
+			ip -o -br -f inet addr show "$iface" |
+			awk '/ UP / { sub("/.+$", "", $3); print $3 }'
+		done |
+		tac 2>/dev/null || true
+	)
 }
 
 uptime() {
@@ -114,11 +142,7 @@ vendor() {
 	}
 
 	join() {
-		local d="${color[dim]} · ${color[reset]}"
-
-		echo -n "$1"
-		shift
-		printf "%s" "${@/#/$d}"
+		join_by "${color[dim]} · ${color[reset]}" "$@"
 	}
 
 	# shellcheck disable=2046
