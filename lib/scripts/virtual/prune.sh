@@ -36,11 +36,11 @@ for home in "$(eval echo ~"$operator")" /root; do
 	rm -rf .bash_history .bash_logout
 	rm -rf .zsh_history .zcompdump .zlogout
 
-	# Remove all files not owned by the operator
-	find . -not -user "$operator" -exec rm -rf {} +
-
 	popd
 done
+
+# Remove files at home directory not owned by the operator
+find "$(eval echo ~"$operator")" -not -user "$operator" -exec rm -rf {} +
 
 # Copyright 2012-2014, Chef Software, Inc. (<legal@chef.io>)
 # Copyright 2011-2012, Tim Dysinger (<tim@dysinger.net>)
