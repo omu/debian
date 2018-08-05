@@ -1,4 +1,4 @@
-## 0.3.0 (Yayınlanmadı)
+## 0.3.0 (Ağustos 05, 2018)
 
 ### ÖZELLİKLER
 
