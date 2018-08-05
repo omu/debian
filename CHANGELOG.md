@@ -12,6 +12,7 @@
 - Mysql (MariaDB) kurulumunu iyileştir
 - "important" ve "standard" öncelikli paketleri daima kur
 - Açılışta aktif fiziksel ağ arayüzlerine ait IP adreslerini görüntüle
+- Açılış betiğinin adını kısaca "what" olarak değiştir
 
 ## 0.2.2 (Temmuz 14, 2018)
 
