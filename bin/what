@@ -93,18 +93,18 @@ disk() {
 address() {
 	local -a addresses
 
-	if systemd-detect-virt -qc; then
-		mapfile -t addresses < <(hostname --all-ip-addresses)
-	else
-		mapfile -t addresses < <(
+	mapfile -t addresses < <(
+		if systemd-detect-virt -qc; then
+			hostname --all-ip-addresses
+		else
 			LC_ALL=C find /sys/class/net -type l -not -lname '*virtual*' -printf '%f\n' |
 			while read -r iface; do
 				ip -o -br -f inet addr show "$iface" |
 				awk '/ UP / { sub("/.+$", "", $3); print $3 }'
 			done |
 			tac 2>/dev/null || true
-		)
-	fi
+		fi
+	)
 
 	if [[ ${#addresses[@]} -eq 0 ]]; then
 		return 0
