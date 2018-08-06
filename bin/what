@@ -25,6 +25,10 @@ join_by() {
 	local sep=$1
 	shift
 
+	if [[ $# -eq 0 ]]; then
+		return 0
+	fi
+
 	echo -n "$1"
 	shift
 	printf "%s" "${@/#/$sep}"
@@ -87,8 +91,9 @@ disk() {
 }
 
 address() {
-	# shellcheck disable=2046
-	values $(
+	local -a addresses
+
+	mapfile -t addresses < <(
 		LC_ALL=C find /sys/class/net -type l -not -lname '*virtual*' -printf '%f\n' |
 		while read -r iface; do
 			ip -o -br -f inet addr show "$iface" |
@@ -96,6 +101,16 @@ address() {
 		done |
 		tac 2>/dev/null || true
 	)
+
+	if [[ ${#addresses[@]} -eq 0 ]]; then
+		mapfile -t addresses < <(hostname --all-ip-addresses)
+	fi
+
+	if [[ ${#addresses[@]} -eq 0 ]]; then
+		return 0
+	fi
+
+	values "${addresses[@]}"
 }
 
 uptime() {
