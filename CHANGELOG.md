@@ -13,6 +13,7 @@
 - "important" ve "standard" öncelikli paketleri daima kur
 - Açılışta aktif fiziksel ağ arayüzlerine ait IP adreslerini görüntüle
 - Açılış betiğinin adını kısaca "what" olarak değiştir
+- Her sürümün artan bir sayı olduğu daha basit sürümlendirme kullan
 
 ## 5 (Temmuz 14, 2018)
 
