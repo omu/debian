@@ -1,4 +1,4 @@
-## 0.3.0 (Ağustos 05, 2018)
+## 6 (Ağustos 05, 2018)
 
 ### ÖZELLİKLER
 
@@ -14,19 +14,19 @@
 - Açılışta aktif fiziksel ağ arayüzlerine ait IP adreslerini görüntüle
 - Açılış betiğinin adını kısaca "what" olarak değiştir
 
-## 0.2.2 (Temmuz 14, 2018)
+## 5 (Temmuz 14, 2018)
 
 ### DÜZELTMELER
 
 - SSH bağlantısının olmadığı durumda komut istemini düzelt
 
-## 0.2.1 (Temmuz 14, 2018)
+## 4 (Temmuz 14, 2018)
 
 ### DÜZELTMELER
 
 - Komut istemi temasında komut tamamlama hatasını düzelt
 
-## 0.2.0 (Temmuz 13, 2018)
+## 3 (Temmuz 13, 2018)
 
 ### ÖZELLİKLER
 
@@ -36,13 +36,13 @@
 
 - Ağ testinde yarış durumunu önle
 
-## 0.1.1 (Temmuz 12, 2018)
+## 2 (Temmuz 12, 2018)
 
 ### DÜZELTMELER
 
 - Ağ ayarlarına Ubuntu netplan desteği ekle
 
-## 0.1.0 (Temmuz 11, 2018)
+## 1 (Temmuz 11, 2018)
 
 İlk resmi sürüm
 
