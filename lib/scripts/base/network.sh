@@ -4,6 +4,8 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
+export DEBIAN_FRONTEND=noninteractive
+
 skip() {
 	[[ $# -ne 0 ]] || echo >&2 "$@"
 	exit 0
