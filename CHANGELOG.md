@@ -1,3 +1,13 @@
+## 7 (Ağustos 08, 2018)
+
+### ÖZELLİKLER
+
+- Port yönlendirmeleri için yeni paket ekle: rinetd
+
+### İYİLEŞTİRMELER
+
+- Açılış başlığında sadece inşa numarasını göster
+
 ## 6 (Ağustos 05, 2018)
 
 ### ÖZELLİKLER
