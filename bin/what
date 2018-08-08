@@ -188,17 +188,17 @@ banner() {
 
 	[[ ${site[*]:+${site[*]}} ]] || return 0
 
-	echo -e "$(vendor)       $(medley)        $(version)        $(build)"
+	echo -e "$(vendor)        $(medley)        $(build)"
 	echo -e
 }
 
 diagnostic() {
-	echo -e "$(field "CPU")             $(cpu)"
-	echo -e "$(field "RAM")             $(ram)"
-	echo -e "$(field "Disk")            $(disk)"
-	echo -e "$(field "Address")         $(address)"
-	echo -e "$(field "Uptime")          $(uptime)"
-	echo -e "$(field "Load")            $(load)"
+	echo -e "$(field "CPU")              $(cpu)"
+	echo -e "$(field "RAM")              $(ram)"
+	echo -e "$(field "Disk")             $(disk)"
+	echo -e "$(field "Address")          $(address)"
+	echo -e "$(field "Uptime")           $(uptime)"
+	echo -e "$(field "Load")             $(load)"
 	echo -e
 }
 
