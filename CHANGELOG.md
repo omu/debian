@@ -1,3 +1,9 @@
+## 8 (Yayınlanmamış)
+
+### DÜZELTMELER
+
+- Ağ yapılandırmasından sonra bekleme ekle
+
 ## 7 (Ağustos 08, 2018)
 
 ### ÖZELLİKLER
