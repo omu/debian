@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-[[ ${EUID:-} -eq 0 ]] || die "Root privileges required"
-
 # shellcheck disable=1090
 source <(env she src)
+
+[[ ${EUID:-} -eq 0 ]] || die "Root privileges required"
 
 main() {
 	local -a scripts=()
