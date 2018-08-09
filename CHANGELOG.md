@@ -1,8 +1,9 @@
-## 8 (Yayınlanmamış)
+## 8 (Ağustos 09, 2018)
 
 ### DÜZELTMELER
 
 - Ağ yapılandırmasından sonra bekleme ekle
+- bin/scripts: Root denetimini doğru yerde yap
 
 ## 7 (Ağustos 08, 2018)
 
