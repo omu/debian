@@ -1,3 +1,9 @@
+## 9 (Yayımlanmamış)
+
+### ÖZELLİKLER
+
+- bin/rb: [Yeni betik](https://github.com/thisredone/rb)
+
 ## 8 (Ağustos 09, 2018)
 
 ### DÜZELTMELER
