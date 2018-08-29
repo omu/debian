@@ -4,6 +4,10 @@
 
 - bin/rb: [Yeni betik](https://github.com/thisredone/rb)
 
+### DÜZELTMELER
+
+- desktop/avahi: LXC altında Avahi kurulumu için geçici çözüm uygula
+
 ## 8 (Ağustos 09, 2018)
 
 ### DÜZELTMELER
