@@ -35,11 +35,3 @@ Geleneksel UNIX kök dizini ağacından esinlenen bir düzenleme kullanılıyor.
   kaynakları, şablonlar, derlenmeye konu programlama dilleriyle yazılmış kodlar.
 
   Rezerve edilen bu dizin şimdilik kullanılmıyor.
-
-Telif hakkı
------------
-
-Bu projedeki tüm dosyalar aşağıda listelenen istisnalar dışında
-[LICENSE](LICENSE) dosyasında tanımlanan lisans koşullarıyla dağıtılmaktadır.
-
-- [bin/rb](bin/rb): Copyright (c) 2018 redka, [MIT License](https://raw.githubusercontent.com/thisredone/rb/master/LICENSE)
