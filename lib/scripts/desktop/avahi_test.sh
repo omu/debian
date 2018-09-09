@@ -41,22 +41,3 @@ else
 fi
 
 systemctl stop avahi-daemon && systemctl disable avahi-daemon
-
-goss -g - validate --format documentation <<-EOF
-	port:
-	  tcp:5353:
-	    listening: false
-	    ip:
-	    - 0.0.0.0
-	  tcp6:5353:
-	    listening: false
-	    ip:
-	    - '::'
-	service:
-	  avahi-daemon:
-	    enabled: false
-	    running: false
-	process:
-	  avahi-daemon:
-	    running: false
-EOF
