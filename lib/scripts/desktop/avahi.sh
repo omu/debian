@@ -6,7 +6,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-if ! apt-get install -y --no-install-recommends avahi-daemon libnss-mdns avahi-utils; then
+if ! apt-get install -y --no-install-recommends avahi-daemon; then
 	case $(systemd-detect-virt) in
 	lxc)
 		# Workaround for https://github.com/lxc/lxd/issues/2948
@@ -20,5 +20,7 @@ if ! apt-get install -y --no-install-recommends avahi-daemon libnss-mdns avahi-u
 		exit 1
 	esac
 fi
+
+apt-get install -y --no-install-recommends libnss-mdns avahi-utils
 
 systemctl stop avahi-daemon && systemctl disable avahi-daemon
