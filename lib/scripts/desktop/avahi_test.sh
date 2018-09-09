@@ -10,12 +10,6 @@ goss -g - validate --format documentation <<-EOF
 	port:
 	  udp:5353:
 	    listening: true
-	    ip:
-	    - 0.0.0.0
-	  tcp6:5353:
-	    listening: true
-	    ip:
-	    - '::'
 	service:
 	  avahi-daemon:
 	    enabled: true
