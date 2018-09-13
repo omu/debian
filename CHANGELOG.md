@@ -3,6 +3,8 @@
 ### ÖZELLİKLER
 
 - runtime/javascript: Nodejs 10.x sürümüne yükselt
+- runtime/common: Resim işleme kitaplıkları (libvips ve imagemagick) başta olmak
+  üzere, inşa zamanında kullanılan kitaplık ve araçlara yenilerini ekle
 
 ## 9 (Eylül 08, 2018)
 
