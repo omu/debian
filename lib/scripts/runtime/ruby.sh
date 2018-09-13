@@ -39,7 +39,4 @@ if [[ -n $ruby_install_latest ]] || [[ -n $ruby_use_jemalloc ]]; then
 	upgrade-ruby
 fi
 
-gem install \
-	bundler \
-	tty \
-	#
+gem install bundler
