@@ -1,3 +1,9 @@
+## 10 (Yayınlanmamış)
+
+### ÖZELLİKLER
+
+- runtime/javascript: Nodejs 10.x sürümüne yükselt
+
 ## 9 (Eylül 08, 2018)
 
 ### DÜZELTMELER
