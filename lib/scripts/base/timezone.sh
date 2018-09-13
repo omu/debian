@@ -14,8 +14,8 @@ confscript=/var/lib/dpkg/info/tzdata.config
 IFS=$'/' read -r area zone <<<"$timezone"
 
 debconf-set-selections <<-EOF
-tzdata tzdata/Areas select $area
-tzdata tzdata/Zones/$area select $zone
+	tzdata tzdata/Areas select $area
+	tzdata tzdata/Zones/$area select $zone
 EOF
 
 echo "$timezone" >"$conffile"
