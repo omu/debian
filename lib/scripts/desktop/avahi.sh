@@ -7,7 +7,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 export DEBIAN_FRONTEND=noninteractive
 
 if ! apt-get install -y --no-install-recommends avahi-daemon; then
-	case $(systemd-detect-virt) in
+	case $(systemd-detect-virt 2>/dev/null || true) in
 	lxc)
 		# Workaround for https://github.com/lxc/lxd/issues/2948
 		if [[ -f /etc/avahi/avahi-daemon.conf ]]; then

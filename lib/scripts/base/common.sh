@@ -43,8 +43,18 @@ apt-get -y install --no-install-recommends \
 
 update-alternatives --set editor /usr/bin/vim.basic
 
+if command -v systemd-detect-virt &>/dev/null; then
+	if systemd-detect-virt -qc 2>/dev/null; then
+		inside_container=true
+	fi
+else
+	if grep -qa container=lxc /proc/1/environ || grep -qa docker /proc/1/cgroup; then
+		inside_container=true
+	fi
+fi
+
 # Avoid problematic package for containers
-if systemd-detect-virt -qc; then
+if [[ -n ${inside_container:-} ]]; then
 	apt-get -t purge \
 		ntp \
 		2>/dev/null || true

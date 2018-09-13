@@ -14,7 +14,7 @@ curl -fsSL "$url" | apt-key add -
 
 # FIXME This is a hack.  Under below conditions, can't install packages from
 # packagecloud via APT, only cupt works.
-if [[ "$(lsb_release -sc)" == jessie ]] && [[ "$(systemd-detect-virt)" == qemu ]]; then
+if [[ "$(lsb_release -sc)" == jessie ]] && [[ "$(systemd-detect-virt 2>/dev/null || true)" == qemu ]]; then
 	apt-get -y install cupt libcupt3-0-downloadmethod-wget
 	# Cupt doesn't work with HTTPS
 	sed -i -e 's/https:/http:/g' /etc/apt/sources.list.d/inspeqtor.list

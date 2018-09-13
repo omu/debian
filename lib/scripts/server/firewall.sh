@@ -13,7 +13,7 @@ apt-get -y install --no-install-recommends ufw
 
 # Workaround for IPV6 problem in LXC containers
 # https://askubuntu.com/questions/664668/ufw-not-working-in-an-lxc-container/664669
-if [[ $(systemd-detect-virt || true) =~ lxc ]]; then
+if [[ $(systemd-detect-virt 2>/dev/null || true) =~ lxc ]]; then
 	sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw
 fi
 
