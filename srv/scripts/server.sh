@@ -7,7 +7,6 @@ source <(curl -fsSL https://she.alaturka.io/source) -boot
 
 export tmux_login_shell=true
 export ruby_install_latest=true
-export ruby_use_jemalloc=true
 export prune_aggresive=true
 
 enter github.com/omu/debian/lib/scripts
