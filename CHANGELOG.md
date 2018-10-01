@@ -2,6 +2,7 @@
 
 ### ÖZELLİKLER
 
+- Ruby kurulumlarını [rubian](https://rubian.alaturka.io) ile yönet
 - runtime/javascript: Nodejs 10.x sürümüne yükselt
 - runtime/common: Resim işleme kitaplıkları (libvips ve imagemagick) başta olmak
   üzere, inşa zamanında kullanılan kitaplık ve araçlara yenilerini ekle
