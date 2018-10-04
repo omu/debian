@@ -2,7 +2,7 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
-readonly baseurl='https://raw.githubusercontent.com/omu/debian/master'
+readonly baseurl="https://raw.githubusercontent.com/omu/debian/${SCRIPTS_BRANCH:-master}"
 
 die() {
 	echo >&2 "$@"
