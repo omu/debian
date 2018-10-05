@@ -7,7 +7,6 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 export DEBIAN_FRONTEND=noninteractive
 
 prune_aggresive=${prune_aggresive:-}
-operator=${operator:-$(id -rnu 1000 2>/dev/null)}
 
 # Remove caches
 find /var/cache -type f -exec rm -rf {} \;
@@ -23,27 +22,6 @@ find /etc/apt -type f -name '*.list.save' -exec rm -f {} +
 
 # Delete Packer leftovers
 rm -rf /packer-files
-
-# Clean HOME directories
-for home in "$(eval echo ~"$operator")" /root; do
-	pushd "$home"
-
-	rm -rf .gnupg
-	rm -rf .ssh/known_hosts
-	rm -rf .npm
-	rm -rf .config/configstore
-	[[ ! -d .config ]] || chown "$operator":"$operator" .config
-	rm -rf .cache
-	rm -rf .wget*
-	rm -rf .rnd
-	rm -rf .bash_history .bash_logout
-	rm -rf .zsh_history .zcompdump .zlogout
-
-	popd
-done
-
-# Remove files at home directory not owned by the operator
-find "$(eval echo ~"$operator")" -not -user "$operator" -exec rm -rf {} +
 
 # Copyright 2012-2014, Chef Software, Inc. (<legal@chef.io>)
 # Copyright 2011-2012, Tim Dysinger (<tim@dysinger.net>)
@@ -72,6 +50,41 @@ dpkg --list \
 dpkg --list \
     | awk '/linux-source/ { print $2 }' \
     | xargs apt-get -y purge
+
+
+homes=(/root)
+
+# Prune operator
+if operator=${operator:-$(id -rnu 1000 2>/dev/null)}; then
+	home=$(eval echo ~"$operator")
+
+	if [[ -d $home ]]; then
+		# Fix ownerships for some files
+		[[ ! -d .config ]] || chown "$operator":"$operator" .config
+
+		# Remove files at home directory not owned by the operator
+		find "$home" -not -user "$operator" -exec rm -rf {} +
+
+		[[ $home = /root ]] || homes+=("$home")
+	fi
+fi
+
+# Prune home directories
+for dir in "${homes[@]}"; do
+	pushd "$dir"
+
+	rm -rf .gnupg
+	rm -rf .ssh/known_hosts
+	rm -rf .npm
+	rm -rf .config/configstore
+	rm -rf .cache
+	rm -rf .wget*
+	rm -rf .rnd
+	rm -rf .bash_history .bash_logout
+	rm -rf .zsh_history .zcompdump .zlogout
+
+	popd
+done
 
 if [[ -n $prune_aggresive ]]; then
 	# Remove documentation
