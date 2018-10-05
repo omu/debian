@@ -23,6 +23,7 @@ enter github.com/omu/debian/lib/scripts
 	enter ./virtual
 		try docker
 		try clean
+		try prune
 	leave
 
 	etc site vendor=omu medley=app description=Aplikasyon color=blue version="$(git fetch -q -t --unshallow && git describe)" build="${BUILD:-"$(date +'%y%m%d%H%M%S')"}"

@@ -64,8 +64,8 @@ enter github.com/omu/debian/lib/scripts
 		! is vagrantable || try vagrant
 
 		try clean
-		! is vm || try prune
-		! is vm || try minimize
+		is physical || try prune
+		! is vm     || try minimize
 	leave
 
 	etc site vendor=omu medley=desktop description=Masaüstü color=cyan version="$(git fetch -q -t --unshallow && git describe)" build="${BUILD:-"$(date +'%y%m%d%H%M%S')"}"
