@@ -21,6 +21,9 @@ rm -f /var/lib/dhcp/*
 # Delete APT save cruft
 find /etc/apt -type f -name '*.list.save' -exec rm -f {} +
 
+# Delete Packer leftovers
+rm -rf /packer-files
+
 # Clean HOME directories
 for home in "$(eval echo ~"$operator")" /root; do
 	pushd "$home"
