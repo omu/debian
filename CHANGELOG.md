@@ -7,6 +7,10 @@
 - runtime/common: Resim işleme kitaplıkları (libvips ve imagemagick) başta olmak
   üzere, inşa zamanında kullanılan kitaplık ve araçlara yenilerini ekle
 
+### DÜZELTMELER
+
+- Prune işleminin konteynerlerde de yapılabilmesini sağla
+
 ## 9 (Eylül 08, 2018)
 
 ### DÜZELTMELER
