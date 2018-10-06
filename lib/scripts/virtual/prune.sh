@@ -20,9 +20,6 @@ rm -f /var/lib/dhcp/*
 # Delete APT save cruft
 find /etc/apt -type f -name '*.list.save' -exec rm -f {} +
 
-# Delete Packer leftovers
-rm -rf /packer-files
-
 # Copyright 2012-2014, Chef Software, Inc. (<legal@chef.io>)
 # Copyright 2011-2012, Tim Dysinger (<tim@dysinger.net>)
 
