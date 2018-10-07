@@ -21,7 +21,6 @@ enter github.com/omu/debian/lib/scripts
 	leave
 
 	enter ./virtual
-		try docker
 		try clean
 		try prune
 	leave
