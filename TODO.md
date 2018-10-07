@@ -1,4 +1,2 @@
 - [ ] lib/scripts: Daha fazla test
-- [X] src/machines: Entegrasyon testleri (vagrant)
-- [ ] bin/what: Last login ekle
-- [ ] lib/scripts: Ruby güncellemelerinde eski sürümden kalan gem'ler için uyarı (ör. bundler)
+- [ ] lib/scripts: Docker optimizasyonlarını uyarla
