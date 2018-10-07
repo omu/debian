@@ -8,53 +8,85 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y update
 
-# Install all important and standard packages
-# - avoid gnupg-agent pulling pinentry-gtk2 on jessie
-# - avoid reportbug-gtk having bogus standard priority
-apt-get -y install --no-install-recommends dctrl-tools
-grep-aptavail --no-field-names --show-field Package \
-	      --field Priority --regex 'important\|standard' \
-	      --and --not \
-	      --field Package --regex 'reportbug-gtk' |
-	xargs apt-get -y install --no-install-recommends pinentry-curses
-apt-get purge -y dctrl-tools
-
-# Install "should have been standard" packages
-apt-get -y install --no-install-recommends \
-	apt-transport-https \
-	ca-certificates \
-	curl \
-	daemontools \
-	dirmngr \
-	ethtool \
-	git \
-	gnupg \
-	jq \
-	lsb-release \
-	nfs-common \
-	psmisc \
-	rsync \
-	ruby \
-	software-properties-common \
-	ssh \
-	sudo \
-	vim \
-	#
-
-update-alternatives --set editor /usr/bin/vim.basic
-
+virtualization=none
 if command -v systemd-detect-virt &>/dev/null; then
-	if systemd-detect-virt -qc 2>/dev/null; then
-		inside_container=true
-	fi
-else
-	if grep -qa container=lxc /proc/1/environ || grep -qa docker /proc/1/cgroup; then
-		inside_container=true
-	fi
+	virtualization=$(systemd-detect-virt 2>/dev/null || echo none)
+elif [[ $(grep -c docker </proc/1/cgroup 2>/dev/null) -gt 0 ]] || [[ -f /.dockerenv ]]; then
+	virtualization=docker
+elif grep -qa container=lxc /proc/1/environ; then
+	virtualization=lxc
 fi
 
-# Avoid problematic package for containers
-if [[ -n ${inside_container:-} ]]; then
+container=
+case $virtualization in
+lxc|docker)
+	container=true
+	;;
+esac
+
+# shellcheck disable=1091
+distribution=$(unset ID && . /etc/os-release 2>/dev/null && echo "$ID")
+codename=$(lsb_release -sc)
+
+case $virtualization in
+docker)
+	# Install "should have been standard" packages
+	apt-get -y install --no-install-recommends \
+		apt-transport-https \
+		ca-certificates \
+		curl \
+		git \
+		gnupg \
+		jq \
+		lsb-release \
+		openssh-client \
+		postgresql-client \
+		procps \
+		rsync \
+		software-properties-common \
+		wget \
+		#
+	;;
+*)
+	# Install all important and standard packages
+	# - avoid gnupg-agent pulling pinentry-gtk2 on jessie
+	# - avoid reportbug-gtk having bogus standard priority
+	apt-get -y install --no-install-recommends dctrl-tools
+	grep-aptavail --no-field-names --show-field Package \
+		--field Priority --regex 'important\|standard' \
+		--and --not \
+		--field Package --regex 'reportbug-gtk' |
+		xargs apt-get -y install --no-install-recommends pinentry-curses
+	apt-get purge -y dctrl-tools
+
+	# Install "should have been standard" packages
+	apt-get -y install --no-install-recommends \
+		apt-transport-https \
+		ca-certificates \
+		curl \
+		daemontools \
+		dirmngr \
+		ethtool \
+		git \
+		gnupg \
+		jq \
+		lsb-release \
+		nfs-common \
+		psmisc \
+		rsync \
+		ruby \
+		software-properties-common \
+		ssh \
+		sudo \
+		vim \
+		#
+
+	update-alternatives --set editor /usr/bin/vim.basic
+	;;
+esac
+
+if [[ -n $container ]]; then
+	# Avoid problematic package for containers
 	apt-get -t purge \
 		ntp \
 		2>/dev/null || true
@@ -64,11 +96,8 @@ else
 		#
 fi
 
-# shellcheck disable=1091
-distribution=$(unset ID && . /etc/os-release 2>/dev/null && echo "$ID")
-codename=$(lsb_release -sc)
-
-if [[ $distribution = debian ]]; then
+case $distribution in
+debian)
 	case $codename in
 	jessie|stretch)
 		cat >/etc/apt/sources.list.d/backports.list <<-EOF
@@ -83,16 +112,12 @@ if [[ $distribution = debian ]]; then
 		fi
 		;;
 	esac
-elif [[ $distribution = ubuntu ]]; then
-	:
-fi
 
-apt-get -y update
+	apt-get -y update
 
-if [[ $distribution = debian ]]; then
 	case $codename in
 	jessie|stretch)
-		apt-get -y install --install-recommends -t "$codename-backports" systemd
+		[[ $virtualization = docker ]] || apt-get -y install --install-recommends -t "$codename-backports" systemd
 		;;
 	esac
 
@@ -103,8 +128,10 @@ if [[ $distribution = debian ]]; then
 			#
 		;;
 	esac
-elif [[ $distribution = ubuntu ]]; then
-	:
-fi
+	;;
+ubuntu)
+	apt-get -y update
+	;;
+esac
 
 apt-get -y upgrade

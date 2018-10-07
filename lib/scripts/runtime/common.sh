@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Install essential development libraries
+# Install essential development libraries and tools
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
@@ -46,7 +46,6 @@ apt-get -y install --no-install-recommends \
 	libyaml-dev \
 	patch \
 	python-dev \
-	sqlite3 \
 	xz-utils \
 	zlib1g-dev \
 	#
@@ -63,3 +62,11 @@ jessie)
 		#
 	;;
 esac
+
+apt-get -y install --no-install-recommends \
+	default-mysql-client \
+	openssh-client \
+	postgresql-client \
+	sqlite3 \
+	#
+
