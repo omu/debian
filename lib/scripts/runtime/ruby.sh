@@ -21,7 +21,7 @@ if [[ -n ${ruby_use_suites:-} ]]; then
 	fi
 
 	# shellcheck disable=2086
-	rubian $ruby_use_suites
+	rubian install $ruby_use_suites
 else
 	if [[ -n ${ruby_use_experimental:-} ]] && apt-cache policy ruby | grep -q experimental/main; then
 		apt-get -t experimental -y install --no-install-recommends ruby ruby-dev rake
