@@ -17,6 +17,8 @@ apt-get update -y && apt-get install -y --no-install-recommends nodejs
 npm config set prefix /usr/local
 npm install npm@latest -g
 
+(shopt -s nullglob; rm -rf -- /tmp/npm-*)
+
 curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 cat >/etc/apt/sources.list.d/yarn.list <<-EOF
 	deb https://dl.yarnpkg.com/debian/ stable main
