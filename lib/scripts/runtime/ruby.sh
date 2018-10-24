@@ -8,11 +8,18 @@ export DEBIAN_FRONTEND=noninteractive
 
 ruby_use_suites=${ruby_use_suites:-stable}
 ruby_use_experimental=${ruby_use_experimental:-}
+ruby_keep_system_ruby=${ruby_keep_system_ruby:-}
 
 fix() {
 	[[ ! -f "$1" ]] || sed -i '/BEGIN FIX/,/END FIX/d' "$1"
 	{ echo "# BEGIN FIX"; cat; echo "# END FIX"; } >>"$1"
 }
+
+system_ruby_packages=(
+	ruby
+	ruby-dev
+	rake
+)
 
 if [[ -n ${ruby_use_suites:-} ]]; then
 	if ! command -v rubian &>/dev/null; then
@@ -22,11 +29,14 @@ if [[ -n ${ruby_use_suites:-} ]]; then
 
 	# shellcheck disable=2086
 	rubian install $ruby_use_suites
+
+	# Purge system Ruby
+	[[ -n ${ruby_keep_system_ruby:-} ]] || apt-get -y --auto-remove purge "${system_ruby_packages[@]}" ruby-bundler
 else
 	if [[ -n ${ruby_use_experimental:-} ]] && apt-cache policy ruby | grep -q experimental/main; then
-		apt-get -t experimental -y install --no-install-recommends ruby ruby-dev rake
+		apt-get -t experimental -y install --no-install-recommends "${system_ruby_packages[@]}"
 	else
-		apt-get -y install --no-install-recommends ruby ruby-dev rake
+		apt-get -y install --no-install-recommends "${system_ruby_packages[@]}"
 	fi
 
 	# No documents while installing Ruby gems

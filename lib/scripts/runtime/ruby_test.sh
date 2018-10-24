@@ -25,6 +25,8 @@ if [[ -n ${ruby_use_suites:-} ]]; then
 		- /usr/local/bin/bundler
 	EOF
 
+	[[ -n ${ruby_keep_system_ruby:-} ]] || [[ ! -x /usr/bin/ruby ]]
+
 	# Confirm jemalloc support
 	ruby -r rbconfig -e "puts RbConfig::CONFIG['LIBS']" | grep -q jemalloc
 fi
