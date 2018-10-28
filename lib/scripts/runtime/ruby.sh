@@ -31,7 +31,10 @@ if [[ -n ${ruby_use_suites:-} ]]; then
 	rubian install $ruby_use_suites
 
 	# Purge system Ruby
-	[[ -n ${ruby_keep_system_ruby:-} ]] || apt-get -y --auto-remove purge "${system_ruby_packages[@]}" ruby-bundler
+	if [[ -z ${ruby_keep_system_ruby:-} ]] && [[ -x /usr/bin/ruby ]]; then
+		apt-get -y --auto-remove purge "${system_ruby_packages[@]}" ruby-bundler
+		rubian relink
+	fi
 else
 	if [[ -n ${ruby_use_experimental:-} ]] && apt-cache policy ruby | grep -q experimental/main; then
 		apt-get -t experimental -y install --no-install-recommends "${system_ruby_packages[@]}"
