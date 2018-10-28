@@ -23,7 +23,7 @@ done
 
 cp -a etc/zsh/functions/* /usr/local/share/zsh/site-functions/
 
-chsh -s "$(which zsh)" "$operator"
+chsh -s "$(command -v zsh)" "$operator"
 
 # Tmux extension
 mkdir -p /etc/tmux/conf.d

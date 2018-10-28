@@ -28,7 +28,7 @@ shopt -s nullglob
 [[ -z $(echo etc/tmux/*) ]] || cp -a etc/tmux/* /etc/
 
 if [[ -n $tmux_login_shell ]]; then
-	chsh -s "$(which tmux)" "$operator"
+	chsh -s "$(command -v tmux)" "$operator"
 
 	# Avoid motd noise if Tmux is the login shell
 	shopt -s nullglob
