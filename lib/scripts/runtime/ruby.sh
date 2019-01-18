@@ -23,7 +23,7 @@ system_ruby_packages=(
 
 if [[ -n ${ruby_use_suites:-} ]]; then
 	if ! command -v rubian &>/dev/null; then
-		curl -fsSL "https://raw.githubusercontent.com/alaturka/rubian/master/rubian" >/usr/local/bin/rubian
+		curl -fsSL "https://raw.githubusercontent.com/omu/rubian/master/rubian" >/usr/local/bin/rubian
 		chmod +x /usr/local/bin/rubian
 	fi
 
