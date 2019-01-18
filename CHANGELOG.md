@@ -1,4 +1,16 @@
-## 10 (Yayınlanmamış)
+## 11 (Yayınlanmamış)
+
+### ÖZELLİKLER
+
+- runtime/javascript: Nodejs 11.x sürümüne yükselt
+- runtime/common: wkhtmltox (eski adıyla wkhtmltopdf) kitaplığını ekle
+
+### İYİLEŞTİRMELER
+
+- Rubian kurulumunu iyileştir
+- Tmux aktif pencere rengini belirginleştir
+
+## 10 (Ekim 5, 2018)
 
 ### ÖZELLİKLER
 
