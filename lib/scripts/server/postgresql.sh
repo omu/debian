@@ -6,6 +6,21 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
+codename=$(lsb_release -sc)
+
+case $codename in
+jessie|stretch|xenial|bionic|cosmic)
+	cat >/etc/apt/sources.list.d/postgresql.list <<-EOF
+		deb http://apt.postgresql.org/pub/repos/apt/ ${codename}-pgdg main
+	EOF
+	curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
+	apt-get -y update
+	;;
+*)
+	;;
+esac
+
 apt-get -y install --no-install-recommends \
 	postgresql \
 	postgresql-contrib \
