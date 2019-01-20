@@ -21,6 +21,9 @@ curl -fsSkL -o "$home"/.ssh/authorized_keys \
 chown -R "$operator:$operator" "$home"/.ssh
 chmod -R go-rwsx "$home"/.ssh
 
+# Symlink canonic app directory to the default shared directory
+[[ -e /app ]] || ln -sf /vagrant /app
+
 # Fix stdin not being a tty
 if grep -q -E "^mesg n$" /root/.profile && sed -i "s/^mesg n$/tty -s \\&\\& mesg n/g" /root/.profile; then
 	echo "Fixed stdin not being a tty."

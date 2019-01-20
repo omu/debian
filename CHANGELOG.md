@@ -5,6 +5,7 @@
 - server/postgresql: PostgreSQL 11 sürümüne yükselt
 - runtime/javascript: Nodejs 11.x sürümüne yükselt
 - runtime/common: wkhtmltox (eski adıyla wkhtmltopdf) kitaplığını ekle
+- virtual/vagrant: Vagrant paylaşılan dizinine /app ile erişilmesini sağla
 
 ### İYİLEŞTİRMELER
 
