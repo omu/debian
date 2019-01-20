@@ -63,8 +63,10 @@ if [[ $distribution = debian ]]; then
 
 	sleep 1
 
-	# Workaround for "Temporary failure in name resolution" errors (this won't be persistent)
-	sed -i 's/^nameserver .*/nameserver 8.8.8.8/' /etc/resolv.conf
+	# Workaround for "Temporary failure in name resolution" errors
+	systemctl stop systemd-resolved.service && systemctl start systemd-resolved.service
+
+	sleep 3
 elif [[ $distribution = ubuntu ]]; then
 	[[ -d /etc/netplan ]] || skip 'No netplan detected; skipping network setup'
 
