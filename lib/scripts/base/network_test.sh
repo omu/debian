@@ -39,21 +39,13 @@ while :; do
 			service:
 			  systemd-networkd:
 			    enabled: true
-			    running: true
+			    running: false
 			  systemd-resolved:
 			    enabled: true
-			    running: true
+			    running: false
 			  networking:
 			    enabled: false
-			    running: false
-			command:
-			  networkctl --no-legend --no-pager:
-			    exit-status: 0
-			    stdout:
-			      - /e.+\\s+ether\\s+routable\\s+configured/
-			dns:
-			  A:example.com:
-			    resolvable: true
+			    running: true
 		EOF
 	elif [[ $distribution = ubuntu ]]; then
 		# shellcheck disable=2119

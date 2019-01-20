@@ -53,20 +53,8 @@ if [[ $distribution = debian ]]; then
 	EOF
 	chmod a+r /etc/systemd/network/99-dhcp.network
 
-	systemctl stop networking.service
-
-	systemctl start systemd-networkd.service
-	systemctl start systemd-resolved.service
-
 	rm -f /etc/network/interfaces
-	systemctl disable networking.service
-
-	sleep 1
-
-	# Workaround for "Temporary failure in name resolution" errors
-	systemctl stop systemd-resolved.service && systemctl start systemd-resolved.service
-
-	sleep 3
+	systemctl disable networking.service # Just disable legacy service; let it runs
 elif [[ $distribution = ubuntu ]]; then
 	[[ -d /etc/netplan ]] || skip 'No netplan detected; skipping network setup'
 
