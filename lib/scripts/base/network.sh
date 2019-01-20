@@ -43,6 +43,9 @@ if [[ $distribution = debian ]]; then
 	rm -f /etc/resolv.conf
 	ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
+	# Workaround for "Temporary failure in name resolution" errors (this won't be persistent)
+	echo 'nameserver 8.8.8.8' >>/etc/resolv.conf
+
 	# Ensure we have a DHCP configured interface regardless of the interface name
 	cat >/etc/systemd/network/99-dhcp.network <<-EOF
 		[Match]
@@ -61,7 +64,7 @@ if [[ $distribution = debian ]]; then
 	rm -f /etc/network/interfaces
 	systemctl disable networking.service
 
-	sleep 3
+	sleep 1
 elif [[ $distribution = ubuntu ]]; then
 	[[ -d /etc/netplan ]] || skip 'No netplan detected; skipping network setup'
 
@@ -78,5 +81,5 @@ elif [[ $distribution = ubuntu ]]; then
 	EOF
 	netplan apply
 
-	sleep 3
+	sleep 1
 fi
