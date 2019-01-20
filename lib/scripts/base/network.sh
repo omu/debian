@@ -61,7 +61,7 @@ if [[ $distribution = debian ]]; then
 	rm -f /etc/network/interfaces
 	systemctl disable networking.service
 
-	sleep 1
+	sleep 3
 elif [[ $distribution = ubuntu ]]; then
 	[[ -d /etc/netplan ]] || skip 'No netplan detected; skipping network setup'
 
@@ -78,5 +78,5 @@ elif [[ $distribution = ubuntu ]]; then
 	EOF
 	netplan apply
 
-	sleep 1
+	sleep 3
 fi
