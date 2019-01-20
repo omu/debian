@@ -61,10 +61,10 @@ if [[ $distribution = debian ]]; then
 	rm -f /etc/network/interfaces
 	systemctl disable networking.service
 
-	# Workaround for "Temporary failure in name resolution" errors (this won't be persistent)
-	echo 'nameserver 8.8.8.8' >>/etc/resolv.conf
-
 	sleep 1
+
+	# Workaround for "Temporary failure in name resolution" errors (this won't be persistent)
+	sed -i 's/^nameserver .*/nameserver 8.8.8.8/' /etc/resolv.conf
 elif [[ $distribution = ubuntu ]]; then
 	[[ -d /etc/netplan ]] || skip 'No netplan detected; skipping network setup'
 
