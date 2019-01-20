@@ -1,4 +1,4 @@
-## 11 (Yayınlanmamış)
+## 11 (Ocak 20, 2019)
 
 ### ÖZELLİKLER
 
@@ -11,6 +11,10 @@
 
 - Rubian kurulumunu iyileştir
 - Tmux aktif pencere rengini belirginleştir
+
+### DÜZELTMELER
+
+- base/network: ifupdown → networkd geçişinin yan etki üretmemesini sağla
 
 ## 10 (Ekim 5, 2018)
 
