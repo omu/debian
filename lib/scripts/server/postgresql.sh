@@ -18,7 +18,7 @@ jessie|stretch|xenial|bionic|cosmic)
 	cat >/etc/apt/preferences.d/postgresql.pref <<-EOF
 		Package: *
 		Pin: release o=apt.postgresql.org
-		Pin-Priority: 200
+		Pin-Priority: 1000
 	EOF
 
 	apt-get -y update
