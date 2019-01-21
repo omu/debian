@@ -27,6 +27,13 @@ jessie|stretch|xenial|bionic|cosmic)
 	;;
 esac
 
+
+apt-get -y purge --auto-remove \
+	postgresql \
+	postgresql-client \
+	postgresql-contrib \
+	#
+
 apt-get -y install --no-install-recommends \
 	postgresql \
 	postgresql-contrib \
