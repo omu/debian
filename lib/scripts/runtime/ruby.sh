@@ -27,6 +27,11 @@ if [[ -n ${ruby_use_suites:-} ]]; then
 		chmod +x /usr/local/bin/rubian
 	fi
 
+	# Remove previously installed bundler gem to minimize problem surface
+	if command -v gem &>/dev/null && gem list -i bundler &>/dev/null; then
+		gem uninstall bundler
+	fi
+
 	# shellcheck disable=2086
 	rubian install $ruby_use_suites
 
