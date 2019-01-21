@@ -15,6 +15,12 @@ jessie|stretch|xenial|bionic|cosmic)
 	EOF
 	curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
+	cat >/etc/apt/preferences.d/postgresql.pref <<-EOF
+		Package: *
+		Pin: release o=apt.postgresql.org
+		Pin-Priority: 200
+	EOF
+
 	apt-get -y update
 	;;
 *)
