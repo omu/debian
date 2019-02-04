@@ -30,6 +30,21 @@ codename=$(lsb_release -sc)
 
 case $virtualization in
 docker)
+	if [[ ! -f /etc/apt/sources.list.d/postgresql.list ]]; then
+		cat >/etc/apt/sources.list.d/postgresql.list <<-EOF
+			deb http://apt.postgresql.org/pub/repos/apt/ ${codename}-pgdg main
+		EOF
+		curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
+		cat >/etc/apt/preferences.d/postgresql.pref <<-EOF
+			Package: *
+			Pin: release o=apt.postgresql.org
+			Pin-Priority: 1000
+		EOF
+
+		apt-get -y update
+	fi
+
 	# Install "should have been standard" packages
 	apt-get -y install --no-install-recommends \
 		apt-transport-https \
