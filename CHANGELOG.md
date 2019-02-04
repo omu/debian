@@ -1,3 +1,13 @@
+## 12 (Şubat 05, 2019)
+
+### İYİLEŞTİRMELER
+
+- Ruby 2.6.1 sürümüne yükselt
+
+### DÜZELTMELER
+
+- runtime/common: PostgreSQL istemcisinin üst geliştiriciden kurulmasını sağla
+
 ## 11 (Ocak 20, 2019)
 
 ### ÖZELLİKLER
