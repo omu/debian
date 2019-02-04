@@ -30,6 +30,22 @@ codename=$(lsb_release -sc)
 
 case $virtualization in
 docker)
+	# Install "should have been standard" packages
+	apt-get -y install --no-install-recommends \
+		apt-transport-https \
+		ca-certificates \
+		curl \
+		git \
+		gnupg \
+		jq \
+		lsb-release \
+		openssh-client \
+		procps \
+		rsync \
+		software-properties-common \
+		wget \
+		#
+
 	if [[ ! -f /etc/apt/sources.list.d/postgresql.list ]]; then
 		cat >/etc/apt/sources.list.d/postgresql.list <<-EOF
 			deb http://apt.postgresql.org/pub/repos/apt/ ${codename}-pgdg main
@@ -45,21 +61,8 @@ docker)
 		apt-get -y update
 	fi
 
-	# Install "should have been standard" packages
 	apt-get -y install --no-install-recommends \
-		apt-transport-https \
-		ca-certificates \
-		curl \
-		git \
-		gnupg \
-		jq \
-		lsb-release \
-		openssh-client \
 		postgresql-client \
-		procps \
-		rsync \
-		software-properties-common \
-		wget \
 		#
 	;;
 *)
