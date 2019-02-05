@@ -1,3 +1,9 @@
+## 13 (Şubat 05, 2019)
+
+### DÜZELTMELER
+
+- runtime/common: Elle derlenmiş 8.7.4 sürümlü güncel libvips paketini kur
+
 ## 12 (Şubat 05, 2019)
 
 ### İYİLEŞTİRMELER

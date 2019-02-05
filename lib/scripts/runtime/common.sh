@@ -30,7 +30,6 @@ apt-get -y install --no-install-recommends \
 	build-essential \
 	bzip2 \
 	file \
-	libvips \
 	imagemagick \
 	libbsd-dev \
 	libbz2-dev \
@@ -87,6 +86,13 @@ apt-get -y install --no-install-recommends \
 	sqlite3 \
 	#
 
+# libvips FIXME: setup https
+curl -fsLO http://deb.omu.sh/libvips42_8.7.4-1_amd64.deb
+dpkg -i libvips* 2>/dev/null || true
+rm -f wkhtmlto*
+apt-get -y install --no-install-recommends --fix-broken
+
+# wkhtmltox
 curl -fsLO https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
 dpkg -i wkhtmlto* 2>/dev/null || true
 rm -f wkhtmlto*
