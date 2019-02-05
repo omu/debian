@@ -89,7 +89,7 @@ apt-get -y install --no-install-recommends \
 # libvips FIXME: setup https
 curl -fsLO http://deb.omu.sh/libvips42_8.7.4-1_amd64.deb
 dpkg -i libvips* 2>/dev/null || true
-rm -f wkhtmlto*
+rm -f libvips*
 apt-get -y install --no-install-recommends --fix-broken
 
 # wkhtmltox
