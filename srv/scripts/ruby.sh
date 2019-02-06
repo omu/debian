@@ -20,6 +20,10 @@ enter github.com/omu/debian/lib/scripts
 		try javascript
 	leave
 
+	enter ./operator
+		try bin
+	leave
+
 	enter ./virtual
 		try clean
 		try prune
