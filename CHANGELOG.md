@@ -1,9 +1,17 @@
+## 15 (Yayınlanmamış)
+
+### ÖZELLİKLER
+
+- Operatör için direnv desteği ekle
+- Terminal paylaşımı için ttyd ekle
+- Procfile yönetimi için forego ekle
+
 ## 14 (Şubat 06, 2019)
 
 ### ÖZELLİKLER
 
-- virtual/final: Sanallaştırmanın sonunda kullanılabilecek yeni adım ekle.
-- Ruby Docker imajlarında operatör betiklerinin bulunmasını sağla.
+- virtual/final: Sanallaştırmanın sonunda kullanılabilecek yeni adım ekle
+- Ruby Docker imajlarında operatör betiklerinin bulunmasını sağla
 
 ### DÜZELTMELER
 
