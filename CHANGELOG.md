@@ -2,6 +2,7 @@
 
 ### ÖZELLİKLER
 
+- runtime/chromium: Chrome Driver kurulumu ekle
 - Operatör için direnv desteği ekle
 - Terminal paylaşımı için ttyd ekle
 - Procfile yönetimi için forego ekle
