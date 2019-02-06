@@ -27,6 +27,22 @@ skip() {
 # shellcheck disable=1091
 distribution=$(unset ID && . /etc/os-release 2>/dev/null && echo "$ID")
 
+virtualization=none
+if command -v systemd-detect-virt &>/dev/null; then
+	virtualization=$(systemd-detect-virt 2>/dev/null || echo none)
+elif [[ $(grep -c docker </proc/1/cgroup 2>/dev/null) -gt 0 ]] || [[ -f /.dockerenv ]]; then
+	virtualization=docker
+elif grep -qa container=lxc /proc/1/environ; then
+	virtualization=lxc
+fi
+
+container=
+case $virtualization in
+lxc|docker)
+	container=true
+	;;
+esac
+
 if [[ $distribution = debian ]]; then
 	# Prefer networkd over legacy ifupdown for simple cases
 
@@ -54,7 +70,18 @@ if [[ $distribution = debian ]]; then
 	chmod a+r /etc/systemd/network/99-dhcp.network
 
 	rm -f /etc/network/interfaces
-	systemctl disable networking.service # Just disable legacy service; let it runs
+
+	if [[ -z $container ]]; then
+		systemctl stop networking.service
+		systemctl disable networking.service
+		sleep 1
+		systemctl start systemd-networkd.service
+		systemctl start systemd-resolved.service
+		sleep 1
+	else
+		# On containers, just disable legacy service; let it runs
+		systemctl disable networking.service
+	fi
 elif [[ $distribution = ubuntu ]]; then
 	[[ -d /etc/netplan ]] || skip 'No netplan detected; skipping network setup'
 
