@@ -14,7 +14,6 @@ enter github.com/omu/debian/lib/scripts
 
 	enter ./base
 		try common
-		try network
 		try operator
 		! is lxc || try locale
 		try font
@@ -55,6 +54,7 @@ enter github.com/omu/debian/lib/scripts
 		! is lxc         || try lxc
 		! is vagrantable || try vagrant
 
+		try final
 		try clean
 		is physical || try prune
 		! is vm     || try minimize

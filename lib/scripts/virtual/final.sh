@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Network setup
+# Final setup
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
