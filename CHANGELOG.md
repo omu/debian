@@ -1,3 +1,14 @@
+## 14 (Şubat 06, 2019)
+
+### ÖZELLİKLER
+
+- virtual/final: Sanallaştırmanın sonunda kullanılabilecek yeni adım ekle.
+- Ruby Docker imajlarında operatör betiklerinin bulunmasını sağla.
+
+### DÜZELTMELER
+
+- Ağ yapılandırmasının yol açtığı yan etkileri düzelt.
+
 ## 13 (Şubat 05, 2019)
 
 ### DÜZELTMELER

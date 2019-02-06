@@ -22,6 +22,7 @@ enter github.com/omu/debian/lib/scripts
 
 	enter ./operator
 		try bin
+		try sbin
 	leave
 
 	enter ./virtual

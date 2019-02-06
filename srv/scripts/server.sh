@@ -32,10 +32,12 @@ enter github.com/omu/debian/lib/scripts
 
 	enter ./operator
 		try bin
+		try sbin
 		try zsh
 		try vim
 		try mc
 		try tmux
+		try direnv
 	leave
 
 	enter ./server
