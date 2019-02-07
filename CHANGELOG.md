@@ -6,6 +6,8 @@
 - Operatör için direnv desteği ekle
 - Terminal paylaşımı için ttyd ekle
 - Procfile yönetimi için forego ekle
+- bin/expose: Lokal servisleri dışarı ekspoze edecek bir araç ekle
+- bin/app: Uygulamayı Procfile üzerinden yönetmek için araç ekle
 
 ## 14 (Şubat 06, 2019)
 
