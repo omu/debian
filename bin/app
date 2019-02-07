@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
+
+service=app
+location=/$service
+port=${PORT:-3000}
+user=${SUDO_USER:-root}
+environment=/etc/environment
+
+cry() {
+	echo -e >&2 "\\e[1m$*\\e[0m"
+}
+
+die() {
+	echo -e >&2 "\\e[38;5;198mE:\\e[0m $*"
+	exit 1
+}
+
+usage() {
+	die "Usage: ${0##*/} [start|stop|restart|status]"
+}
+
+ensure() {
+	[[ $EUID -eq 0 ]] || die 'Root privileges required'
+
+	local prog
+	for prog in systemd-run systemctl forego; do
+		command -v "$prog" &>/dev/null || die "$prog required"
+	done
+
+	[[ -d $location ]] || die "Service not found at $location"
+	[[ -f $location/Procfile ]] || die "No Procfile found at $location"
+
+	[[ -f $environment ]] || die "Environment file not found at $environment"
+}
+
+is_running() {
+	systemctl is-active --quiet "$service.service"
+}
+
+run_default() {
+	run_restart
+}
+
+run_start() {
+	if is_running; then
+		cry "Already started."
+		return 0
+	fi
+
+	cry "Starting $service."
+	systemd-run --unit "$service" --uid "$user" --gid "$user" forego start -e "$environment" -p "$port" -f "$location/Procfile"
+}
+
+run_stop() {
+	if ! is_running; then
+		cry "Not started."
+		return 0
+	fi
+
+	cry "Stopping $service."
+	systemctl stop "$service.service"
+}
+
+run_restart() {
+	if is_running; then
+		cry "Restarting $service."
+		systemctl restart "$service.service"
+	else
+		run_start
+	fi
+}
+
+run_status() {
+	systemctl status "$service.service"
+}
+
+main() {
+	ensure
+
+	case ${1:-} in
+	start)   run_start ;;
+	restart) run_restart ;;
+	stop)    run_stop ;;
+	status)  run_status ;;
+	"")      run_default ;;
+	*)       usage ;;
+	esac
+}
+
+main "$@"
