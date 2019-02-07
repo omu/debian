@@ -1,4 +1,4 @@
-## 15 (Yayınlanmamış)
+## 15 (Şubat 08, 2019)
 
 ### ÖZELLİKLER
 
