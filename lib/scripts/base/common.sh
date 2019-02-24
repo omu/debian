@@ -103,6 +103,9 @@ docker)
 	;;
 esac
 
+# Install git-lfs
+curl -fsSL https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+
 if [[ -n $container ]]; then
 	# Avoid problematic package for containers
 	apt-get -t purge \
