@@ -105,6 +105,7 @@ esac
 
 # Install git-lfs
 curl -fsSL https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+apt-get -y install --no-install-recommends git-lfs
 
 if [[ -n $container ]]; then
 	# Avoid problematic package for containers
