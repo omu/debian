@@ -4,6 +4,10 @@
 
 - base/common: Git LFS desteği ekle
 
+### DÜZELTMELER
+
+- runtime/common: libvips kurulumunu düzelt
+
 ## 15 (Şubat 08, 2019)
 
 ### ÖZELLİKLER
