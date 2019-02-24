@@ -1,3 +1,9 @@
+## 16 (Yayınlanmamış)
+
+### ÖZELLİKLER
+
+- base/common: Git LFS desteği ekle
+
 ## 15 (Şubat 08, 2019)
 
 ### ÖZELLİKLER
