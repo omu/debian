@@ -1,8 +1,16 @@
-## 16 (Yayınlanmamış)
+## 16 (Şubat 26, 2019)
 
 ### ÖZELLİKLER
 
 - base/common: Git LFS desteği ekle
+
+### İYİLEŞTİRMELER
+
+- bin/app: İyileştir
+
+  + Başlatma hatasını yakala ve yönlendirici ileti görüntüle
+  + Ortam değişkenleri için/etc/environment dışında /app/.env dosyasını da
+    dikkate al
 
 ### DÜZELTMELER
 
