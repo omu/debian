@@ -3,10 +3,7 @@
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 service=app
-location=/$service
-port=${PORT:-3000}
-user=${SUDO_USER:-root}
-environment=/etc/environment
+location=/app
 
 cry() {
 	echo -e >&2 "\\e[1m$*\\e[0m"
@@ -21,7 +18,7 @@ usage() {
 	die "Usage: ${0##*/} [start|stop|restart|status]"
 }
 
-ensure() {
+sanitize() {
 	[[ $EUID -eq 0 ]] || die 'Root privileges required'
 
 	local prog
@@ -31,12 +28,35 @@ ensure() {
 
 	[[ -d $location ]] || die "Service not found at $location"
 	[[ -f $location/Procfile ]] || die "No Procfile found at $location"
-
-	[[ -f $environment ]] || die "Environment file not found at $environment"
 }
 
 is_running() {
 	systemctl is-active --quiet "$service.service"
+}
+
+ensure_running() {
+	local pre_wait_timeout=${1:-3} # in seconds
+	local has_started
+
+	while (( --pre_wait_timeout >= 0 )); do
+		sleep 0.1
+
+		if is_running; then
+			has_started=true
+			break
+		fi
+	done
+
+	[[ -n ${has_started:-} ]] || return 1
+
+	local post_wait_timeout=${2:-3} # in seconds
+	while (( --post_wait_timeout >= 0 )); do
+		sleep 0.1
+
+		is_running || return 1
+	done
+
+	return 0
 }
 
 run_default() {
@@ -49,8 +69,31 @@ run_start() {
 		return 0
 	fi
 
+	local port=${PORT:-3000}
+	local user=${SUDO_USER:-root}
+
+	local -a args=(
+		--unit "$service"
+		--uid "$user"
+		--gid "$user"
+		forego
+		start
+		-p "$port"
+		-f "$location/Procfile"
+	)
+
+	local environment
+	for environment in /etc/environment "$location"/.env; do
+		if [[ -f $environment ]]; then
+			args+=(
+				-e "$environment"
+			)
+		fi
+	done
+
 	cry "Starting $service."
-	systemd-run --unit "$service" --uid "$user" --gid "$user" forego start -e "$environment" -p "$port" -f "$location/Procfile"
+	systemd-run "${args[@]}"
+	ensure_running 3 || die "Cannot start $service.  Invoke 'journalctl' for details."
 }
 
 run_stop() {
@@ -73,11 +116,16 @@ run_restart() {
 }
 
 run_status() {
+	if ! is_running; then
+		cry "Not started."
+		return 0
+	fi
+
 	systemctl status "$service.service"
 }
 
 main() {
-	ensure
+	sanitize
 
 	case ${1:-} in
 	start)   run_start ;;
