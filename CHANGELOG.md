@@ -1,3 +1,9 @@
+## Yayınlanmamış
+
+### DÜZELTMELER
+
+- server/dokku: Dokku Git LFS uyumsuzluğu için önlem al
+
 ## 16 (Şubat 26, 2019)
 
 ### ÖZELLİKLER
