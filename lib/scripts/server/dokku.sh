@@ -48,3 +48,10 @@ for plugin in ${dokku_plugins:-}; do
 	[[ -n $url ]] || continue
 	dokku plugin:install "$url" "$plugin"
 done
+
+# Workaround for Dokku vs LFS incompatibility.  Note that this is insufficient.
+# At the local side, you need to add --no-verify option to git-push.  Example:
+#	git push --no-verify dokku REMOTE REFSPEC
+if command -v git-lfs &>/dev/null; then
+	git lfs install --system --skip-smudge --force
+fi
