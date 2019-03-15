@@ -32,7 +32,7 @@ enter github.com/omu/debian/lib/scripts
 
 	enter ./virtual
 		! is virtualbox  || try virtualbox
-		! is qemu        || try qemu
+		! is kvm         || try kvm
 		! is vmware      || try vmware
 		! is lxc         || try lxc
 		! is vagrantable || try vagrant
