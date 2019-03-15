@@ -7,6 +7,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y install --no-install-recommends qemu-guest-agent spice-vdagent nfs-common
+systemctl stop spice-vdagent && systemctl disable spice-vdagent # optional
 
 # Install guest agent for Huawei FusionCompute
 sha256=507181f2cb720d1b8626dbcacd78cd45465f963eba29c2fdd6cf7ce847bc4458
