@@ -1,8 +1,17 @@
-## Yayınlanmamış
+## 17 (Mart 17, 2019)
+
+### ÖZELLİKLER
+
+- virtual/kvm: Huawei desteği ekle
 
 ### DÜZELTMELER
 
 - server/dokku: Dokku Git LFS uyumsuzluğu için önlem al
+- Tüm potpurilerde KVM kurulumunun doğru şekilde çalışmasını sağla
+
+### İYİLEŞTİRMELER
+
+- Qemu/KVM terminolojisini düzelt; daima KVM terimini kullan
 
 ## 16 (Şubat 26, 2019)
 
