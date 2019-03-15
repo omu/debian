@@ -17,7 +17,7 @@ tar -xJf vmtools.tar.xz -C .
 rm -f vmtools.tar.xz
 
 pushd vmtools
-./install
+./install || echo >&2 "vmtools installer exit code $? is suppressed"
 popd
 
 rm -rf vmtools
