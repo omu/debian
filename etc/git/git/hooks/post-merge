@@ -1,0 +1,3 @@
+#!/bin/sh -e
+! command -v git-lfs >/dev/null 2>&1 || git lfs post-merge "$@"
+! test -x .git/hooks/post-merge || .git/hooks/post-merge "$@"
