@@ -36,6 +36,7 @@ enter github.com/omu/debian/lib/scripts
 		try vim
 		try mc
 		try tmux
+		try git
 		try direnv
 	leave
 
