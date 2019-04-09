@@ -1,0 +1,2 @@
+#!/bin/sh -e
+! test -x .git/hooks/pre-rebase || .git/hooks/pre-rebase "$@"

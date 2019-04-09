@@ -1,0 +1,2 @@
+#!/bin/sh -e
+! test -x .git/hooks/post-rewrite || .git/hooks/post-rewrite "$@"
