@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=1090
-source <(env she src)
+if command -v she &>/dev/null; then
+	# shellcheck disable=1090
+	source <(env she src)
+else
+	# shellcheck disable=1090
+	source <(curl -fsSL https://she.alaturka.io/source) -boot
+fi
 
 [[ ${EUID:-} -eq 0 ]] || die "Root privileges required"
 
