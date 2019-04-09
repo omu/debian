@@ -20,3 +20,5 @@
 	hooksPath = /etc/git/hooks
 [secrets]
 	providers = grep -Ev "^#" /etc/git/secrets
+[include]
+	path = config.local
