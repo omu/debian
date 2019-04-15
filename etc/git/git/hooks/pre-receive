@@ -1,2 +1,0 @@
-#!/bin/sh -e
-! test -x .git/hooks/pre-receive || .git/hooks/pre-receive "$@"

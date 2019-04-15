@@ -1,2 +1,0 @@
-#!/bin/sh -e
-! test -x .git/hooks/applypatch-msg || .git/hooks/applypatch-msg "$@"

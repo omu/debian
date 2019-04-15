@@ -1,22 +1,4 @@
-[alias]
-	a = add
-	ap = add --patch
-	b = branch
-	c = commit
-	co = checkout
-	d = diff
-	f = fetch
-	la = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	l = log --pretty=format:'%Cred%h%Creset - %<|(60)%C(bold)%s%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	m = merge
-	p = push
-	r = remote
-	s = status -s
-
-	amend = commit --amend --no-edit
-	ignored = ls-files --exclude-standard --ignored --others
-	undo = reset --soft HEAD^
-[core]
-	hooksPath = /etc/git/hooks
-[secrets]
-	providers = grep -Ev "^(#.*|\\s*)$" /etc/git/secrets
+[include]
+	path = /etc/git/config.d/hooks
+	path = /etc/git/config.d/aliases
+	path = /etc/git/config.d/secrets

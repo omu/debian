@@ -1,2 +1,0 @@
-#!/bin/sh -e
-! test -x .git/hooks/post-update || .git/hooks/post-update "$@"

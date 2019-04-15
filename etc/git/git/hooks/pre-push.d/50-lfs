@@ -1,3 +1,2 @@
 #!/bin/sh -e
 ! command -v git-lfs >/dev/null 2>&1 || git lfs pre-push "$@"
-! test -x .git/hooks/pre-push || .git/hooks/pre-push "$@"

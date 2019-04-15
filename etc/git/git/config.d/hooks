@@ -1,0 +1,7 @@
+[core]
+	hooksPath = /etc/git/hooks
+[hooks]
+	enable = lfs
+	enable = secrets
+
+# vim:set ft=gitconfig:
