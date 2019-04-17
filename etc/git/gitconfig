@@ -1,4 +1,6 @@
+[core]
+	hooksPath = /etc/git/hooks
 [include]
-	path = /etc/git/config.d/hooks
-	path = /etc/git/config.d/aliases
-	path = /etc/git/config.d/secrets
+	path      = /etc/git/include
+	path      = /etc/git/config
+

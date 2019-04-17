@@ -1,0 +1,5 @@
+# Only include paths
+[include]
+	path = includes/hooks
+	path = includes/aliases
+	path = includes/secrets
