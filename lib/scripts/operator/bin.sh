@@ -11,7 +11,7 @@ cd "$(dirname "$0")/../../.."
 [[ -z $(echo bin/*)  ]] || cp bin/*  /usr/local/bin
 
 # Install selected zoo animals
-for prog in banner app chost; do
+for prog in scripts banner app chost; do
 	curl -fsSL -o /usr/local/bin/"$prog" \
 		https://raw.githubusercontent.com/alaturka/zoo/master/"$prog"/"$prog"
 	chmod +x /usr/local/bin/"$prog"
