@@ -6,7 +6,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-push "${TMPDIR:-/tmp}"
+pushd "${TMPDIR:-/tmp}"
 
 wget -qO- 'https://storage.googleapis.com/shellcheck/shellcheck-latest.linux.x86_64.tar.xz' | tar -xJv
 cp shellcheck-latest/shellcheck /usr/local/bin/
