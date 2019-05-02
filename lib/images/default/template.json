@@ -1,0 +1,260 @@
+<%# vim: set ft=eruby: -%>
+{
+  "builders": [
+    <%- case param.virtual; when 'virtualbox' -%>
+    {
+      "name": "virtualbox",
+      "type": "virtualbox-iso",
+
+      <%- case param.distribution; when 'debian' -%>
+      "boot_command": [
+        "<esc><wait>",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debconf/frontend=noninteractive ",
+        "hostname={{ .Name }} ",
+        "passwd/user-fullname=Operator ",
+        "passwd/username={{ user `user` }} ",
+        "passwd/user-password={{ user `pass` }} ",
+        "passwd/user-password-again={{ user `pass` }} ",
+        "<enter>"
+      ],
+      <%- when 'ubuntu' -%>
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz ",
+        "auto-install/enable=true ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "hostname={{ .Name }} ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "passwd/user-fullname=Operator ",
+        "passwd/username={{ user `user` }} ",
+        "passwd/user-password={{ user `pass` }} ",
+        "passwd/user-password-again={{ user `pass` }} ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "boot_wait": "5s",
+      "cpus": <%= param.cpu %>,
+      "disk_size": <%= param.disk %>,
+      "format": "ova",
+      "guest_additions_mode": "attach",
+      <%- case param.distribution; when 'debian' -%>
+      "guest_os_type": "Debian_64",
+      <%- when 'ubuntu' -%>
+      "guest_os_type": "Ubuntu_64",
+      <%- end -%>
+      "hard_drive_interface": "sata",
+      "headless": "<%= param.headless %>",
+      "http_directory": ".",
+      "iso_checksum": "<%= param.iso_checksum %>",
+      "iso_checksum_type": "<%= param.iso_checksum_type %>",
+      "iso_checksum_url": "<%= param.iso_checksum_url %>",
+      "iso_url": "<%= param.iso_url %>",
+      "memory": <%= param.mem %>,
+      "shutdown_command": "echo '{{ user `pass` }}' | sudo -S halt -p",
+      "ssh_password": "{{ user `pass` }}",
+      "ssh_username": "{{ user `user` }}",
+      "ssh_wait_timeout": "40m",
+      <%- end -%>
+      "vboxmanage": [
+        ["modifyvm", "{{ .Name }}", "--vram", "16"   ],
+        ["modifyvm", "{{ .Name }}", "--audio", "none"],
+        ["modifyvm", "{{ .Name }}", "--mouse", "ps2" ]
+      ],
+      "vm_name": "{{ user `host` }}"
+    }
+    <%- when 'kvm' -%>
+    {
+      "name": "kvm",
+      "type": "qemu",
+
+      "accelerator": "kvm",
+      <%- case param.distribution; when 'debian' -%>
+      "boot_command": [
+        "<esc><wait>",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debconf/frontend=noninteractive ",
+        "hostname={{ .Name }} ",
+        "passwd/user-fullname=Operator ",
+        "passwd/username={{ user `user` }} ",
+        "passwd/user-password={{ user `pass` }} ",
+        "passwd/user-password-again={{ user `pass` }} ",
+        "<enter>"
+      ],
+      <%- when 'ubuntu' -%>
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz ",
+        "auto-install/enable=true ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "hostname={{ .Name }} ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "passwd/user-fullname=Operator ",
+        "passwd/username={{ user `user` }} ",
+        "passwd/user-password={{ user `pass` }} ",
+        "passwd/user-password-again={{ user `pass` }} ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      <%- end -%>
+      "boot_wait": "5s"
+      "cpus": <%= param.cpu %>,
+      "disk_compression": true,
+      "disk_size": <%= param.disk %>,
+      "format": "qcow2",
+      "headless": "<%= param.headless %>",
+      "http_directory": ".",
+      "iso_checksum": "<%= param.iso_checksum %>",
+      "iso_checksum_type": "<%= param.iso_checksum_type %>",
+      "iso_checksum_url": "<%= param.iso_checksum_url %>",
+      "iso_url": "<%= param.iso_url %>",
+      "memory": <%= param.mem %>,
+      "shutdown_command": "echo '{{ user `pass` }}' | sudo -S halt -p",
+      "ssh_password": "{{ user `pass` }}",
+      "ssh_username": "{{ user `user` }}",
+      "ssh_wait_timeout": "40m",
+      "vm_name": "{{ user `host` }}"
+    }
+    <%- when 'vmware' -%>
+    {
+      "name": "vmware",
+      "type": "vmware-iso",
+
+      <%- case param.distribution; when 'debian' -%>
+      "boot_command": [
+        "<esc><wait>",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debconf/frontend=noninteractive ",
+        "hostname={{ .Name }} ",
+        "passwd/user-fullname=Operator ",
+        "passwd/username={{ user `user` }} ",
+        "passwd/user-password={{ user `pass` }} ",
+        "passwd/user-password-again={{ user `pass` }} ",
+        "<enter>"
+      ],
+      <%- when 'ubuntu' -%>
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz ",
+        "auto-install/enable=true ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "hostname={{ .Name }} ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "passwd/user-fullname=Operator ",
+        "passwd/username={{ user `user` }} ",
+        "passwd/user-password={{ user `pass` }} ",
+        "passwd/user-password-again={{ user `pass` }} ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      <%- end -%>
+      "boot_wait": "5s",
+      "cpus": <%= param.cpu %>,
+      "disk_size": <%= param.disk %>,
+      "format": "ova",
+      <%- case param.distribution; when 'debian' -%>
+      "guest_os_type": "debian9-64",
+      <%- when 'ubuntu' -%>
+      "guest_os_type": "ubuntu-64",
+      <%- end -%>
+      "headless": "<%= param.headless %>",
+      "http_directory": ".",
+      "iso_checksum": "<%= param.iso_checksum %>",
+      "iso_checksum_type": "<%= param.iso_checksum_type %>",
+      "iso_checksum_url": "<%= param.iso_checksum_url %>",
+      "iso_url": "<%= param.iso_url %>",
+      "memory": <%= param.mem %>,
+      "shutdown_command": "echo '{{ user `pass` }}' | sudo -S halt -p",
+      "ssh_password": "{{ user `pass` }}",
+      "ssh_username": "{{ user `user` }}",
+      "ssh_wait_timeout": "40m",
+      "tools_upload_flavor": "linux",
+      "vm_name": "{{ user `host` }}"
+    }
+    <%- when 'lxc' -%>
+    {
+      "name": "lxc",
+      "type": "lxc",
+
+      "attach_options": ["--clear-env"],
+      "config_file": "/usr/share/lxc/config/common.conf",
+      "container_name": "{{ user `host` }}",
+      <%- case param.distribution; when 'debian' -%>
+      "template_name": "<%= param.distribution %>",
+      <%- when 'ubuntu' -%>
+      "template_name": "download",
+      <%- end -%>
+      "template_parameters": [
+        "--dist", "<%= param.distribution %>",
+        "--release", "<%= param.codename %>",
+        "--arch", "<%= param.arch %>"
+      ]
+    }
+    <%- when 'docker' -%>
+    {
+      "name": "docker",
+      "type": "docker",
+
+      "container_dir": "/mnt",
+      "export_path": "{{ user `name` }}.tar",
+      "image": "debian:<%= param.codename %>"
+    }
+    <%- end -%>
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+
+      <%- if param.virtual == 'lxc' -%>
+      "execute_command": "{{ .Vars }} bash -e {{ .Path }}",
+      <%- else -%>
+      "execute_command": "echo '{{ user `pass` }}' | {{ .Vars }} sudo -E -S bash -e {{ .Path }}",
+      <%- end -%>
+      "environment_vars": ["LC_ALL=C"],
+
+      "scripts": [
+        "scripts/pre.sh",
+        "provision.sh",
+        "scripts/<%= param.virtual %>.sh",
+        "scripts/vagrant.sh",
+        "scripts/cleanup.sh",
+        "scripts/minimize.sh",
+        "scripts/post.sh"
+      ]
+    }
+  ],
+
+  "post-processors": [
+    <%- if param.virtual == 'docker' -%>
+    {
+      "type": "docker-import",
+
+      "keep_input_artifact": true,
+      "repository": "<%= param.docker_account %>/<%= param.name %>",
+      "changes": [
+        "ENV LANG en_US.UTF-8",
+        "ENV LANGUAGE en_US.UTF-8",
+        "ENV LC_ALL en_US.UTF-8"
+      ],
+      "only": ["docker"]
+    },
+    <%- end -%>
+    {
+      "type": "vagrant",
+
+      "output": "<%= param.output %>",
+      "vagrantfile_template": "vagrantfile.rb"
+    }
+  ],
+
+  "variables": {
+    "host": "<%= param.host || param['class'] %>",
+    "name": "<%= param.name %>",
+    "pass": "<%= param.password %>",
+    "user": "<%= param.username %>"
+  }
+}

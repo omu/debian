@@ -1,0 +1,11 @@
+<%# vim: set ft=eruby: -%>
+<%-
+  skip unless options.comprehensive
+
+  computed = {
+    'box'      => "#{param['class']}-#{param.codename}_#{param.version}_#{param.virtual}.box",
+    'instance' => "#{param['class']}-#{param.codename}_#{param.version}_#{param.virtual}",
+    'name'     => "#{param['class']}-#{param.codename}_#{param.virtual}"
+  }
+-%>
+<%= param.to_yaml(computed) -%>

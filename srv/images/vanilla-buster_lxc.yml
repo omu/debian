@@ -1,0 +1,1 @@
+from ../../lib/images/default: debian/buster virtual/lxc size/small class/vanilla language/turkish vendor/omu
