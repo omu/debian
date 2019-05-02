@@ -1,1 +1,1 @@
-from ../../lib/images/default: debian/buster virtual/lxc size/medium class/server language/turkish vendor/omu
+from ../../lib/images/default: debian/buster virtual/lxc class/server size/medium language/turkish vendor/omu

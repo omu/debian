@@ -1,1 +1,1 @@
-from ../../lib/images/default: debian/buster virtual/virtualbox size/large class/paas language/turkish vendor/omu
+from ../../lib/images/default: debian/buster virtual/virtualbox class/paas size/large language/turkish vendor/omu
