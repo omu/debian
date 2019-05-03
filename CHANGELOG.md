@@ -6,6 +6,7 @@ Yayımlanmadı
 
 ### Eklendi
 
+- Makine sürümlendirmesinde değişiklik yap
 - Makine üretimi verilerini projeye taşı
 - etc/git: Git yapılandırması ekle
 - development/shell: Kabuk geliştirme desteği ekle
