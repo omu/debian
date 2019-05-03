@@ -26,5 +26,5 @@ chmod -R go-rwsx "$home"/.ssh
 if grep -q -E "^mesg n$" /root/.profile && sed -i "s/^mesg n$/tty -s \\&\\& mesg n/g" /root/.profile; then
 	echo "Fixed stdin not being a tty."
 fi
-<%= param.vagrant -%>
-<%= param.vagrant_virtual -%>
+<%= meta.vagrant -%>
+<%= meta.vagrant_virtual -%>

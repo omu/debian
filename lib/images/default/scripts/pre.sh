@@ -11,10 +11,10 @@ done
 
 declare -ag packages=()
 
-<%- if param.packages -%>
-packages+=(<%= param.packages %>)
+<%- if meta.packages -%>
+packages+=(<%= meta.packages %>)
 <%- end -%>
-<%- case param.virtual; when 'lxc' -%>
+<%- case meta.virtual; when 'lxc' -%>
 packages+=(curl ca-certificates sudo gnupg ssh)
 <%- when 'docker' -%>
 packages+=(curl ca-certificates sudo gnupg)
@@ -22,5 +22,5 @@ packages+=(curl ca-certificates sudo gnupg)
 
 apt-get -y update
 apt-get -y install --no-install-recommends "${packages[@]}"
-<%= param.pre -%>
-<%= param.pre_virtual -%>
+<%= meta.pre -%>
+<%= meta.pre_virtual -%>

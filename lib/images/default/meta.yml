@@ -3,9 +3,9 @@
   skip unless options.comprehensive
 
   computed = {
-    'box'      => "#{param['class']}-#{param.codename}_#{param.version}_#{param.virtual}.box",
-    'instance' => "#{param['class']}-#{param.codename}_#{param.version}_#{param.virtual}",
-    'name'     => "#{param['class']}-#{param.codename}_#{param.virtual}"
+    'box'      => "#{meta['class']}-#{meta.codename}_#{meta.version}_#{meta.virtual}.box",
+    'instance' => "#{meta['class']}-#{meta.codename}_#{meta.version}_#{meta.virtual}",
+    'name'     => "#{meta['class']}-#{meta.codename}_#{meta.virtual}"
   }
 -%>
-<%= param.to_yaml(computed) -%>
+<%= meta.to_yaml(computed) -%>

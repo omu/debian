@@ -1,11 +1,11 @@
 <%# vim: set ft=eruby: -%>
-<%- skip if !param.vagrantfile && param.username == 'vagrant' -%>
+<%- skip if !meta.vagrantfile && meta.username == 'vagrant' -%>
 # frozen_string_literal: true
 
-<%- unless param.username == 'vagrant' -%>
+<%- unless meta.username == 'vagrant' -%>
 Vagrant.configure('2') do |config|
-  config.ssh.username = '<%= param.username %>'
+  config.ssh.username = '<%= meta.username %>'
 end
 <%- end -%>
 
-<%= param.vagrantfile -%>
+<%= meta.vagrantfile -%>

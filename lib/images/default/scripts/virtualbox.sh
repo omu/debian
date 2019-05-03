@@ -1,5 +1,5 @@
 <%# vim: set ft=eruby: -%>
-<%- skip unless param.virtual == 'virtualbox' -%>
+<%- skip unless meta.virtual == 'virtualbox' -%>
 #!/usr/bin/env bash
 
 # Install VirtualBox guest additions inside guest
@@ -51,4 +51,4 @@ apt-get -y purge --auto-remove "${missing[@]}"
 
 # Hold kernel packages for safe upgrades
 { dpkg -l linux-headers-* 2>/dev/null || true; } | awk '/^ii/ { print $2 " "  "hold" }' | dpkg --set-selections
-<%= param.virtualbox -%>
+<%= meta.virtualbox -%>

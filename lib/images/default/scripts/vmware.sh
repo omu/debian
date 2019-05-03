@@ -1,5 +1,5 @@
 <%# vim: set ft=eruby: -%>
-<%- skip unless param.virtual == 'vmware' -%>
+<%- skip unless meta.virtual == 'vmware' -%>
 #!/usr/bin/env bash
 
 # Install VMWare tools inside guest
@@ -87,4 +87,4 @@ mkdir -p /mnt/hgfs
 
 systemctl enable hgfs.service
 systemctl start hgfs.service
-<%= param.vmware -%>
+<%= meta.vmware -%>

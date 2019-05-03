@@ -4,5 +4,5 @@
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive LC_ALL=C LANG=C
-<%= param.minimize -%>
-<%= param.minimize_virtual -%>
+<%= meta.minimize -%>
+<%= meta.minimize_virtual -%>

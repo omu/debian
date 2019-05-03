@@ -1,12 +1,12 @@
 <%# vim: set ft=eruby: -%>
 {
   "builders": [
-    <%- case param.virtual; when 'virtualbox' -%>
+    <%- case meta.virtual; when 'virtualbox' -%>
     {
       "name": "virtualbox",
       "type": "virtualbox-iso",
 
-      <%- case param.distribution; when 'debian' -%>
+      <%- case meta.distribution; when 'debian' -%>
       "boot_command": [
         "<esc><wait>",
         "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
@@ -35,23 +35,23 @@
         "initrd=/install/initrd.gz -- <enter>"
       ],
       "boot_wait": "5s",
-      "cpus": <%= param.cpu %>,
-      "disk_size": <%= param.disk %>,
+      "cpus": <%= meta.cpu %>,
+      "disk_size": <%= meta.disk %>,
       "format": "ova",
       "guest_additions_mode": "attach",
-      <%- case param.distribution; when 'debian' -%>
+      <%- case meta.distribution; when 'debian' -%>
       "guest_os_type": "Debian_64",
       <%- when 'ubuntu' -%>
       "guest_os_type": "Ubuntu_64",
       <%- end -%>
       "hard_drive_interface": "sata",
-      "headless": "<%= param.headless %>",
+      "headless": "<%= meta.headless %>",
       "http_directory": ".",
-      "iso_checksum": "<%= param.iso_checksum %>",
-      "iso_checksum_type": "<%= param.iso_checksum_type %>",
-      "iso_checksum_url": "<%= param.iso_checksum_url %>",
-      "iso_url": "<%= param.iso_url %>",
-      "memory": <%= param.mem %>,
+      "iso_checksum": "<%= meta.iso_checksum %>",
+      "iso_checksum_type": "<%= meta.iso_checksum_type %>",
+      "iso_checksum_url": "<%= meta.iso_checksum_url %>",
+      "iso_url": "<%= meta.iso_url %>",
+      "memory": <%= meta.mem %>,
       "shutdown_command": "echo '{{ user `pass` }}' | sudo -S halt -p",
       "ssh_password": "{{ user `pass` }}",
       "ssh_username": "{{ user `user` }}",
@@ -70,7 +70,7 @@
       "type": "qemu",
 
       "accelerator": "kvm",
-      <%- case param.distribution; when 'debian' -%>
+      <%- case meta.distribution; when 'debian' -%>
       "boot_command": [
         "<esc><wait>",
         "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
@@ -100,17 +100,17 @@
       ],
       <%- end -%>
       "boot_wait": "5s"
-      "cpus": <%= param.cpu %>,
+      "cpus": <%= meta.cpu %>,
       "disk_compression": true,
-      "disk_size": <%= param.disk %>,
+      "disk_size": <%= meta.disk %>,
       "format": "qcow2",
-      "headless": "<%= param.headless %>",
+      "headless": "<%= meta.headless %>",
       "http_directory": ".",
-      "iso_checksum": "<%= param.iso_checksum %>",
-      "iso_checksum_type": "<%= param.iso_checksum_type %>",
-      "iso_checksum_url": "<%= param.iso_checksum_url %>",
-      "iso_url": "<%= param.iso_url %>",
-      "memory": <%= param.mem %>,
+      "iso_checksum": "<%= meta.iso_checksum %>",
+      "iso_checksum_type": "<%= meta.iso_checksum_type %>",
+      "iso_checksum_url": "<%= meta.iso_checksum_url %>",
+      "iso_url": "<%= meta.iso_url %>",
+      "memory": <%= meta.mem %>,
       "shutdown_command": "echo '{{ user `pass` }}' | sudo -S halt -p",
       "ssh_password": "{{ user `pass` }}",
       "ssh_username": "{{ user `user` }}",
@@ -122,7 +122,7 @@
       "name": "vmware",
       "type": "vmware-iso",
 
-      <%- case param.distribution; when 'debian' -%>
+      <%- case meta.distribution; when 'debian' -%>
       "boot_command": [
         "<esc><wait>",
         "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
@@ -152,21 +152,21 @@
       ],
       <%- end -%>
       "boot_wait": "5s",
-      "cpus": <%= param.cpu %>,
-      "disk_size": <%= param.disk %>,
+      "cpus": <%= meta.cpu %>,
+      "disk_size": <%= meta.disk %>,
       "format": "ova",
-      <%- case param.distribution; when 'debian' -%>
+      <%- case meta.distribution; when 'debian' -%>
       "guest_os_type": "debian9-64",
       <%- when 'ubuntu' -%>
       "guest_os_type": "ubuntu-64",
       <%- end -%>
-      "headless": "<%= param.headless %>",
+      "headless": "<%= meta.headless %>",
       "http_directory": ".",
-      "iso_checksum": "<%= param.iso_checksum %>",
-      "iso_checksum_type": "<%= param.iso_checksum_type %>",
-      "iso_checksum_url": "<%= param.iso_checksum_url %>",
-      "iso_url": "<%= param.iso_url %>",
-      "memory": <%= param.mem %>,
+      "iso_checksum": "<%= meta.iso_checksum %>",
+      "iso_checksum_type": "<%= meta.iso_checksum_type %>",
+      "iso_checksum_url": "<%= meta.iso_checksum_url %>",
+      "iso_url": "<%= meta.iso_url %>",
+      "memory": <%= meta.mem %>,
       "shutdown_command": "echo '{{ user `pass` }}' | sudo -S halt -p",
       "ssh_password": "{{ user `pass` }}",
       "ssh_username": "{{ user `user` }}",
@@ -182,15 +182,15 @@
       "attach_options": ["--clear-env"],
       "config_file": "/usr/share/lxc/config/common.conf",
       "container_name": "{{ user `host` }}",
-      <%- case param.distribution; when 'debian' -%>
-      "template_name": "<%= param.distribution %>",
+      <%- case meta.distribution; when 'debian' -%>
+      "template_name": "<%= meta.distribution %>",
       <%- when 'ubuntu' -%>
       "template_name": "download",
       <%- end -%>
       "template_parameters": [
-        "--dist", "<%= param.distribution %>",
-        "--release", "<%= param.codename %>",
-        "--arch", "<%= param.arch %>"
+        "--dist", "<%= meta.distribution %>",
+        "--release", "<%= meta.codename %>",
+        "--arch", "<%= meta.arch %>"
       ]
     }
     <%- when 'docker' -%>
@@ -200,7 +200,7 @@
 
       "container_dir": "/mnt",
       "export_path": "{{ user `name` }}.tar",
-      "image": "debian:<%= param.codename %>"
+      "image": "debian:<%= meta.codename %>"
     }
     <%- end -%>
   ],
@@ -209,7 +209,7 @@
     {
       "type": "shell",
 
-      <%- if param.virtual == 'lxc' -%>
+      <%- if meta.virtual == 'lxc' -%>
       "execute_command": "{{ .Vars }} bash -e {{ .Path }}",
       <%- else -%>
       "execute_command": "echo '{{ user `pass` }}' | {{ .Vars }} sudo -E -S bash -e {{ .Path }}",
@@ -219,7 +219,7 @@
       "scripts": [
         "scripts/pre.sh",
         "template.sh",
-        "scripts/<%= param.virtual %>.sh",
+        "scripts/<%= meta.virtual %>.sh",
         "scripts/vagrant.sh",
         "scripts/cleanup.sh",
         "scripts/minimize.sh",
@@ -229,12 +229,12 @@
   ],
 
   "post-processors": [
-    <%- if param.virtual == 'docker' -%>
+    <%- if meta.virtual == 'docker' -%>
     {
       "type": "docker-import",
 
       "keep_input_artifact": true,
-      "repository": "<%= param.docker_account %>/{{ user `name` }}",
+      "repository": "<%= meta.docker_account %>/{{ user `name` }}",
       "changes": [
         "ENV LANG en_US.UTF-8",
         "ENV LANGUAGE en_US.UTF-8",
@@ -246,15 +246,15 @@
     {
       "type": "vagrant",
 
-      "output": "<%= param.output %>",
+      "output": "<%= meta.output %>",
       "vagrantfile_template": "vagrantfile.rb"
     }
   ],
 
   "variables": {
-    "host": "<%= param.host || param['class'] %>",
-    "name": "<%= param.name %>",
-    "pass": "<%= param.password %>",
-    "user": "<%= param.username %>"
+    "host": "<%= meta.host || meta['class'] %>",
+    "name": "<%= meta.name %>",
+    "pass": "<%= meta.password %>",
+    "user": "<%= meta.username %>"
   }
 }

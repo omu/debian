@@ -1,5 +1,5 @@
 <%# vim: set ft=eruby: -%>
-<%- skip unless param.virtual == 'lxc' -%>
+<%- skip unless meta.virtual == 'lxc' -%>
 #!/usr/bin/env bash
 
 # Setup LXC container
@@ -8,8 +8,8 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-operator=${operator:-<%= param.username %>}
-password=${password:-<%= param.password %>}
+operator=${operator:-<%= meta.username %>}
+password=${password:-<%= meta.password %>}
 
 if current=$(id -rnu 1000 2>/dev/null); then
 	if [[ ! $current = "$operator" ]]; then
@@ -31,4 +31,4 @@ fi
 echo "$password":"$password" | chpasswd
 apt-get -y install --no-install-recommends sudo
 adduser "$operator" sudo
-<%= param.lxc -%>
+<%= meta.lxc -%>
