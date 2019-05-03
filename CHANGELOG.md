@@ -18,7 +18,7 @@ Yayımlanmadı
 - bin: Betikleri [zoo alt projesine](https://github.com/alaturka/zoo) taşı
 - runtime/ruby: Ruby kurulumunu basitleştir
 
-[17] - 2019-03-17
+17 - 2019-03-17
 --------------------
 
 ### Eklendi
@@ -34,7 +34,7 @@ Yayımlanmadı
 - server/dokku: Dokku Git LFS uyumsuzluğu için önlem al
 - Tüm potpurilerde KVM kurulumunun doğru şekilde çalışmasını sağla
 
-[16] - 2019-02-26
+16 - 2019-02-26
 --------------------
 
 ### Eklendi
@@ -53,7 +53,7 @@ Yayımlanmadı
 
 - runtime/common: libvips kurulumunu düzelt
 
-[15] - 2019-02-08
+15 - 2019-02-08
 --------------------
 
 ### Eklendi
@@ -65,7 +65,7 @@ Yayımlanmadı
 - bin/expose: Lokal servisleri dışarı ekspoze edecek bir araç ekle
 - bin/app: Uygulamayı Procfile üzerinden yönetmek için araç ekle
 
-[14] - 2019-02-06
+14 - 2019-02-06
 --------------------
 
 ### Eklendi
@@ -77,14 +77,14 @@ Yayımlanmadı
 
 - Ağ yapılandırmasının yol açtığı yan etkileri düzelt.
 
-[13] - 2019-02-05
+13 - 2019-02-05
 --------------------
 
 ### Düzeltildi
 
 - runtime/common: Elle derlenmiş 8.7.4 sürümlü güncel libvips paketini kur
 
-[12] - 2019-02-05
+12 - 2019-02-05
 --------------------
 
 ### Değişti
@@ -95,7 +95,7 @@ Yayımlanmadı
 
 - runtime/common: PostgreSQL istemcisinin üst geliştiriciden kurulmasını sağla
 
-[11] - 2019-01-20
+11 - 2019-01-20
 --------------------
 
 ### Eklendi
@@ -114,7 +114,7 @@ Yayımlanmadı
 
 - base/network: ifupdown → networkd geçişinin yan etki üretmemesini sağla
 
-[10] - 2018-10-05
+10 - 2018-10-05
 --------------------
 
 ### Eklendi
@@ -128,14 +128,14 @@ Yayımlanmadı
 
 - Prune işleminin konteynerlerde de yapılabilmesini sağla
 
-[9] - 2018-09-08
+9 - 2018-09-08
 --------------------
 
 ### Düzeltildi
 
 - desktop/avahi: LXC altında Avahi kurulumu için geçici çözüm uygula
 
-[8] - 2018-08-09
+8 - 2018-08-09
 --------------------
 
 ### Düzeltildi
@@ -143,7 +143,7 @@ Yayımlanmadı
 - Ağ yapılandırmasından sonra bekleme ekle
 - bin/scripts: Root denetimini doğru yerde yap
 
-[7] - 2018-08-08
+7 - 2018-08-08
 --------------------
 
 ### Eklendi
@@ -154,7 +154,7 @@ Yayımlanmadı
 
 - Açılış başlığında sadece inşa numarasını göster
 
-[6] - 2018-08-05
+6 - 2018-08-05
 --------------------
 
 ### Eklendi
@@ -172,21 +172,21 @@ Yayımlanmadı
 - Açılış betiğinin adını kısaca "what" olarak değiştir
 - Her sürümün artan bir sayı olduğu daha basit sürümlendirme kullan
 
-[5] - 2018-07-14)
+5 - 2018-07-14)
 --------------------
 
 ### Düzeltildi
 
 - SSH bağlantısının olmadığı durumda komut istemini düzelt
 
-[4] - 2018-07-14
+4 - 2018-07-14
 --------------------
 
 ### Düzeltildi
 
 - Komut istemi temasında komut tamamlama hatasını düzelt
 
-[3] - 2018-07-13
+3 - 2018-07-13
 --------------------
 
 ### Eklendi
@@ -197,14 +197,14 @@ Yayımlanmadı
 
 - Ağ testinde yarış durumunu önle
 
-[2] - 2018-07-12
+2 - 2018-07-12
 --------------------
 
 ### Düzeltildi
 
 - Ağ ayarlarına Ubuntu netplan desteği ekle
 
-[1] - 2018-07-11
+1 - 2018-07-11
 --------------------
 
 İlk resmi sürüm
