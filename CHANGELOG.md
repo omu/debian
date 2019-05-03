@@ -1,25 +1,46 @@
-## 17 (Mart 17, 2019)
+Değişiklik Kayıtları
+====================
 
-### ÖZELLİKLER
+Yayımlanmadı
+--------------------
+
+### Eklendi
+
+- Makine üretimi verilerini projeye taşı
+- etc/git: Git yapılandırması ekle
+- development/shell: Kabuk geliştirme desteği ekle
+
+### Değişti
+
+- CHANGELOG için [standart biçim](https://keepachangelog.com/tr-TR/1.0.0/)
+  kullan
+- bin: Betikleri [zoo alt projesine](https://github.com/alaturka/zoo) taşı
+- runtime/ruby: Ruby kurulumunu basitleştir
+
+[17] - 2019-03-17
+--------------------
+
+### Eklendi
 
 - virtual/kvm: Huawei desteği ekle
 
-### DÜZELTMELER
+### Değişti
+
+- Qemu/KVM terminolojisini düzelt; daima KVM terimini kullan
+
+### Düzeltildi
 
 - server/dokku: Dokku Git LFS uyumsuzluğu için önlem al
 - Tüm potpurilerde KVM kurulumunun doğru şekilde çalışmasını sağla
 
-### İYİLEŞTİRMELER
+[16] - 2019-02-26
+--------------------
 
-- Qemu/KVM terminolojisini düzelt; daima KVM terimini kullan
-
-## 16 (Şubat 26, 2019)
-
-### ÖZELLİKLER
+### Eklendi
 
 - base/common: Git LFS desteği ekle
 
-### İYİLEŞTİRMELER
+### Değişti
 
 - bin/app: İyileştir
 
@@ -27,13 +48,14 @@
   + Ortam değişkenleri için/etc/environment dışında /app/.env dosyasını da
     dikkate al
 
-### DÜZELTMELER
+### Düzeltildi
 
 - runtime/common: libvips kurulumunu düzelt
 
-## 15 (Şubat 08, 2019)
+[15] - 2019-02-08
+--------------------
 
-### ÖZELLİKLER
+### Eklendi
 
 - runtime/chromium: Chrome Driver kurulumu ekle
 - Operatör için direnv desteği ekle
@@ -42,97 +64,106 @@
 - bin/expose: Lokal servisleri dışarı ekspoze edecek bir araç ekle
 - bin/app: Uygulamayı Procfile üzerinden yönetmek için araç ekle
 
-## 14 (Şubat 06, 2019)
+[14] - 2019-02-06
+--------------------
 
-### ÖZELLİKLER
+### Eklendi
 
 - virtual/final: Sanallaştırmanın sonunda kullanılabilecek yeni adım ekle
 - Ruby Docker imajlarında operatör betiklerinin bulunmasını sağla
 
-### DÜZELTMELER
+### Düzeltildi
 
 - Ağ yapılandırmasının yol açtığı yan etkileri düzelt.
 
-## 13 (Şubat 05, 2019)
+[13] - 2019-02-05
+--------------------
 
-### DÜZELTMELER
+### Düzeltildi
 
 - runtime/common: Elle derlenmiş 8.7.4 sürümlü güncel libvips paketini kur
 
-## 12 (Şubat 05, 2019)
+[12] - 2019-02-05
+--------------------
 
-### İYİLEŞTİRMELER
+### Değişti
 
 - Ruby 2.6.1 sürümüne yükselt
 
-### DÜZELTMELER
+### Düzeltildi
 
 - runtime/common: PostgreSQL istemcisinin üst geliştiriciden kurulmasını sağla
 
-## 11 (Ocak 20, 2019)
+[11] - 2019-01-20
+--------------------
 
-### ÖZELLİKLER
+### Eklendi
 
 - server/postgresql: PostgreSQL 11 sürümüne yükselt
 - runtime/javascript: Nodejs 11.x sürümüne yükselt
 - runtime/common: wkhtmltox (eski adıyla wkhtmltopdf) kitaplığını ekle
 - virtual/vagrant: Vagrant paylaşılan dizinine /app ile erişilmesini sağla
 
-### İYİLEŞTİRMELER
+### Değişti
 
 - Rubian kurulumunu iyileştir
 - Tmux aktif pencere rengini belirginleştir
 
-### DÜZELTMELER
+### Düzeltildi
 
 - base/network: ifupdown → networkd geçişinin yan etki üretmemesini sağla
 
-## 10 (Ekim 5, 2018)
+[10] - 2018-10-05
+--------------------
 
-### ÖZELLİKLER
+### Eklendi
 
 - Ruby kurulumlarını [rubian](https://rubian.alaturka.io) ile yönet
 - runtime/javascript: Nodejs 10.x sürümüne yükselt
 - runtime/common: Resim işleme kitaplıkları (libvips ve imagemagick) başta olmak
   üzere, inşa zamanında kullanılan kitaplık ve araçlara yenilerini ekle
 
-### DÜZELTMELER
+### Düzeltildi
 
 - Prune işleminin konteynerlerde de yapılabilmesini sağla
 
-## 9 (Eylül 08, 2018)
+[9] - 2018-09-08
+--------------------
 
-### DÜZELTMELER
+### Düzeltildi
 
 - desktop/avahi: LXC altında Avahi kurulumu için geçici çözüm uygula
 
-## 8 (Ağustos 09, 2018)
+[8] - 2018-08-09
+--------------------
 
-### DÜZELTMELER
+### Düzeltildi
 
 - Ağ yapılandırmasından sonra bekleme ekle
 - bin/scripts: Root denetimini doğru yerde yap
 
-## 7 (Ağustos 08, 2018)
+[7] - 2018-08-08
+--------------------
 
-### ÖZELLİKLER
+### Eklendi
 
 - Port yönlendirmeleri için yeni paket ekle: rinetd
 
-### İYİLEŞTİRMELER
+### Değişti
 
 - Açılış başlığında sadece inşa numarasını göster
 
-## 6 (Ağustos 05, 2018)
+[6] - 2018-08-05
+--------------------
 
-### ÖZELLİKLER
+### Eklendi
 
 - Yeni potpuri: paas
 
   + Dokku tabanlı
   + Kurulu eklentiler: postgres, redis, memcached, letsencrypt, http-auth, redirect, maintenance
 
-### İYİLEŞTİRMELER
+### Değişti
 
 - Mysql (MariaDB) kurulumunu iyileştir
 - "important" ve "standard" öncelikli paketleri daima kur
@@ -140,39 +171,44 @@
 - Açılış betiğinin adını kısaca "what" olarak değiştir
 - Her sürümün artan bir sayı olduğu daha basit sürümlendirme kullan
 
-## 5 (Temmuz 14, 2018)
+[5] - 2018-07-14)
+--------------------
 
-### DÜZELTMELER
+### Düzeltildi
 
 - SSH bağlantısının olmadığı durumda komut istemini düzelt
 
-## 4 (Temmuz 14, 2018)
+[4] - 2018-07-14
+--------------------
 
-### DÜZELTMELER
+### Düzeltildi
 
 - Komut istemi temasında komut tamamlama hatasını düzelt
 
-## 3 (Temmuz 13, 2018)
+[3] - 2018-07-13
+--------------------
 
-### ÖZELLİKLER
+### Eklendi
 
 - Yeni paket: ethtool
 
-### DÜZELTMELER
+### Düzeltildi
 
 - Ağ testinde yarış durumunu önle
 
-## 2 (Temmuz 12, 2018)
+[2] - 2018-07-12
+--------------------
 
-### DÜZELTMELER
+### Düzeltildi
 
 - Ağ ayarlarına Ubuntu netplan desteği ekle
 
-## 1 (Temmuz 11, 2018)
+[1] - 2018-07-11
+--------------------
 
 İlk resmi sürüm
 
-### ÖZELLİKLER
+### Eklendi
 
 - Kullanıcı adı ve parola: op/op
 - Türkçe için yerelleştirilmiş; fakat sunucularda öntanımlı yerel: `en_US.UTF-8`
