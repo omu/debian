@@ -1,2 +1,0 @@
-- [ ] lib/scripts: Daha fazla test
-- [ ] lib/scripts: Docker optimizasyonlarını uyarla

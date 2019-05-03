@@ -1,1 +1,2 @@
 ^lib/images/default.yml:.*iso_checksum:
+^lib/scripts/virtual/kvm.sh:.* sha256=
