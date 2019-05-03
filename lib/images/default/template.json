@@ -234,7 +234,7 @@
       "type": "docker-import",
 
       "keep_input_artifact": true,
-      "repository": "<%= param.docker_account %>/<%= param.name %>",
+      "repository": "<%= param.docker_account %>/{{ user `name` }}",
       "changes": [
         "ENV LANG en_US.UTF-8",
         "ENV LANGUAGE en_US.UTF-8",
