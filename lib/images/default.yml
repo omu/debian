@@ -9,7 +9,6 @@ output:                     output.box
 
 basename:                   ${class}-${codename}
 hostname:                   ${class}
-name:                       ${basename}_${virtual}
 instance:                   ${basename}_${version}_${virtual}
 box:                        ${instance}.box
 
