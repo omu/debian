@@ -7,8 +7,9 @@ password:                   vagrant
 username:                   vagrant
 output:                     output.box
 
-name:                       ${class}-${codename}_${virtual}
-instance:                   ${class}-${codename}_${version}_${virtual}
+basename:                   ${class}-${codename}
+name:                       ${basename}_${virtual}
+instance:                   ${basename}_${version}_${virtual}
 box:                        ${instance}.box
 
 size:
@@ -36,6 +37,7 @@ vendor:
     organization:           omu
     username:               op
     password:               op
+    hostname:               ${class}
     docker_account:         ondokuz
     github_account:         omu
 

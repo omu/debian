@@ -252,9 +252,9 @@
   ],
 
   "variables": {
-    "host": "<%= meta.host || meta['class'] %>",
     "name": "<%= meta.name %>",
-    "pass": "<%= meta.password %>",
-    "user": "<%= meta.username %>"
+    "host": "<%= meta.hostname %>",
+    "user": "<%= meta.username %>",
+    "pass": "<%= meta.password %>"
   }
 }
