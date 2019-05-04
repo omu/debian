@@ -252,7 +252,7 @@
   ],
 
   "variables": {
-    "name": "<%= meta.name %>",
+    "name": "<%= meta.basename %>",
     "host": "<%= meta.hostname %>",
     "user": "<%= meta.username %>",
     "pass": "<%= meta.password %>"
