@@ -1,11 +1,3 @@
 <%# vim: set ft=eruby: -%>
-<%-
-  skip unless options.comprehensive
-
-  computed = {
-    'box'      => "#{meta['class']}-#{meta.codename}_#{meta.version}_#{meta.virtual}.box",
-    'instance' => "#{meta['class']}-#{meta.codename}_#{meta.version}_#{meta.virtual}",
-    'name'     => "#{meta['class']}-#{meta.codename}_#{meta.virtual}"
-  }
--%>
-<%= meta.to_yaml(computed) -%>
+<%- skip unless options.comprehensive -%>
+<%= meta.to_yaml -%>

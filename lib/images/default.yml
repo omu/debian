@@ -7,6 +7,10 @@ password:                   vagrant
 username:                   vagrant
 output:                     output.box
 
+name:                       ${class}-${codename}_${virtual}
+instance:                   ${class}-${codename}_${version}_${virtual}
+box:                        ${instance}.box
+
 size:
   small:
     cpu:                    1
