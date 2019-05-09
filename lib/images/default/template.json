@@ -9,7 +9,7 @@
       <%- case meta.distribution; when 'debian' -%>
       "boot_command": [
         "<esc><wait>",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/template.preseed ",
         "debconf/frontend=noninteractive ",
         "hostname={{ .Name }} ",
         "passwd/user-fullname=Operator ",
@@ -23,7 +23,7 @@
         "<esc><esc><enter><wait>",
         "/install/vmlinuz ",
         "auto-install/enable=true ",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/template.preseed ",
         "hostname={{ .Name }} ",
         "debconf/frontend=noninteractive ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
@@ -73,7 +73,7 @@
       <%- case meta.distribution; when 'debian' -%>
       "boot_command": [
         "<esc><wait>",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/template.preseed ",
         "debconf/frontend=noninteractive ",
         "hostname={{ .Name }} ",
         "passwd/user-fullname=Operator ",
@@ -87,7 +87,7 @@
         "<esc><esc><enter><wait>",
         "/install/vmlinuz ",
         "auto-install/enable=true ",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/template.preseed ",
         "hostname={{ .Name }} ",
         "debconf/frontend=noninteractive ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
@@ -125,7 +125,7 @@
       <%- case meta.distribution; when 'debian' -%>
       "boot_command": [
         "<esc><wait>",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/template.preseed ",
         "debconf/frontend=noninteractive ",
         "hostname={{ .Name }} ",
         "passwd/user-fullname=Operator ",
@@ -139,7 +139,7 @@
         "<esc><esc><enter><wait>",
         "/install/vmlinuz ",
         "auto-install/enable=true ",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/template.preseed ",
         "hostname={{ .Name }} ",
         "debconf/frontend=noninteractive ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
@@ -247,7 +247,7 @@
       "type": "vagrant",
 
       "output": "<%= meta.output %>",
-      "vagrantfile_template": "vagrantfile.rb"
+      "vagrantfile_template": "template.vagrantfile"
     }
   ],
 
