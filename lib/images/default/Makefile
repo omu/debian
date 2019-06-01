@@ -34,19 +34,19 @@ purge: clean
 .PHONY: purge
 
 .validate: template.json
-	@img validate
+	@image validate
 	@touch $@
 
 .build: $(TARGET) .validate
-	@echo img build
+	@echo image build
 	@touch $@
 
 .test: .build
-	@echo img test
+	@echo image test
 	@touch $@
 
 .publish: .test
-	@echo img publish
+	@echo image publish
 	@touch $@
 
 $(TARGET): $(SOURCES)
