@@ -13,6 +13,7 @@ Yayımlanmadı
 - server, desktop ve ruby potpurilerine Chrome desteği ekle
 - runtime/common: Markdown dokümanlarda link denetimi için Liche ekle
 - runtime/javascript: Nodejs 12.x sürümüne yükselt
+- base/common: libarchive-tools paketini ekle
 
 ### Değişti
 
@@ -20,6 +21,10 @@ Yayımlanmadı
   kullan
 - bin: Betikleri [zoo alt projesine](https://github.com/alaturka/zoo) taşı
 - runtime/ruby: Ruby kurulumunu basitleştir
+
+### Düzeltildi
+
+- runtime/chrome: Kurulumu düzelt
 
 17 - 2019-03-17
 --------------------
