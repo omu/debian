@@ -7,6 +7,7 @@ source <(curl -fsSL https://she.alaturka.io/source) -boot
 
 export locale=tr_TR.UTF-8
 export base_use_experimental=true
+export chrome_install_upstream=true
 export golang_use_experimental=true
 export tmux_login_shell=true
 
@@ -26,6 +27,7 @@ enter github.com/omu/debian/lib/scripts
 	leave
 
 	enter ./runtime
+		try chrome
 		try common
 		try ruby
 		try javascript
