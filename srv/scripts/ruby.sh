@@ -15,10 +15,10 @@ enter github.com/omu/debian/lib/scripts
 	leave
 
 	enter ./runtime
-		try chrome
 		try common
 		try ruby
 		try javascript
+		try chrome
 	leave
 
 	enter ./operator
