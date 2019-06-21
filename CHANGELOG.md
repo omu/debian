@@ -10,6 +10,7 @@ Yayımlanmadı
 - Makine üretimi verilerini projeye taşı
 - etc/git: Git yapılandırması ekle
 - development/shell: Kabuk geliştirme desteği ekle
+- server, desktop ve ruby potpurilerine Chrome desteği ekle
 
 ### Değişti
 
