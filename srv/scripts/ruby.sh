@@ -5,6 +5,8 @@
 # shellcheck disable=1090
 source <(curl -fsSL https://she.alaturka.io/source) -boot
 
+export chrome_install_upstream=true
+
 is docker || die 'Only for docker'
 
 enter github.com/omu/debian/lib/scripts

@@ -8,6 +8,7 @@ source <(curl -fsSL https://she.alaturka.io/source) -boot
 export tmux_login_shell=true
 export ruby_install_latest=true
 export prune_aggresive=true
+export chrome_install_upstream=true
 
 enter github.com/omu/debian/lib/scripts
 	paths ../../bin
