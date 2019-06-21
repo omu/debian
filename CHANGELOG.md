@@ -11,6 +11,7 @@ Yayımlanmadı
 - etc/git: Git yapılandırması ekle
 - development/shell: Kabuk geliştirme desteği ekle
 - server, desktop ve ruby potpurilerine Chrome desteği ekle
+- runtime/common: Markdown dokümanlarda link denetimi için Liche ekle
 
 ### Değişti
 
