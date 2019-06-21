@@ -99,3 +99,7 @@ curl -fsLO https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/w
 dpkg -i wkhtmlto* 2>/dev/null || true
 rm -f wkhtmlto*
 apt-get -y install --no-install-recommends --fix-broken
+
+# liche
+curl -fsSL -o /usr/local/bin/liche https://file.omu.sh/liche
+chmod +x /usr/local/bin/liche
