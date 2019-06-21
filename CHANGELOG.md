@@ -12,6 +12,7 @@ Yayımlanmadı
 - development/shell: Kabuk geliştirme desteği ekle
 - server, desktop ve ruby potpurilerine Chrome desteği ekle
 - runtime/common: Markdown dokümanlarda link denetimi için Liche ekle
+- runtime/javascript: Nodejs 12.x sürümüne yükselt
 
 ### Değişti
 
