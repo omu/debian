@@ -38,6 +38,7 @@ docker)
 		git \
 		gnupg \
 		jq \
+		libarchive-tools \
 		lsb-release \
 		openssh-client \
 		procps \
@@ -88,6 +89,7 @@ docker)
 		git \
 		gnupg \
 		jq \
+		libarchive-tools \
 		lsb-release \
 		nfs-common \
 		psmisc \
