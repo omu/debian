@@ -2,8 +2,8 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
-git_lfs=${git_lfs:true}
-git_secrets=${git_secrets:true}
+git_lfs=${git_lfs:-true}
+git_secrets=${git_secrets:-true}
 git_tig=${git_tig:-}
 
 shopt -s nullglob
