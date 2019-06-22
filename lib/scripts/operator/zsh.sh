@@ -15,8 +15,8 @@ for i in zprofile zshrc zlogin; do
 	if [[ -d "./etc/zsh/$i.d" ]]; then
 		cp -a "./etc/zsh/$i.d"/* "/etc/zsh/$i.d"
 	fi
-	if [[ -f "/etc/zsh/$i" ]] && [[ ! -f /etc/zsh/$i.d/dist.sh ]]; then
-		mv "/etc/zsh/$i" "/etc/zsh/$i.d/dist.sh"
+	if [[ -f "/etc/zsh/$i" ]] && [[ ! -f /etc/zsh/$i.d/0dist.sh ]]; then
+		mv "/etc/zsh/$i" "/etc/zsh/$i.d/0dist.sh"
 	fi
 	cp "./etc/zsh/$i" /etc/zsh/
 done

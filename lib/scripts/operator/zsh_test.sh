@@ -8,7 +8,7 @@ die() {
 }
 
 for i in zprofile zshrc zlogin; do
-	[[ -f /etc/zsh/$i.d/dist.sh ]] || continue
+	[[ -f /etc/zsh/$i.d/0dist.sh ]] || continue
 	# shellcheck disable=2012
-	[[ $(ls -1 /etc/zsh/$i.d/*.sh | head -n 1) = /etc/zsh/$i.d/dist.sh ]] || die 'Script order wrong'
+	[[ $(ls -1 /etc/zsh/$i.d/*.sh | head -n 1) = /etc/zsh/$i.d/0dist.sh ]] || die 'Script order wrong'
 done
