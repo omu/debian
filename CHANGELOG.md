@@ -4,6 +4,9 @@ Değişiklik Kayıtları
 Yayımlanmadı
 --------------------
 
+18 - 2019-06-22
+--------------------
+
 ### Eklendi
 
 - Makine sürümlendirmesinde değişiklik yap
