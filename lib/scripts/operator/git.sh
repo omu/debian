@@ -28,7 +28,7 @@ if [[ -n ${git_secrets:-} ]]; then
 fi
 
 curl -fsSL -o /usr/local/bin/git-hooks \
-	https://raw.githubusercontent.com/omu/zoo/master/hooks/git-hooks
+	https://raw.githubusercontent.com/omu/zoo/master/git-hooks/git-hooks
 chmod +x /usr/local/bin/git-hooks
 
 [[ -z $(echo etc/git/*) ]] || cp -a etc/git/* /etc/
