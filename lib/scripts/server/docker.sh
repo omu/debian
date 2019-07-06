@@ -10,8 +10,9 @@ codename=${codename:-$(lsb_release -cs)}
 operator=${operator:-$(id -rnu 1000 2>/dev/null)}
 
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $codename stable"
+cat >/etc/apt/sources.list.d/docker.list <<-EOF
+	deb https://download.docker.com/linux/debian $codename stable
+EOF
 
 apt-get update
 apt-get -y install docker-ce
