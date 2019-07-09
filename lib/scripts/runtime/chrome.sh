@@ -21,6 +21,10 @@ if [[ -n ${chrome_install_upstream:-} ]]; then
 	apt-get -y update
 
 	apt-get -y install --no-install-recommends google-chrome-stable
+
+	# Remove duplicate source lists
+	rm -f /etc/apt/sources.list.d/google-chrome*.list
+
 	# shellcheck disable=2016
 	sed -i 's+"$HERE/chrome"+"$HERE/chrome" --no-sandbox+g' /opt/google/chrome/google-chrome
 
