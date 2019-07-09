@@ -20,7 +20,7 @@ packages=(
 codename=$(lsb_release -sc)
 
 case $codename in
-jessie|stretch)
+jessie|stretch|buster)
 	apt-get -y install --install-recommends -t "$codename-backports" \
 		"${packages[@]}"
 	;;

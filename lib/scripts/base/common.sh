@@ -123,7 +123,7 @@ fi
 case $distribution in
 debian)
 	case $codename in
-	jessie|stretch)
+	jessie|stretch|buster)
 		cat >/etc/apt/sources.list.d/backports.list <<-EOF
 			deb http://ftp.debian.org/debian $codename-backports main contrib non-free
 		EOF
@@ -146,7 +146,7 @@ debian)
 	esac
 
 	case $codename in
-	stretch|sid)
+	stretch|buster|sid)
 		apt-get -y install --no-install-recommends \
 			libarchive-tools \
 			#
