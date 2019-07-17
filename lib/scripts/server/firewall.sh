@@ -21,4 +21,8 @@ for s in $firewall_allow_always $firewall_allow_services; do
 	ufw allow "$s"
 done
 
-systemctl disable ufw
+if [[ -n ${firewall_enable:-} ]]; then
+	ufw enable
+else
+	systemctl disable ufw
+fi
