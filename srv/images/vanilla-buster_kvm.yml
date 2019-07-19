@@ -1,1 +1,0 @@
-from ../../lib/images/default: debian/buster virtual/kvm class/vanilla size/small language/turkish vendor/omu
