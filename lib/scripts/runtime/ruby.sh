@@ -6,7 +6,7 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-ruby_install_versions=${ruby_install_versions:-2.6.3}
+ruby_install_versions=${ruby_install_versions:-2.6.4}
 ruby_keep_system_ruby=${ruby_keep_system_ruby:-}
 
 system_ruby_packages=(
