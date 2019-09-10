@@ -33,6 +33,6 @@ else
 		service:
 		  ufw:
 		    enabled: true
-		    running: true
+		    running: false
 	EOF
 fi
