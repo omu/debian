@@ -30,6 +30,7 @@ if [[ $distribution = debian ]]; then
 	grep -Eq '^\s*iface\s+e\w+\s+inet\s+dhcp\b' /etc/network/interfaces ||
 		skip 'Network interface is not suitable for migration; skipping network setup'
 
+	systemctl unmask systemd-networkd.service || echo >&2 "systemctl unmask systemd-networkd exit code $? is suppressed"
 	systemctl enable systemd-networkd.service
 	systemctl enable systemd-resolved.service
 
