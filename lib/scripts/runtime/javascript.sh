@@ -10,7 +10,7 @@ codename=$(lsb_release -sc)
 
 curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 cat >/etc/apt/sources.list.d/nodesource.list <<-EOF
-	deb https://deb.nodesource.com/node_12.x $codename main
+	deb https://deb.nodesource.com/node_13.x $codename main
 EOF
 apt-get update -y && apt-get install -y --no-install-recommends nodejs
 
