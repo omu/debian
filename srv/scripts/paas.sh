@@ -3,7 +3,7 @@
 # Provision a Dokku based PaaS environment
 
 # shellcheck disable=1090
-source <(curl -fsSL https://she.alaturka.io/source) -boot
+source <(she src) -boot
 
 export tmux_login_shell=true
 export prune_aggresive=true

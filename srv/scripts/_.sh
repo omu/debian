@@ -3,7 +3,7 @@
 # Custom provision
 
 # shellcheck disable=1090
-source <(curl -fsSL https://she.alaturka.io/source) -boot
+source <(she src) -boot
 
 enter github.com/omu/debian/lib/scripts
 	paths ../../bin

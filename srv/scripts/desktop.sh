@@ -3,7 +3,7 @@
 # Provision a desktop environment
 
 # shellcheck disable=1090
-source <(curl -fsSL https://she.alaturka.io/source) -boot
+source <(she src) -boot
 
 export locale=tr_TR.UTF-8
 export base_use_experimental=true

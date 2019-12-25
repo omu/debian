@@ -3,7 +3,7 @@
 # Provision a base Docker container for Ruby applications
 
 # shellcheck disable=1090
-source <(curl -fsSL https://she.alaturka.io/source) -boot
+source <(she src) -boot
 
 export chrome_install_upstream=true
 
