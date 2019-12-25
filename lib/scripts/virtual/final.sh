@@ -6,13 +6,6 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-# Install rinetd for port forwarding needs.  We prefer rinetd over redir, since
-# it can be controlled via systemctl.
-apt-get -y install --no-install-recommends rinetd
-
-# Make it passive, as it presents an optional facility.
-systemctl stop rinetd && systemctl disable rinetd
-
 skip() {
 	[[ $# -ne 0 ]] || echo >&2 "$@"
 	exit 0
