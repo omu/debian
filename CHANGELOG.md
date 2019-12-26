@@ -1,6 +1,16 @@
 Değişiklik Kayıtları
 ====================
 
+20 - 2019-12-26
+--------------------
+
+### Değişti
+
+- runtime/ruby: 2.7.0 sürümüne yükselt
+- runtime/javascript: Nodejs 13.x sürümüne yükselt
+- runtime/common: wkhtmltox buster paketini kur
+- runtime/common: Resmi vips paketini kullan
+
 19 - 2019-09-09
 --------------------
 
@@ -19,7 +29,6 @@ Değişiklik Kayıtları
 - development/shell: Kabuk geliştirme desteği ekle
 - server, desktop ve ruby potpurilerine Chrome desteği ekle
 - runtime/common: Markdown dokümanlarda link denetimi için Liche ekle
-- runtime/javascript: Nodejs 12.x sürümüne yükselt
 - base/common: libarchive-tools paketini ekle
 
 ### Değişti
@@ -28,6 +37,7 @@ Değişiklik Kayıtları
   kullan
 - bin: Betikleri [zoo alt projesine](https://github.com/alaturka/zoo) taşı
 - runtime/ruby: Ruby kurulumunu basitleştir
+- runtime/javascript: Nodejs 12.x sürümüne yükselt
 
 ### Düzeltildi
 
