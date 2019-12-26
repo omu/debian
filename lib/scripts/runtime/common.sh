@@ -86,13 +86,8 @@ apt-get -y install --no-install-recommends \
 	sqlite3 \
 	#
 
-# libvips FIXME: setup https
-curl -fsL -O http://deb.omu.sh/libvips42_8.8.0-1_amd64.deb \
-	  -O http://deb.omu.sh/libvips-dev_8.8.0-1_amd64.deb \
-	  -O http://deb.omu.sh/gir1.2-vips-8.0_8.8.0-1_amd64.deb
-dpkg -i -- *vips* 2>/dev/null || true
-rm -f -- *vips*
-apt-get -y install --no-install-recommends --fix-broken
+# libvips
+apt-get -y install --no-install-recommends libvips-dev
 
 # wkhtmltox
 curl -fsLO https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
