@@ -96,5 +96,5 @@ rm -f wkhtmlto*
 apt-get -y install --no-install-recommends --fix-broken
 
 # liche
-curl -fsSL -o /usr/local/bin/liche https://file.omu.sh/liche
+curl -fsSL -o /usr/local/bin/liche https://file.omu.sh/bin/linux-amd64/liche
 chmod +x /usr/local/bin/liche
