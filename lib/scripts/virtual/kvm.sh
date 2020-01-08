@@ -12,13 +12,16 @@ apt-get -y install --no-install-recommends qemu-guest-agent spice-vdagent nfs-co
 systemctl stop spice-vdagent && systemctl disable spice-vdagent # optional
 
 if [[ -n ${kvm_huawei_support:-} ]]; then
-	# Install guest agent for Huawei FusionCompute
-	sha256=507181f2cb720d1b8626dbcacd78cd45465f963eba29c2fdd6cf7ce847bc4458
+	codename=$(lsb_release -sc)
 
-	curl -fL --retry 3 -o vmtools.tar.xz https://file.omu.sh/raw/huawei-vmtools.tar.xz
-	echo "$sha256 vmtools.tar.xz" | sha256sum -c -
-	tar -xJf vmtools.tar.xz -C .
-	rm -f vmtools.tar.xz
+	# Install guest agent for Huawei FusionCompute
+	sha256=SHA256SUMS
+	blob=vendor.tar.xz
+
+	curl -fL --retry 3 -o "$blob" https://file.omu.sh/drv/"$codename"/"$blob"
+	curl -fL --retry 3 -o "$sha256" https://file.omu.sh/drv/"$codename"/"$sha256"
+	sha256sum -c --quiet "$sha256" && tar -xJf "$blob" -C .
+	rm -f "$blob" "$sha256"
 
 	pushd vmtools
 	./install || echo >&2 "vmtools installer exit code $? is suppressed"
