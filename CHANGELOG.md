@@ -1,6 +1,17 @@
 Değişiklik Kayıtları
 ====================
 
+21 - 2019-01-14
+--------------------
+
+### Değişti
+
+- runtime/common: Manuel vips paketlerin kullan
+
+### Düzeltildi
+
+- virtual/kvm: Misafir eklentisi kurulumunu yeniden yapılandır
+
 20 - 2019-12-26
 --------------------
 
