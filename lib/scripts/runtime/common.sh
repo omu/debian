@@ -6,9 +6,9 @@ set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
-if [[ ! -f /etc/apt/sources.list.d/postgresql.list ]]; then
-	codename=$(lsb_release -sc)
+codename=$(lsb_release -sc)
 
+if [[ ! -f /etc/apt/sources.list.d/postgresql.list ]]; then
 	cat >/etc/apt/sources.list.d/postgresql.list <<-EOF
 		deb http://apt.postgresql.org/pub/repos/apt/ ${codename}-pgdg main
 	EOF
@@ -66,7 +66,7 @@ apt-get -y install --no-install-recommends \
 	zlib1g-dev \
 	#
 
-case $(lsb_release -sc) in
+case $codename in
 jessie)
 	apt-get -y install --no-install-recommends \
 		libpng12-0 \
@@ -87,7 +87,27 @@ apt-get -y install --no-install-recommends \
 	#
 
 # libvips
-apt-get -y install --no-install-recommends libvips-dev
+case $codename in
+stretch)
+	curl -fsL -O https://file.omu.sh/deb/stretch/libvips42_8.8.0-1_amd64.deb \
+		  -O https://file.omu.sh/deb/stretch/libvips-dev_8.8.0-1_amd64.deb \
+		  -O https://file.omu.sh/deb/stretch/gir1.2-vips-8.0_8.8.0-1_amd64.deb
+	dpkg -i -- *vips* 2>/dev/null || true
+	rm -f -- *vips*
+	apt-get -y install --no-install-recommends --fix-broken
+	;;
+buster)
+	curl -fsL -O https://file.omu.sh/deb/buster/libvips42_8.8.3-3_amd64.deb \
+		  -O https://file.omu.sh/deb/buster/libvips-dev_8.8.3-3_amd64.deb \
+		  -O https://file.omu.sh/deb/buster/gir1.2-vips-8.0_8.8.3-3_amd64.deb
+	dpkg -i -- *vips* 2>/dev/null || true
+	rm -f -- *vips*
+	apt-get -y install --no-install-recommends --fix-broken
+	;;
+*)
+	apt-get -y install --no-install-recommends libvips-dev
+	;;
+esac
 
 # wkhtmltox
 curl -fsLO https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
