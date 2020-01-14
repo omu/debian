@@ -6,7 +6,7 @@ Değişiklik Kayıtları
 
 ### Değişti
 
-- runtime/common: Manuel vips paketlerin kullan
+- runtime/common: Manuel vips paketlerini kullan
 
 ### Düzeltildi
 
