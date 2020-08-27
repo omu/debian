@@ -53,4 +53,4 @@ service=postgresql
 systemctl restart "$service"
 systemctl is-active "$service"
 
-systemctl stop "$service" && systemctl disable "$service"
+systemctl stop "$service" && sleep 1s && systemctl disable "$service"

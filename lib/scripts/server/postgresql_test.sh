@@ -2,13 +2,11 @@
 
 set -euo pipefail; [[ -z ${TRACE:-} ]] || set -x
 
-exit 0 # FIXME: Skip testing till https://bugs.launchpad.net/ubuntu/+source/postgresql-common/+bug/1862138 resolved
-
 service=postgresql
 
 systemctl is-enabled "$service" && false
 
-systemctl enable "$service" && systemctl start "$service"
+systemctl enable "$service" && systemctl start "$service" && sleep 1s
 
 goss -g - validate --format documentation <<-EOF
 	service:
@@ -40,7 +38,7 @@ goss -g - validate --format documentation <<-EOF
 	    installed: true
 EOF
 
-systemctl stop "$service" &&  systemctl disable "$service"
+systemctl stop "$service" &&  sleep 1s && systemctl disable "$service"
 
 goss -g - validate --format documentation <<-EOF
 	service:
