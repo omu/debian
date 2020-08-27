@@ -15,7 +15,7 @@ cat >/etc/apt/sources.list.d/docker.list <<-EOF
 EOF
 
 apt-get update
-apt-get -y install docker-ce
+apt-get -y install docker-ce docker-ce-cli containerd.io
 
 # Package already add docker group
 adduser "$operator" docker
