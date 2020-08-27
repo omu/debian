@@ -16,7 +16,7 @@ find /var/log -type f | while read -r f; do :>"$f"; done
 
 find /var/log -type f | while read -r f; do
 	# first fast code path
-	:> "$f" 2>/dev/null || {
+	{ :> "$f"; } 2>/dev/null || {
 		# if failed slow code path
 		read -r user group < <(stat -c '%U %G' "$f")
 		cd "$(dirname "$f")" && su -g "$group" "$user" -c "truncate -s0 $(basename "$f")"
