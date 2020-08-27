@@ -29,7 +29,7 @@ fix() {
 	EOF
 	[[ -n $tweak_keep_motd ]] || echo PrintLastLog no
 } | fix /etc/ssh/sshd_config
-systemctl restart ssh
+! command -v systemctl 2>/dev/null || systemctl restart ssh
 
 # Tweak sudo
 #   - Keep SSH_* environment variables
