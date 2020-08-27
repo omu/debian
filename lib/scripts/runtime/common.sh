@@ -97,9 +97,9 @@ stretch)
 	apt-get -y install --no-install-recommends --fix-broken
 	;;
 buster)
-	curl -fsL -O https://file.omu.sh/deb/buster/libvips42_8.8.3-3_amd64.deb \
-		  -O https://file.omu.sh/deb/buster/libvips-dev_8.8.3-3_amd64.deb \
-		  -O https://file.omu.sh/deb/buster/gir1.2-vips-8.0_8.8.3-3_amd64.deb
+	curl -fsL -O https://file.omu.sh/deb/buster/libvips42_8.10.0-1_amd64.deb \
+		  -O https://file.omu.sh/deb/buster/libvips-dev_8.10.0-1_amd64.deb \
+		  -O https://file.omu.sh/deb/buster/gir1.2-vips-8.0_8.10.0-1_amd64.deb
 	dpkg -i -- *vips* 2>/dev/null || true
 	rm -f -- *vips*
 	apt-get -y install --no-install-recommends --fix-broken
