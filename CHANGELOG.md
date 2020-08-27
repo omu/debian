@@ -12,7 +12,7 @@ Değişiklik Kayıtları
 - runtime/ruby: 2.7.1 sürümüne yükselt
 - server/docker: Kurulacak paket listesini güncelle
 
-21 - 2019-01-14
+21 - 2020-01-14
 --------------------
 
 ### Değişti
