@@ -38,7 +38,7 @@ goss -g - validate --format documentation <<-EOF
 	    installed: true
 EOF
 
-systemctl stop "$service" &&  systemctl disable "$service"
+systemctl stop "$service@*" &&  systemctl disable "$service"
 
 goss -g - validate --format documentation <<-EOF
 	service:
