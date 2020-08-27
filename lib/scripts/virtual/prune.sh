@@ -11,9 +11,6 @@ prune_aggresive=${prune_aggresive:-}
 # Remove caches
 find /var/cache -type f -exec rm -rf {} \;
 
-# Clean up log files
-find /var/log -type f | while read -r f; do :>"$f"; done
-
 find /var/log -type f | while read -r f; do
 	# first fast code path
 	{ :> "$f"; } 2>/dev/null || {
