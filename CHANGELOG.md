@@ -1,6 +1,17 @@
 Değişiklik Kayıtları
 ====================
 
+21 - 2020-08-27
+--------------------
+
+### Değişti
+
+- runtime/common: vips paketlerini 0.8.0 sürümüne yükselt
+- runtime/common: wkhtmltox 0.12.16-1 sürümüne yükselt
+- runtime/javascript: Nodejs 14.x sürümüne yükselt
+- runtime/ruby: 2.7.1 sürümüne yükselt
+- server/docker: Kurulacak paket listesini güncelle
+
 21 - 2019-01-14
 --------------------
 
