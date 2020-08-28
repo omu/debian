@@ -22,9 +22,6 @@ if [[ -n ${chrome_install_upstream:-} ]]; then
 
 	apt-get -y install --no-install-recommends google-chrome-stable
 
-	# Remove duplicate source lists
-	rm -f /etc/apt/sources.list.d/google-chrome*.list
-
 	# shellcheck disable=2016
 	sed -i 's+"$HERE/chrome"+"$HERE/chrome" --no-sandbox+g' /opt/google/chrome/google-chrome
 
@@ -32,6 +29,9 @@ if [[ -n ${chrome_install_upstream:-} ]]; then
 
 	curl -fsSL https://chromedriver.storage.googleapis.com/"$latest_driver_release"/chromedriver_linux64.zip |
 	bsdtar -C /usr/local/bin -o -xvf- - && chmod +x /usr/local/bin/*chrome*
+
+	# Remove duplicate source lists
+	rm -f /etc/apt/sources.list.d/google-chrome*.list && apt-get -y update
 else
 	apt-get -y update && apt-get -y install --no-install-recommends chromedriver
 fi
