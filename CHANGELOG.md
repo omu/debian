@@ -1,6 +1,14 @@
 Değişiklik Kayıtları
 ====================
 
+23 - 2020-12-27
+--------------------
+
+### Değişti
+
+- runtime/javascript: Nodejs 15.x sürümüne yükselt
+- runtime/ruby: 3.0.0 sürümüne yükselt
+
 22 - 2020-08-27
 --------------------
 
